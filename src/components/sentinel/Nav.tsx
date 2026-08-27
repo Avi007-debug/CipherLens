@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { PROJECT, LIVE_TELEMETRY } from "@/data/sentinel";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 const NAV_LINKS = [
   { href: "#problem", label: "01.Problem", id: "problem" },
@@ -16,9 +17,13 @@ const NAV_LINKS = [
 export function Nav({
   onOpenCli,
   onOpenPitch,
+  onOpenPcap,
+  onOpenSupabase,
 }: {
   onOpenCli?: () => void;
   onOpenPitch?: () => void;
+  onOpenPcap?: () => void;
+  onOpenSupabase?: () => void;
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -50,7 +55,7 @@ export function Nav({
       <div className="border-b border-border/60 bg-background/95 px-4 py-1 font-mono text-[10px] text-muted-foreground backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 overflow-x-auto whitespace-nowrap">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 text-primary">
+            <span className="flex items-center gap-1.5 text-primary font-bold">
               <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
               STATUS: ONLINE
             </span>
@@ -58,6 +63,16 @@ export function Nav({
             <span className="text-slate-400">TAP: eBPF PASSIVE (eth0)</span>
             <span className="text-border">|</span>
             <span className="text-slate-400">INFERENCE: {LIVE_TELEMETRY.meanInferenceLatency}</span>
+            <span className="text-border">|</span>
+            {onOpenSupabase ? (
+              <button
+                type="button"
+                onClick={onOpenSupabase}
+                className="hover:underline flex items-center gap-1 text-teal-300"
+              >
+                ☁ {isSupabaseConfigured ? "SUPABASE: CONNECTED" : "SUPABASE: LOCAL"}
+              </button>
+            ) : null}
           </div>
 
           <div className="flex items-center gap-3">
@@ -128,11 +143,21 @@ export function Nav({
               </button>
             )}
 
+            {onOpenPcap && (
+              <button
+                type="button"
+                onClick={onOpenPcap}
+                className="hover-glow hidden sm:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:text-foreground"
+              >
+                <span>📁</span> Ingest PCAP
+              </button>
+            )}
+
             {onOpenCli ? (
               <button
                 type="button"
                 onClick={onOpenCli}
-                className="hover-glow hidden sm:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:text-foreground"
+                className="hover-glow hidden md:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:text-foreground"
               >
                 <span>&gt;_</span> CLI
               </button>
@@ -140,7 +165,7 @@ export function Nav({
 
             <a
               href="#score"
-              className="hover-glow hidden md:inline-flex border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground"
+              className="hover-glow hidden xl:inline-flex border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground"
             >
               Score
             </a>

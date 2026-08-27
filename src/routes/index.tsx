@@ -16,6 +16,8 @@ import { Team } from "@/components/sentinel/Team";
 import { Footer } from "@/components/sentinel/Footer";
 import { CliTerminalModal } from "@/components/sentinel/CliTerminalModal";
 import { JudgeDefenseModal } from "@/components/sentinel/JudgeDefenseModal";
+import { PcapUploadModal } from "@/components/sentinel/PcapUploadModal";
+import { SupabaseSettingsModal } from "@/components/sentinel/SupabaseSettingsModal";
 
 const TITLE = "CipherLens — AI IPsec VPN Protocol Analyzer & Assessment Framework";
 const DESC =
@@ -38,6 +40,8 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [isCliOpen, setIsCliOpen] = useState(false);
   const [isPitchOpen, setIsPitchOpen] = useState(false);
+  const [isPcapOpen, setIsPcapOpen] = useState(false);
+  const [isSupabaseOpen, setIsSupabaseOpen] = useState(false);
   const [activeCliCmd, setActiveCliCmd] = useState<string | undefined>(undefined);
 
   const handleOpenCliWithCmd = (cmd?: string) => {
@@ -50,6 +54,8 @@ function Index() {
       <Nav
         onOpenCli={() => handleOpenCliWithCmd()}
         onOpenPitch={() => setIsPitchOpen(true)}
+        onOpenPcap={() => setIsPcapOpen(true)}
+        onOpenSupabase={() => setIsSupabaseOpen(true)}
       />
 
       <main>
@@ -80,6 +86,13 @@ function Index() {
         </button>
         <button
           type="button"
+          onClick={() => setIsPcapOpen(true)}
+          className="hover-glow hidden sm:flex items-center gap-1.5 border border-border bg-surface px-3 py-2 text-slate-300 shadow-xl backdrop-blur-md hover:text-foreground"
+        >
+          <span>📁</span> PCAP
+        </button>
+        <button
+          type="button"
           onClick={() => handleOpenCliWithCmd()}
           className="hover-glow flex items-center gap-1.5 border border-border bg-surface px-3 py-2 text-slate-300 shadow-xl backdrop-blur-md hover:text-foreground"
         >
@@ -97,6 +110,16 @@ function Index() {
       <JudgeDefenseModal
         isOpen={isPitchOpen}
         onClose={() => setIsPitchOpen(false)}
+      />
+
+      <PcapUploadModal
+        isOpen={isPcapOpen}
+        onClose={() => setIsPcapOpen(false)}
+      />
+
+      <SupabaseSettingsModal
+        isOpen={isSupabaseOpen}
+        onClose={() => setIsSupabaseOpen(false)}
       />
     </div>
   );
