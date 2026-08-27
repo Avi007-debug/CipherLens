@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  initiator:
+    image: vishnu/strongswan:latest
+    container_name: cipherlens_initiator
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    networks:
+      ipsec_net:
+        ipv4_address: 192.168.100.10
+    volumes:
+      - ./initiator/ipsec.conf:/etc/ipsec.conf:ro
+      - ./initiator/ipsec.secrets:/etc/ipsec.secrets:ro
+    restart: unless-stopped
+
+  responder:
+    image: vishnu/strongswan:latest
+    container_name: cipherlens_responder
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    networks:
+      ipsec_net:
+        ipv4_address: 192.168.100.20
+    volumes:
+      - ./responder/ipsec.conf:/etc/ipsec.conf:ro
+      - ./responder/ipsec.secrets:/etc/ipsec.secrets:ro
+    restart: unless-stopped
+
+networks:
+  ipsec_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24
