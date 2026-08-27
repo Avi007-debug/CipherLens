@@ -15,8 +15,10 @@ const NAV_LINKS = [
 
 export function Nav({
   onOpenCli,
+  onOpenPitch,
 }: {
   onOpenCli?: () => void;
+  onOpenPitch?: () => void;
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -115,22 +117,32 @@ export function Nav({
           </ul>
 
           {/* Action CTAs */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
+            {onOpenPitch && (
+              <button
+                type="button"
+                onClick={onOpenPitch}
+                className="hover-glow inline-flex items-center gap-1.5 border border-primary/70 bg-primary/20 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-primary font-bold shadow-[0_0_12px_rgba(20,184,166,0.25)]"
+              >
+                <span>★</span> Pitch & Q&A
+              </button>
+            )}
+
             {onOpenCli ? (
               <button
                 type="button"
                 onClick={onOpenCli}
-                className="hover-glow hidden sm:inline-flex items-center gap-1.5 border border-primary/40 bg-primary/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-primary"
+                className="hover-glow hidden sm:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:text-foreground"
               >
-                <span>&gt;_</span> CLI Sandbox
+                <span>&gt;_</span> CLI
               </button>
             ) : null}
 
             <a
               href="#score"
-              className="hover-glow border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground"
+              className="hover-glow hidden md:inline-flex border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground"
             >
-              Live Score
+              Score
             </a>
           </div>
         </div>

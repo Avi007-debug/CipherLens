@@ -15,6 +15,7 @@ import { Roadmap } from "@/components/sentinel/Roadmap";
 import { Team } from "@/components/sentinel/Team";
 import { Footer } from "@/components/sentinel/Footer";
 import { CliTerminalModal } from "@/components/sentinel/CliTerminalModal";
+import { JudgeDefenseModal } from "@/components/sentinel/JudgeDefenseModal";
 
 const TITLE = "CipherLens — AI IPsec VPN Protocol Analyzer & Assessment Framework";
 const DESC =
@@ -36,6 +37,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [isCliOpen, setIsCliOpen] = useState(false);
+  const [isPitchOpen, setIsPitchOpen] = useState(false);
   const [activeCliCmd, setActiveCliCmd] = useState<string | undefined>(undefined);
 
   const handleOpenCliWithCmd = (cmd?: string) => {
@@ -45,7 +47,11 @@ function Index() {
 
   return (
     <div id="top" className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
-      <Nav onOpenCli={() => handleOpenCliWithCmd()} />
+      <Nav
+        onOpenCli={() => handleOpenCliWithCmd()}
+        onOpenPitch={() => setIsPitchOpen(true)}
+      />
+
       <main>
         <Hero />
         <ProblemSolution />
@@ -60,12 +66,37 @@ function Index() {
         <Roadmap />
         <Team />
       </main>
+
       <Footer />
 
+      {/* Floating Demo Control Speed-Dial on bottom right */}
+      <aside aria-label="Demo Controls" className="fixed bottom-5 right-5 z-40 flex items-center gap-2 font-mono text-[11px]">
+        <button
+          type="button"
+          onClick={() => setIsPitchOpen(true)}
+          className="hover-glow flex items-center gap-1.5 border border-primary/70 bg-primary/20 px-3.5 py-2 font-bold text-primary shadow-2xl backdrop-blur-md transition-all hover:scale-105"
+        >
+          <span>★</span> 2-Min Pitch & Q&A
+        </button>
+        <button
+          type="button"
+          onClick={() => handleOpenCliWithCmd()}
+          className="hover-glow flex items-center gap-1.5 border border-border bg-surface px-3 py-2 text-slate-300 shadow-xl backdrop-blur-md hover:text-foreground"
+        >
+          <span>&gt;_</span> CLI
+        </button>
+      </aside>
+
+      {/* Interactive Modals */}
       <CliTerminalModal
         isOpen={isCliOpen}
         onClose={() => setIsCliOpen(false)}
         initialCmd={activeCliCmd}
+      />
+
+      <JudgeDefenseModal
+        isOpen={isPitchOpen}
+        onClose={() => setIsPitchOpen(false)}
       />
     </div>
   );
