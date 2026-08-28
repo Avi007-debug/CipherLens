@@ -37,20 +37,20 @@ const EXPLORE_PORTALS = [
     cta: "Launch AI Lab →",
   },
   {
-    to: "/capabilities" as const,
-    badge: "10 Differentiators",
-    title: "Capabilities & 5-Layer Architecture",
-    desc: "Interactive technical capability explorer across research, operational tooling, and enterprise SIEM pipelines, backed by a 5-stage dataflow.",
-    metrics: "10 Capabilities · RFC 7296 / RFC 8221",
-    cta: "Explore Architecture →",
-  },
-  {
     to: "/security" as const,
     badge: "NIST SP 800-77",
     title: "Posture Scoring & Attack Sandbox",
     desc: "Benchmark 0–100 security scores with line-by-line RFC proof, replay CVE-2002-1623 exploits in a sandbox, and calculate PQC quantum exposure.",
     metrics: "CVE Replay · HNDL Risk Window · Policy Diff",
     cta: "Enter Threat Lab →",
+  },
+  {
+    to: "/capabilities" as const,
+    badge: "10 Differentiators",
+    title: "Capabilities & 5-Layer Architecture",
+    desc: "Interactive technical capability explorer across research, operational tooling, and enterprise SIEM pipelines, backed by a 5-stage dataflow.",
+    metrics: "10 Capabilities · RFC 7296 / RFC 8221",
+    cta: "Explore Architecture →",
   },
   {
     to: "/audit" as const,
