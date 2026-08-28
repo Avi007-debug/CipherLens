@@ -21,7 +21,7 @@ export function Team() {
                 </span>
               </div>
 
-              <p className="mt-4 text-xs leading-relaxed text-slate-300 font-sans">
+              <p className="mt-4 text-xs leading-relaxed text-muted-foreground font-sans">
                 {m.scope}
               </p>
             </div>

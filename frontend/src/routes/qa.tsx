@@ -120,7 +120,7 @@ function QaPage() {
               Technical Q&A & Exploit Reference Matrix
             </h1>
 
-            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-slate-300">
+            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-muted-foreground">
               Authoritative technical answers covering deterministic IKE state machines, zero-decryption ML signal extraction, post-quantum cryptographic transitions, and blockchain auditability.
             </p>
           </div>

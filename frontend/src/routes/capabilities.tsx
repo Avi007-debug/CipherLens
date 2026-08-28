@@ -59,7 +59,7 @@ function CapabilitiesPage() {
               Technical Capabilities & System Architecture
             </h1>
 
-            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-slate-300">
+            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-muted-foreground">
               Explore CipherLens's 10 technical differentiators across research breakthroughs, operational attack sandboxing, and enterprise SIEM pipelines — supported by a 5-layer deterministic dataflow from kernel wire capture to verified cryptographic ledgers.
             </p>
 

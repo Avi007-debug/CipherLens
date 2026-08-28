@@ -57,7 +57,7 @@ function ZeroDecryptPage() {
               Zero-Decryption Traffic Fingerprinting & Explainable AI (XAI)
             </h1>
 
-            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-slate-300">
+            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-muted-foreground">
               Audit encrypted IPsec tunnels without breaking encryption or violating zero-trust privacy. CipherLens extracts second-order timing, burst entropy, and packet size histograms to classify applications with &gt;98% accuracy and exact TreeSHAP feature attributions.
             </p>
 
@@ -76,7 +76,7 @@ function ZeroDecryptPage() {
               </div>
               <div className="border border-border bg-background/80 p-3">
                 <span className="text-muted-foreground block text-[10.5px]">XAI METHOD</span>
-                <strong className="text-teal-300 text-base">TreeSHAP (Lundberg)</strong>
+                <strong className="text-primary text-base">TreeSHAP (Lundberg)</strong>
               </div>
             </div>
           </div>
@@ -103,21 +103,21 @@ function ZeroDecryptPage() {
             <div className="mt-6 grid gap-6 md:grid-cols-3 font-mono text-xs">
               <div className="border border-border/80 bg-background/70 p-4 space-y-2">
                 <span className="text-primary font-bold text-sm block">1. Isochronous Delta-t (Δt)</span>
-                <p className="text-slate-300 font-sans text-xs leading-relaxed">
+                <p className="text-muted-foreground font-sans text-xs leading-relaxed">
                   Measures packet inter-arrival intervals. Constant bit-rate VoIP codecs (G.711 / Opus) emit frames at strict 20ms boundaries regardless of packet payload encryption.
                 </p>
               </div>
 
               <div className="border border-border/80 bg-background/70 p-4 space-y-2">
                 <span className="text-primary font-bold text-sm block">2. Bimodal Size Distributions</span>
-                <p className="text-slate-300 font-sans text-xs leading-relaxed">
+                <p className="text-muted-foreground font-sans text-xs leading-relaxed">
                   Extracts packet length probability mass functions. Interactive web browsing produces short uplink requests (~120B) followed by large downlink trains (~1460B MTU).
                 </p>
               </div>
 
               <div className="border border-border/80 bg-background/70 p-4 space-y-2">
                 <span className="text-primary font-bold text-sm block">3. Burst Cadence & GOP Waves</span>
-                <p className="text-slate-300 font-sans text-xs leading-relaxed">
+                <p className="text-muted-foreground font-sans text-xs leading-relaxed">
                   HD Video streaming exhibits 33ms frame trains interspersed with periodic intra-frame (I-frame) keyframe burst spikes every 1,000ms.
                 </p>
               </div>

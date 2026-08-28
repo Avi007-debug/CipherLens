@@ -57,12 +57,12 @@ export function Roadmap() {
                   }}
                 >
                   <div className="overflow-hidden">
-                    <p className="mt-3 text-xs leading-relaxed text-slate-300 font-sans">
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground font-sans">
                       {r.obj}
                     </p>
                     <div className="mt-3 border-t border-border/60 pt-2 font-mono text-[10.5px]">
                       <span className="text-primary font-semibold block">Key Deliverable:</span>
-                      <span className="text-slate-300">{r.del}</span>
+                      <span className="text-foreground/90">{r.del}</span>
                       <span className="text-muted-foreground block text-[9.5px] mt-1">
                         ↳ Metric: {r.metrics}
                       </span>

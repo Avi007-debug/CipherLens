@@ -76,6 +76,54 @@
   --border-strong: oklch(0.42 0.05 210);
   --input: oklch(0.3 0.03 260);
   --ring: oklch(0.76 0.13 183);
+
+  /* GDG Google Cyber Brand Colors */
+  --gdg-blue: #4285F4;
+  --gdg-red: #EA4335;
+  --gdg-yellow: #FBBC04;
+  --gdg-green: #34A853;
+}
+
+/* --- Light Mode: GDG Enterprise Cybersecurity Aesthetic --- */
+html.light,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --background: oklch(0.985 0.005 250);      /* Crisp Slate-50 #F8FAFC */
+  --foreground: oklch(0.18 0.03 260);       /* Deep Slate-900 #0F172A */
+  --surface: oklch(1 0 0);                  /* Pure White Card #FFFFFF */
+  --surface-raised: oklch(0.965 0.008 250); /* Tech Slate #F1F5F9 */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.03 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.03 260);
+
+  /* GDG Google Blue as Primary Cyber Accent */
+  --primary: oklch(0.58 0.20 255);          /* GDG Blue #1A73E8 / #4285F4 */
+  --primary-foreground: oklch(1 0 0);
+  --primary-deep: oklch(0.46 0.22 258);     /* Deep Cobalt #1557B0 */
+
+  --secondary: oklch(0.94 0.012 250);
+  --secondary-foreground: oklch(0.20 0.03 260);
+  --muted: oklch(0.94 0.008 250);
+  --muted-foreground: oklch(0.45 0.025 260); /* High-contrast Slate-600 #475569 */
+  --accent: oklch(0.93 0.03 245);
+  --accent-foreground: oklch(0.20 0.03 260);
+
+  /* GDG Google Red for Critical Findings */
+  --destructive: oklch(0.55 0.22 25);       /* GDG Red #D93025 / #EA4335 */
+  --destructive-foreground: oklch(1 0 0);
+
+  /* GDG Google Yellow/Amber for Warnings */
+  --warn: oklch(0.72 0.18 75);              /* GDG Yellow #F9AB00 / #FBBC04 */
+
+  /* GDG Google Green for Hardened Posture */
+  --success: oklch(0.58 0.18 145);          /* GDG Green #1E8E3E / #34A853 */
+
+  --border: oklch(0.88 0.01 250);           /* Clean Slate-200 #E2E8F0 */
+  --border-strong: oklch(0.78 0.025 250);   /* Slate-300 #CBD5E1 */
+  --input: oklch(0.88 0.01 250);
+  --ring: oklch(0.58 0.20 255);
 }
 
 @layer base {
@@ -85,7 +133,6 @@
 
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
   }
 
   body {
@@ -93,6 +140,7 @@
     color: var(--color-foreground);
     font-family: var(--font-ui);
     -webkit-font-smoothing: antialiased;
+    transition: background-color 200ms ease, color 200ms ease;
   }
 
   ::selection {

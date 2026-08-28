@@ -71,6 +71,8 @@ function NetworkCanvas() {
         if (n.y < 10 || n.y > h - 10) n.vy *= -1;
       }
 
+      const isLight = document.documentElement.classList.contains("light");
+
       // Draw connection lines
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
@@ -82,10 +84,10 @@ function NetworkCanvas() {
           const alpha = (1 - d / 210) * 0.38;
 
           // Animated dashed tunnel lines
-          ctx.strokeStyle =
-            a.isGateway || b.isGateway
-              ? `rgba(45, 212, 191, ${alpha * 1.5})`
-              : `rgba(100, 116, 139, ${alpha * 0.8})`;
+          const gwColor = isLight ? `rgba(66, 133, 244, ${alpha * 1.5})` : `rgba(45, 212, 191, ${alpha * 1.5})`;
+          const normColor = isLight ? `rgba(148, 163, 184, ${alpha * 0.7})` : `rgba(100, 116, 139, ${alpha * 0.8})`;
+
+          ctx.strokeStyle = a.isGateway || b.isGateway ? gwColor : normColor;
           ctx.lineWidth = a.isGateway && b.isGateway ? 1.5 : 1;
           ctx.setLineDash([4, 6]);
           ctx.lineDashOffset = reduced ? 0 : -t * 0.35;
@@ -98,7 +100,7 @@ function NetworkCanvas() {
           if (!reduced && d < 180) {
             const p = ((t * 0.005 + (i * 3 + j) * 0.19) % 1);
             ctx.setLineDash([]);
-            ctx.fillStyle = `rgba(94, 234, 212, ${alpha * 2.8})`;
+            ctx.fillStyle = isLight ? `rgba(66, 133, 244, ${alpha * 2.8})` : `rgba(94, 234, 212, ${alpha * 2.8})`;
             ctx.beginPath();
             ctx.arc(a.x + (b.x - a.x) * p, a.y + (b.y - a.y) * p, 1.6, 0, Math.PI * 2);
             ctx.fill();
@@ -111,12 +113,12 @@ function NetworkCanvas() {
       for (const n of nodes) {
         if (n.isGateway) {
           // Gateway node with glowing radar ping
-          ctx.fillStyle = "rgba(45, 212, 191, 0.95)";
+          ctx.fillStyle = isLight ? "rgba(66, 133, 244, 0.95)" : "rgba(45, 212, 191, 0.95)";
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
           ctx.fill();
 
-          ctx.strokeStyle = "rgba(45, 212, 191, 0.35)";
+          ctx.strokeStyle = isLight ? "rgba(66, 133, 244, 0.35)" : "rgba(45, 212, 191, 0.35)";
           ctx.beginPath();
           ctx.arc(n.x, n.y, 10 + Math.sin(t * 0.03 + n.x) * 3, 0, Math.PI * 2);
           ctx.stroke();
@@ -124,11 +126,13 @@ function NetworkCanvas() {
           // Label
           if (n.label) {
             ctx.font = "9px monospace";
-            ctx.fillStyle = "rgba(203, 213, 225, 0.65)";
+            ctx.fillStyle = isLight ? "rgba(71, 85, 105, 0.9)" : "rgba(203, 213, 225, 0.65)";
             ctx.fillText(n.label, n.x + 8, n.y + 3);
           }
         } else {
-          ctx.fillStyle = n.r > 2 ? "rgba(94, 234, 212, 0.75)" : "rgba(148, 163, 184, 0.45)";
+          ctx.fillStyle = n.r > 2 
+            ? (isLight ? "rgba(66, 133, 244, 0.75)" : "rgba(94, 234, 212, 0.75)") 
+            : (isLight ? "rgba(148, 163, 184, 0.5)" : "rgba(148, 163, 184, 0.45)");
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
           ctx.fill();
@@ -185,10 +189,10 @@ export function Hero() {
               <span className="border border-primary/50 bg-primary/10 px-2.5 py-1 font-semibold text-primary">
                 {PROJECT.ps}
               </span>
-              <span className="border border-border bg-surface px-2.5 py-1 text-slate-300">
+              <span className="border border-border bg-surface px-2.5 py-1 text-muted-foreground">
                 {PROJECT.org}
               </span>
-              <span className="border border-border bg-surface px-2.5 py-1 text-slate-400">
+              <span className="border border-border bg-surface px-2.5 py-1 text-muted-foreground">
                 {PROJECT.theme}
               </span>
             </div>
@@ -201,7 +205,7 @@ export function Hero() {
               </span>
             </h1>
 
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               <strong className="text-foreground font-semibold">CipherLens</strong> is an AI-powered IPsec VPN
               protocol analyzer and security assessment framework. It parses IKE handshakes deterministically,
               classifies encrypted ESP traffic via second-order statistical side channels with explainable ML, and generates
@@ -222,7 +226,7 @@ export function Hero() {
               </a>
               <Link
                 to="/zero-decrypt"
-                className="hover-glow inline-flex items-center gap-2 border border-border bg-surface px-5 py-3 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 hover:text-foreground font-semibold"
+                className="hover-glow inline-flex items-center gap-2 border border-border bg-surface px-5 py-3 font-mono text-xs uppercase tracking-[0.16em] text-foreground/90 hover:text-foreground font-semibold"
               >
                 Zero-Decrypt AI Lab
               </Link>
@@ -342,8 +346,8 @@ export function Hero() {
                   <span>UDP 500 / 4500 & IP PROTO 50</span>
                 </div>
 
-                <div className="space-y-1.5 font-mono text-[11.5px] text-slate-300">
-                  <div className="flex items-start gap-2 bg-background/40 p-1.5 border-l-2 border-primary/50">
+                <div className="space-y-1.5 font-mono text-[11.5px] text-foreground/90">
+                  <div className="flex items-start gap-2 bg-background/60 p-1.5 border-l-2 border-primary/50">
                     <span className="text-muted-foreground shrink-0 text-[10.5px]">14:02:11.892</span>
                     <span className="text-primary font-bold shrink-0">[IKE_INIT]</span>
                     <span className="truncate">SPIi=0x8fa921c3 SPIr=0x00000000 · Flags: [INITIATOR] · Len=432B</span>
@@ -357,19 +361,19 @@ export function Hero() {
 
                   <div className="flex items-start gap-2 bg-amber-500/10 p-1.5 border-l-2 border-amber-500">
                     <span className="text-muted-foreground shrink-0 text-[10.5px]">14:02:11.895</span>
-                    <span className="text-amber-400 font-bold shrink-0">[CRYPTO]</span>
-                    <span className="text-amber-200">Transform: 3DES-CBC / HMAC-SHA1 / DH-Grp-14 [SWEET32 RISK]</span>
+                    <span className="text-amber-500 font-bold shrink-0">[CRYPTO]</span>
+                    <span className="text-amber-700 dark:text-amber-200">Transform: 3DES-CBC / HMAC-SHA1 / DH-Grp-14 [SWEET32 RISK]</span>
                   </div>
 
-                  <div className="flex items-start gap-2 bg-background/40 p-1.5 border-l-2 border-teal-500/50">
+                  <div className="flex items-start gap-2 bg-background/60 p-1.5 border-l-2 border-primary/50">
                     <span className="text-muted-foreground shrink-0 text-[10.5px]">14:02:11.908</span>
                     <span className="text-primary font-bold shrink-0">[ESP_FLOW]</span>
                     <span>SPI=0x34a81b99 seq=10492 len=172B entropy=7.94 (opaque ciphertext)</span>
                   </div>
 
-                  <div className="flex items-start gap-2 bg-teal-500/10 p-1.5 border-l-2 border-teal-400">
+                  <div className="flex items-start gap-2 bg-primary/10 p-1.5 border-l-2 border-primary">
                     <span className="text-muted-foreground shrink-0 text-[10.5px]">14:02:11.928</span>
-                    <span className="text-teal-400 font-bold shrink-0">[ML_XAI]</span>
+                    <span className="text-primary font-bold shrink-0">[ML_XAI]</span>
                     <span className="text-primary font-semibold">Class=VoIP (99.4%) · TreeSHAP top: isochronous_20ms_delta</span>
                   </div>
 
@@ -382,7 +386,7 @@ export function Hero() {
                   <div className="flex items-start gap-2 bg-primary/10 p-1.5 border-l-2 border-primary">
                     <span className="text-muted-foreground shrink-0 text-[10.5px]">14:02:11.956</span>
                     <span className="text-primary font-bold shrink-0">[MERKLE_LOG]</span>
-                    <span className="text-teal-300 truncate">Committed finding hash 0x8f2a... to Block #{LIVE_TELEMETRY.blockHeight}</span>
+                    <span className="text-primary truncate">Committed finding hash 0x8f2a... to Block #{LIVE_TELEMETRY.blockHeight}</span>
                   </div>
                 </div>
 
@@ -404,12 +408,12 @@ export function Hero() {
                   <span>RFC 7296 IKE_SA_INIT Payload Tree</span>
                   <span className="text-muted-foreground">Deterministic Dissector</span>
                 </div>
-                <div className="border border-border/80 bg-background/60 p-3 space-y-1.5 text-slate-300 font-mono text-[11px]">
+                <div className="border border-border/80 bg-background/60 p-3 space-y-1.5 text-foreground/90 font-mono text-[11px]">
                   <div>├─ HDR: Next=SA, Maj=2, Min=0, Exchange=IKE_SA_INIT (34), MessageID=0</div>
                   <div>├─ SA Payload: Length=48, Proposal #1 (Transform Count: 4)</div>
                   <div className="pl-5 text-destructive font-semibold">├─ ENCR: Transform ID=3 (3DES-CBC) [CVE-2016-2183 SWEET32]</div>
-                  <div className="pl-5 text-amber-300">├─ PRF: Transform ID=2 (PRF_HMAC_SHA1) [DEPRECATED NIST]</div>
-                  <div className="pl-5 text-slate-400">├─ INTEG: Transform ID=2 (AUTH_HMAC_SHA1_96)</div>
+                  <div className="pl-5 text-amber-600 dark:text-amber-300">├─ PRF: Transform ID=2 (PRF_HMAC_SHA1) [DEPRECATED NIST]</div>
+                  <div className="pl-5 text-muted-foreground">├─ INTEG: Transform ID=2 (AUTH_HMAC_SHA1_96)</div>
                   <div className="pl-5 text-destructive font-semibold">└─ D-H: Transform ID=14 (2048-bit MODP) [NO_PQC / HARVEST_RISK]</div>
                   <div>├─ KE Payload: DH Group=14, KeyExchangeData (256 bytes)</div>
                   <div>├─ Nonce Payload (Ni): NonceData (32 bytes entropy: 7.98 / 8.00)</div>
@@ -422,7 +426,7 @@ export function Hero() {
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-[10.5px] uppercase tracking-wider text-primary border-b border-border/40 pb-1">
                   <span>ESP Payload Byte Shannon Entropy Matrix</span>
-                  <span className="text-teal-300">Mean: 7.94 / 8.00 bits/byte</span>
+                  <span className="text-primary font-semibold">Mean: 7.94 / 8.00 bits/byte</span>
                 </div>
                 <p className="text-[10.5px] text-muted-foreground font-sans">
                   Mathematical proof of ciphertext opacity: each 32-byte ESP payload chunk exhibits near-ideal random entropy, confirming zero plaintext leakage into inference engine.
@@ -433,7 +437,7 @@ export function Hero() {
                     return (
                       <div
                         key={i}
-                        className="flex flex-col items-center justify-center p-2 border border-primary/30 bg-primary/10 text-[10px] font-mono text-teal-300 hover:bg-primary/20 transition-colors"
+                        className="flex flex-col items-center justify-center p-2 border border-primary/30 bg-primary/10 text-[10px] font-mono text-primary hover:bg-primary/20 transition-colors"
                         title={`ESP Byte block #${i}: Shannon Entropy ${val} / 8.00 (Cryptographically Opaque)`}
                       >
                         <span className="font-bold">{val}</span>
@@ -450,7 +454,7 @@ export function Hero() {
                   <span>Captured Raw Packet Frame Hex Dump (Scapy Stream)</span>
                   <span className="text-muted-foreground">ESP IP Proto 50</span>
                 </div>
-                <pre className="border border-border/80 bg-background/80 p-3 font-mono text-[10.5px] leading-snug text-slate-300 overflow-x-auto">
+                <pre className="border border-border/80 bg-background/80 p-3 font-mono text-[10.5px] leading-snug text-foreground/90 overflow-x-auto">
 {`0000  45 00 00 ec a1 b2 40 00  40 32 8c 4f c0 a8 01 0a  E.....@.@2.O....
 0010  c0 a8 01 01 34 a8 1b 99  00 00 28 fc 9a 7d 11 b4  ....4.....(..}..
 0020  2e 8c f1 99 43 a2 e9 18  55 1b dc 42 77 10 9f e0  ....C...U..Bw...

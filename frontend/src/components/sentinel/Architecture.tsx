@@ -148,7 +148,7 @@ export function Architecture() {
 
           <div className="mt-6 grid gap-6 md:grid-cols-[1.2fr_0.8fr]">
             <div>
-              <p className="text-sm leading-relaxed text-slate-300">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {active.desc}
               </p>
               <div className="mt-4 font-mono text-xs text-muted-foreground">
@@ -160,7 +160,7 @@ export function Architecture() {
               <p className="text-[10.5px] uppercase tracking-wider text-primary font-semibold">
                 Emitted Data Schema & Pipeline Artifacts
               </p>
-              <p className="mt-2 text-slate-300">
+              <p className="mt-2 text-foreground/90">
                 ↳ {active.dataOut}
               </p>
             </div>

@@ -155,7 +155,7 @@ export function ProblemSolution() {
                 {AFTER_POINTS.map((item, i) => (
                   <li key={i} className="border-l-2 border-primary pl-4 py-1">
                     <p className="text-sm font-semibold text-foreground">{item.title}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-slate-300 font-sans">
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground font-sans">
                       {item.desc}
                     </p>
                   </li>

@@ -115,8 +115,36 @@ export function Nav({
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("cipherlens_theme");
+      if (saved === "light" || saved === "dark") return saved;
+      if (window.matchMedia("(prefers-color-scheme: light)").matches) return "light";
+    }
+    return "dark";
+  });
+
   const desktopDropdownRef = useRef<HTMLDivElement | null>(null);
   const mobileDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      if (theme === "light") {
+        document.documentElement.classList.add("light");
+        document.documentElement.classList.remove("dark");
+        document.documentElement.setAttribute("data-theme", "light");
+      } else {
+        document.documentElement.classList.remove("light");
+        document.documentElement.classList.add("dark");
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+      localStorage.setItem("cipherlens_theme", theme);
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   const handleNavClick = (e: React.MouseEvent, mod: NavModule) => {
     e.preventDefault();
@@ -181,15 +209,15 @@ export function Nav({
               STATUS: ONLINE
             </span>
             <span className="text-border">|</span>
-            <span className="text-slate-400">TAP: eBPF PASSIVE (eth0)</span>
+            <span className="text-muted-foreground">TAP: eBPF PASSIVE (eth0)</span>
             <span className="text-border">|</span>
-            <span className="text-slate-400">INFERENCE: {LIVE_TELEMETRY.meanInferenceLatency}</span>
+            <span className="text-muted-foreground">INFERENCE: {LIVE_TELEMETRY.meanInferenceLatency}</span>
             <span className="text-border">|</span>
             {onOpenSupabase ? (
               <button
                 type="button"
                 onClick={onOpenSupabase}
-                className="flex items-center gap-1 text-teal-300 hover:underline"
+                className="flex items-center gap-1 text-primary hover:underline font-semibold"
               >
                 ☁ {isSupabaseConfigured ? "SUPABASE: CONNECTED" : "SUPABASE: LOCAL"}
               </button>
@@ -197,11 +225,11 @@ export function Nav({
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-slate-400">{PROJECT.ps}</span>
+            <span className="text-muted-foreground">{PROJECT.ps}</span>
             <span className="text-border">|</span>
-            <span className="text-primary/90">BLOCK #{LIVE_TELEMETRY.blockHeight}</span>
+            <span className="text-primary font-semibold">BLOCK #{LIVE_TELEMETRY.blockHeight}</span>
             <span className="text-border">|</span>
-            <span className="font-mono text-[9px] text-slate-400">{PROJECT.compliance}</span>
+            <span className="font-mono text-[9px] text-muted-foreground">{PROJECT.compliance}</span>
           </div>
         </div>
       </div>
@@ -364,11 +392,22 @@ export function Nav({
                )}
             </div>
 
+            {/* Theme Toggle Button (Dark / Light GDG) */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              title={theme === "dark" ? "Switch to Light Theme (GDG Cyber)" : "Switch to Dark Theme (Sentinel)"}
+              className="hover-glow inline-flex items-center gap-1.5 border border-border bg-surface px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground hover:text-foreground transition-all cursor-pointer"
+            >
+              <span className="text-sm leading-none">{theme === "dark" ? "☀" : "🌙"}</span>
+              <span className="hidden xl:inline text-[9px] font-semibold">{theme === "dark" ? "LIGHT" : "DARK"}</span>
+            </button>
+
             {onOpenQa && (
               <button
                 type="button"
                 onClick={onOpenQa}
-                className="hover-glow inline-flex items-center gap-1.5 border border-primary/70 bg-primary/20 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-primary font-bold shadow-[0_0_12px_rgba(20,184,166,0.25)]"
+                className="hover-glow inline-flex items-center gap-1.5 border border-primary/70 bg-primary/20 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-primary font-bold shadow-[0_0_12px_rgba(20,184,166,0.25)] cursor-pointer"
               >
                 Q&A
               </button>
@@ -378,7 +417,7 @@ export function Nav({
               <button
                 type="button"
                 onClick={onOpenPcap}
-                className="hover-glow hidden sm:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:text-foreground"
+                className="hover-glow hidden sm:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground cursor-pointer"
               >
                 PCAP
               </button>
@@ -388,7 +427,7 @@ export function Nav({
               <button
                 type="button"
                 onClick={onOpenCli}
-                className="hover-glow hidden md:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:text-foreground"
+                className="hover-glow hidden md:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground cursor-pointer"
               >
                 CLI
               </button>

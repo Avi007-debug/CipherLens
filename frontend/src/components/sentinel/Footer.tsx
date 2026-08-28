@@ -50,16 +50,16 @@ export function Footer() {
               {PROJECT.tagline}
             </h2>
 
-            <p className="mt-3 max-w-lg text-sm leading-relaxed text-slate-300">
+            <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground">
               Built for <strong className="text-foreground">{PROJECT.event}</strong> ·{" "}
               <strong className="text-primary">{PROJECT.ps}</strong> · {PROJECT.org} · Theme:{" "}
               {PROJECT.theme}.
             </p>
 
             <div className="mt-6 font-mono text-xs text-muted-foreground space-y-1.5 border-l-2 border-primary/40 pl-3">
-              <div>COMPLIANCE: <span className="text-slate-200 font-semibold">{PROJECT.compliance}</span></div>
+              <div>COMPLIANCE: <span className="text-foreground font-semibold">{PROJECT.compliance}</span></div>
               <div>COMMIT HASH: <span className="text-primary font-bold select-all">{PROJECT.commit}</span></div>
-              <div>TELEMETRY TAP: <span className="text-teal-300">eBPF Passive Kernel Tap (eth0)</span></div>
+              <div>TELEMETRY TAP: <span className="text-primary">eBPF Passive Kernel Tap (eth0)</span></div>
             </div>
           </div>
 

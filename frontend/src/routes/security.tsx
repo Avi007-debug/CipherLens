@@ -59,7 +59,7 @@ function SecurityPage() {
               Security Posture Scoring & Threat Replay Sandbox
             </h1>
 
-            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-slate-300">
+            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-muted-foreground">
               Benchmark IPsec configurations against NIST SP 800-77 standards with line-by-line RFC proof, replay exploit primitives in an isolated sandbox, and quantify 'Harvest Now, Decrypt Later' (HNDL) exposure against quantum adversaries.
             </p>
 

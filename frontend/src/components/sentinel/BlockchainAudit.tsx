@@ -57,11 +57,11 @@ export function BlockchainAudit() {
             <div className="grid grid-cols-2 gap-4 w-full max-w-lg">
               <div className="border border-border bg-background/80 p-2 text-center text-[10px]">
                 <span className="text-muted-foreground block">INTERNAL NODE H(1,2)</span>
-                <span className="text-slate-300">0x77d8...33ba</span>
+                <span className="text-foreground/90 font-mono">0x77d8...33ba</span>
               </div>
               <div className="border border-border bg-background/80 p-2 text-center text-[10px]">
                 <span className="text-muted-foreground block">INTERNAL NODE H(3,4)</span>
-                <span className="text-slate-300">0x91c0...f82a</span>
+                <span className="text-foreground/90 font-mono">0x91c0...f82a</span>
               </div>
             </div>
 
@@ -92,7 +92,7 @@ export function BlockchainAudit() {
               <h3 className="font-bold text-foreground uppercase tracking-wider">
                 Cryptographic Attestation Certificate
               </h3>
-              <span className="text-[10px] text-teal-400 bg-teal-950/60 border border-teal-500/40 px-2 py-0.5 font-bold">
+              <span className="text-[10px] text-primary bg-primary/10 border border-primary/40 px-2 py-0.5 font-bold">
                 PROVEN
               </span>
             </div>
@@ -112,11 +112,11 @@ export function BlockchainAudit() {
               </div>
               <div className="flex justify-between border-b border-border/40 pb-1.5">
                 <span>ZERO-KNOWLEDGE PROOF:</span>
-                <span className="text-teal-300 font-semibold">Groth16 zk-SNARK Verified</span>
+                <span className="text-primary font-semibold">Groth16 zk-SNARK Verified</span>
               </div>
             </div>
 
-            <p className="mt-4 text-[11.5px] leading-relaxed text-slate-300 font-sans">
+            <p className="mt-4 text-[11.5px] leading-relaxed text-muted-foreground font-sans">
               This attestation proves that the IKEv2 posture score of 94/100 was computed from the authentic capture stream without any retroactive parameter alteration.
             </p>
           </div>

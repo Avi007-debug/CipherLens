@@ -36,9 +36,9 @@ export function PqcMatrix() {
             {PQC_COMPARISON.map((row) => (
               <tr key={row.group} className="hover:bg-surface-raised transition-colors">
                 <td className="p-4 font-bold text-foreground">{row.group}</td>
-                <td className="p-4 text-slate-300">{row.type}</td>
-                <td className="p-4 text-slate-400">{row.size}</td>
-                <td className="p-4 text-slate-300">{row.security}</td>
+                <td className="p-4 text-foreground/90">{row.type}</td>
+                <td className="p-4 text-muted-foreground">{row.size}</td>
+                <td className="p-4 text-foreground/90">{row.security}</td>
                 <td className="p-4">
                   {row.quantumSafe ? (
                     <span className="inline-flex items-center gap-1 text-primary font-bold">
@@ -115,10 +115,10 @@ export function PqcMatrix() {
                 ~{hndlExposureYears} Years
               </span>
             </div>
-            <p className="text-[11.5px] leading-relaxed text-slate-300 font-sans pt-2">
+            <p className="text-[11.5px] leading-relaxed text-muted-foreground font-sans pt-2">
               If an adversary intercepts and archives this tunnel today, they will decrypt all historical traffic when cryptographically relevant quantum computers (CRQC) emerge.
             </p>
-            <div className="pt-2 border-t border-border/60 text-teal-300 text-[11px]">
+            <div className="pt-2 border-t border-border/60 text-primary text-[11px]">
               <strong>CipherLens Recommendation:</strong> Upgrade to RFC 8784 PPKs or hybrid ML-KEM-768 to immediately eliminate retrospective exposure window.
             </div>
           </div>

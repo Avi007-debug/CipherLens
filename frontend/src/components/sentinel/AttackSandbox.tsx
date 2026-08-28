@@ -164,13 +164,13 @@ export function AttackSandbox() {
                   disabled={isSimulating}
                   className="hover-glow w-full border border-destructive/60 bg-destructive/20 py-2.5 font-mono text-xs uppercase tracking-widest text-destructive hover:bg-destructive/30 font-bold transition-all"
                 >
-                  {isSimulating ? "REPLAYING EXPLOIT IN SANDBOX..." : "▶ Replay Exploit in Sandbox"}
+                  {isSimulating ? "REPLAYING EXPLOIT IN SANDBOX..." : "Replay Exploit in Sandbox"}
                 </button>
               </div>
 
               {/* Simulation Telemetry Output */}
               {simStep > 0 && (
-                <div className="mt-3 border border-destructive/40 bg-black/80 p-3.5 text-xs font-mono text-slate-300 space-y-1.5">
+                <div className="mt-3 border border-destructive/40 bg-black/90 p-3.5 text-xs font-mono text-slate-100 space-y-1.5 shadow-xl">
                   <div className="text-primary font-bold">[STEP 1] Ingesting crafted payload exchange...</div>
                   {simStep >= 2 && (
                     <div className="text-amber-400 font-semibold">
@@ -183,7 +183,7 @@ export function AttackSandbox() {
                     </div>
                   )}
                   {simStep >= 4 && (
-                    <div className="text-teal-300 font-bold border-t border-border/60 pt-1.5">
+                    <div className="text-primary font-bold border-t border-border/60 pt-1.5">
                       [CIPHERLENS MITIGATION]: {activeScenario.remediation}
                     </div>
                   )}

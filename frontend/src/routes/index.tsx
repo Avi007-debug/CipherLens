@@ -101,14 +101,14 @@ function HomePage() {
                 <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
                   Explore Dedicated Framework Modules
                 </h2>
-                <p className="mt-2 text-sm text-slate-300 font-sans max-w-2xl">
+                <p className="mt-2 text-sm text-muted-foreground font-sans max-w-2xl">
                   CipherLens is architected into dedicated operational workspaces. Select a specialized module below for in-depth analysis, simulations, and cryptographic verification.
                 </p>
               </div>
 
               <Link
                 to="/qa"
-                className="hover-glow border border-border bg-surface px-4 py-2 text-xs font-mono text-slate-200 hover:text-foreground"
+                className="hover-glow border border-border bg-surface px-4 py-2 text-xs font-mono text-muted-foreground hover:text-foreground"
               >
                 Browse Technical Q&A Directory →
               </Link>
@@ -134,7 +134,7 @@ function HomePage() {
                       {portal.title}
                     </h3>
 
-                    <p className="mt-2 text-sm leading-relaxed text-slate-300 font-sans">
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground font-sans">
                       {portal.desc}
                     </p>
                   </div>
@@ -169,14 +169,14 @@ function HomePage() {
         <button
           type="button"
           onClick={() => setIsPcapOpen(true)}
-          className="hover-glow hidden sm:flex items-center gap-1.5 border border-border bg-surface px-3.5 py-2.5 text-slate-300 shadow-xl backdrop-blur-md hover:text-foreground"
+          className="hover-glow hidden sm:flex items-center gap-1.5 border border-border bg-surface px-3.5 py-2.5 text-muted-foreground shadow-xl backdrop-blur-md hover:text-foreground"
         >
           PCAP
         </button>
         <button
           type="button"
           onClick={() => handleOpenCliWithCmd()}
-          className="hover-glow flex items-center gap-1.5 border border-border bg-surface px-3.5 py-2.5 text-slate-300 shadow-xl backdrop-blur-md hover:text-foreground"
+          className="hover-glow flex items-center gap-1.5 border border-border bg-surface px-3.5 py-2.5 text-muted-foreground shadow-xl backdrop-blur-md hover:text-foreground"
         >
           CLI
         </button>

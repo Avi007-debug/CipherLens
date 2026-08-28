@@ -113,7 +113,7 @@ export function Features({
                     {f.title}
                   </h4>
 
-                  <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-300 font-sans">
+                  <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground font-sans">
                     {f.blurb}
                   </p>
                 </button>
@@ -141,7 +141,7 @@ export function Features({
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="border border-border bg-background px-2.5 py-1 text-xs font-mono text-slate-300">
+                  <span className="border border-border bg-background px-2.5 py-1 text-xs font-mono text-muted-foreground">
                     RFC / Standard: <strong className="text-primary">{activeFeature.rfc}</strong>
                   </span>
                 </div>
@@ -153,7 +153,7 @@ export function Features({
                   <h4 className="font-mono text-xs uppercase tracking-wider text-primary font-bold mb-1.5">
                     Executive Summary & Objective
                   </h4>
-                  <p className="text-sm sm:text-base leading-relaxed text-slate-200 font-sans">
+                  <p className="text-sm sm:text-base leading-relaxed text-foreground font-sans">
                     {activeFeature.blurb}
                   </p>
                 </div>
@@ -162,7 +162,7 @@ export function Features({
                   <h4 className="font-mono text-xs uppercase tracking-wider text-primary font-bold mb-1.5">
                     Deep Technical Architecture & Implementation
                   </h4>
-                  <p className="text-sm leading-relaxed text-slate-300 font-sans">
+                  <p className="text-sm leading-relaxed text-muted-foreground font-sans">
                     {activeFeature.detail}
                   </p>
                 </div>
@@ -226,11 +226,11 @@ export function Features({
                   {f.title}
                 </h3>
 
-                <p className="mt-2.5 text-xs leading-relaxed text-slate-300 font-sans">
+                <p className="mt-2.5 text-xs leading-relaxed text-muted-foreground font-sans">
                   {f.blurb}
                 </p>
 
-                <div className="mt-4 border-t border-border/60 pt-3 text-xs text-slate-300 font-sans leading-relaxed">
+                <div className="mt-4 border-t border-border/60 pt-3 text-xs text-muted-foreground font-sans leading-relaxed">
                   {f.detail}
                 </div>
               </div>

@@ -180,8 +180,8 @@ export function Classification() {
                           <span
                             className={`text-[10px] px-2 py-0.5 border font-semibold uppercase ${
                               feat.impact === "high"
-                                ? "border-primary bg-primary/20 text-teal-300"
-                                : "border-border bg-surface text-slate-300"
+                                ? "border-primary bg-primary/20 text-primary font-bold"
+                                : "border-border bg-surface text-muted-foreground"
                             }`}
                           >
                             {feat.impact} Impact

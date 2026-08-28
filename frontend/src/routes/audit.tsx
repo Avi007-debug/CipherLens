@@ -59,7 +59,7 @@ function AuditPage() {
               Blockchain-Anchored Audit Trail & Compliance Governance
             </h1>
 
-            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-slate-300">
+            <p className="mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-muted-foreground">
               Cryptographically anchor posture findings as SHA-256 Merkle trees to permissioned ledgers. Regulators and enterprise auditors can mathematically verify assessment reports via zero-knowledge proofs without accessing sensitive network captures.
             </p>
 
