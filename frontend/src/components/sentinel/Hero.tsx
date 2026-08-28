@@ -209,22 +209,22 @@ export function Hero() {
             {/* Action CTAs */}
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <a
-                href="#pipeline"
+                href="#explore"
                 className="hover-glow inline-flex items-center gap-2 border border-primary/70 bg-primary/15 px-5 py-3 font-mono text-xs uppercase tracking-[0.16em] text-primary font-bold shadow-[0_0_15px_rgba(20,184,166,0.2)]"
               >
-                <span>▶</span> Inspect 5-Layer Pipeline
+                <span>▶</span> Explore Platform Modules
               </a>
               <a
-                href="#score"
+                href="/zero-decrypt"
                 className="hover-glow inline-flex items-center gap-2 border border-border bg-surface px-5 py-3 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 hover:text-foreground font-semibold"
               >
-                Run Score Engine
+                Zero-Decrypt AI Lab
               </a>
               <a
-                href="#classify"
+                href="/security"
                 className="hover-glow inline-flex items-center gap-2 border border-border bg-surface/60 px-4 py-3 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-primary"
               >
-                Zero-Decrypt Demo
+                Enter Threat Sandbox
               </a>
             </div>
           </div>

@@ -11,6 +11,7 @@ This guide details how to run automated unit tests, integration benchmarks, zero
 python -m pytest tests/ -v
 
 # 2. Run Frontend Build & TypeScript Check
+cd frontend
 npm run build
 ```
 
@@ -89,6 +90,7 @@ Validate that the React SPA compiles with zero warnings or hydration errors:
 
 ```bash
 # Execute production build
+cd frontend
 npm run build
 ```
 - **Target build time**: $< 1.5\text{ seconds}$

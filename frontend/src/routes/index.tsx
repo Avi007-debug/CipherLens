@@ -3,8 +3,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Nav } from "@/components/sentinel/Nav";
 import { Hero } from "@/components/sentinel/Hero";
 import { ProblemSolution } from "@/components/sentinel/ProblemSolution";
-import { ScoreGauge } from "@/components/sentinel/ScoreGauge";
-import { Classification } from "@/components/sentinel/Classification";
 import { Footer } from "@/components/sentinel/Footer";
 import { CliTerminalModal } from "@/components/sentinel/CliTerminalModal";
 import { JudgeDefenseModal } from "@/components/sentinel/JudgeDefenseModal";
@@ -97,7 +95,7 @@ function HomePage() {
         <ProblemSolution />
 
         {/* Dedicated Explore Section: 4 High-Impact Platform Portals */}
-        <section className="border-t border-border/80 bg-surface/50 px-5 py-20 sm:px-8 lg:px-12">
+        <section id="explore" className="border-t border-border/80 bg-surface/50 px-5 py-20 sm:px-8 lg:px-12">
           <div className="mx-auto max-w-6xl">
             <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border/80 pb-6 font-mono">
               <div>
@@ -160,9 +158,6 @@ function HomePage() {
           </div>
         </section>
 
-        {/* Live Interactive Posture Score & Zero-Decrypt Previews on Home */}
-        <ScoreGauge />
-        <Classification />
       </main>
 
       <Footer />

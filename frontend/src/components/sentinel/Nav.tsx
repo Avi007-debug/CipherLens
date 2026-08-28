@@ -6,50 +6,89 @@ import { isSupabaseConfigured } from "@/lib/supabase";
 interface NavModule {
   id: string;
   href: string;
+  num: string;
   label: string;
+  category: "Core Intelligence" | "Defense & Simulation" | "Architecture & Verification";
   desc: string;
   badge?: string;
-  icon: string;
 }
 
 const NAV_MODULES: NavModule[] = [
   {
-    id: "zero-decrypt",
+    id: "problem",
+    href: "/#problem",
+    num: "01",
+    label: "Problem & Context",
+    category: "Core Intelligence",
+    desc: "Manual Wireshark limitations & automated paradigm",
+  },
+  {
+    id: "score",
+    href: "/security#score",
+    num: "02",
+    label: "Security Posture Score",
+    category: "Core Intelligence",
+    desc: "0–100 rubric with line-by-line RFC clauses",
+    badge: "NIST SP 800-77",
+  },
+  {
+    id: "classify",
     href: "/zero-decrypt",
-    label: "Zero-Decrypt AI Lab",
-    desc: "Second-order side-channel ML with TreeSHAP attributions",
+    num: "03",
+    label: "Zero-Decrypt ESP Fingerprint",
+    category: "Core Intelligence",
+    desc: "Second-order side-channel ML with TreeSHAP",
     badge: ">98% F1",
-    icon: "🔬",
   },
   {
-    id: "capabilities",
+    id: "features",
     href: "/capabilities",
-    label: "Capabilities & Architecture",
-    desc: "10 technical differentiators & 5-layer system pipeline",
-    icon: "⚡",
+    num: "04",
+    label: "Platform Capabilities",
+    category: "Defense & Simulation",
+    desc: "10 technical differentiators across 3 tiers",
   },
   {
-    id: "security",
-    href: "/security",
-    label: "Security & Threat Sandbox",
-    desc: "0-100 Posture Score, CVE replay, and PQC Risk Matrix",
-    badge: "NIST 800-77",
-    icon: "🛡",
+    id: "pipeline",
+    href: "/capabilities#pipeline",
+    num: "05",
+    label: "5-Layer Architecture",
+    category: "Defense & Simulation",
+    desc: "Passive wire capture to blockchain commitment",
   },
   {
-    id: "audit",
-    href: "/audit",
-    label: "Blockchain Audit Ledger",
-    desc: "Hyperledger Merkle Proofs & zk-SNARK attestation",
+    id: "pqc",
+    href: "/security#pqc",
+    num: "06",
+    label: "PQC & HNDL Matrix",
+    category: "Defense & Simulation",
+    desc: "Quantum exposure window & ML-KEM hybrid",
+    badge: "CNSA 2.0",
+  },
+  {
+    id: "sandbox",
+    href: "/security#sandbox",
+    num: "07",
+    label: "Attack-Replay Sandbox",
+    category: "Architecture & Verification",
+    desc: "Live CVE exploit replay & policy diff engine",
+  },
+  {
+    id: "ledger",
+    href: "/audit#ledger",
+    num: "08",
+    label: "Blockchain Merkle Ledger",
+    category: "Architecture & Verification",
+    desc: "zk-SNARK & Hyperledger Fabric audit trails",
     badge: "Hyperledger",
-    icon: "📜",
   },
   {
-    id: "qa",
-    href: "/qa",
-    label: "Technical Q&A Directory",
-    desc: "5-category knowledge base and Exploit Reference Matrix",
-    icon: "★",
+    id: "roadmap",
+    href: "/audit#roadmap",
+    num: "09",
+    label: "Engineering Roadmap",
+    category: "Architecture & Verification",
+    desc: "8 phases from testbed bring-up to validation",
   },
 ];
 
@@ -67,6 +106,9 @@ export function Nav({
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // Group modules by category
+  const categories = Array.from(new Set(NAV_MODULES.map((m) => m.category)));
 
   // Close dropdown on outside click or escape
   useEffect(() => {
@@ -189,38 +231,47 @@ export function Nav({
 
               {/* Centered Dropdown Menu Overlay */}
               {dropdownOpen && (
-                <div className="absolute left-1/2 top-full mt-2 w-[92vw] max-w-lg -translate-x-1/2 border border-border/90 bg-surface/95 p-4 shadow-2xl backdrop-blur-xl md:w-[480px]">
+                <div className="absolute left-1/2 top-full mt-2 w-[92vw] max-w-3xl -translate-x-1/2 border border-border/90 bg-surface/95 p-4 shadow-2xl backdrop-blur-xl">
                   <div className="flex items-center justify-between border-b border-border/70 pb-2.5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
                     <span className="flex items-center gap-2 text-primary font-bold">
                       <span className="h-2 w-2 bg-primary" />
                       Platform Navigator
                     </span>
-                    <span className="text-[10px]">5 Core Modules</span>
+                    <span className="text-[10px]">9 Dedicated Views</span>
                   </div>
 
-                  <div className="mt-3 space-y-1.5">
-                    {NAV_MODULES.map((mod) => (
-                      <Link
-                        key={mod.id}
-                        to={mod.href}
-                        onClick={() => setDropdownOpen(false)}
-                        className="group flex flex-col gap-1 border border-border/40 bg-background/50 p-2.5 transition-all hover:border-primary/50 hover:bg-surface-raised"
-                      >
-                        <div className="flex items-center justify-between font-mono text-xs">
-                          <span className="font-bold text-foreground group-hover:text-primary flex items-center gap-2">
-                            <span className="text-base">{mod.icon}</span>
-                            {mod.label}
-                          </span>
-                          {mod.badge && (
-                            <span className="text-[9px] border border-primary/30 bg-primary/10 px-1.5 py-0.5 text-primary tracking-widest">
-                              {mod.badge}
-                            </span>
-                          )}
+                  <div className="mt-3 grid gap-4 md:grid-cols-3">
+                    {categories.map((cat) => (
+                      <div key={cat} className="space-y-2">
+                        <div className="font-mono text-[10px] font-bold uppercase tracking-wider text-primary/80 border-b border-border/40 pb-1">
+                          {cat}
                         </div>
-                        <p className="font-sans text-[11px] text-muted-foreground pl-8">
-                          {mod.desc}
-                        </p>
-                      </Link>
+                        <div className="flex flex-col gap-1.5">
+                          {NAV_MODULES.filter((m) => m.category === cat).map((mod) => (
+                            <Link
+                              key={mod.id}
+                              to={mod.href}
+                              onClick={() => setDropdownOpen(false)}
+                              className="group flex flex-col gap-1 border border-border/40 bg-background/50 p-2 transition-all hover:border-primary/50 hover:bg-surface-raised"
+                            >
+                              <div className="flex items-center justify-between font-mono text-[10.5px]">
+                                <span className="font-bold text-foreground group-hover:text-primary">
+                                  <span className="text-muted-foreground mr-1">[{mod.num}]</span>
+                                  {mod.label}
+                                </span>
+                                {mod.badge && (
+                                  <span className="text-[9px] border border-primary/30 bg-primary/10 px-1 py-0.5 text-primary">
+                                    {mod.badge}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="font-sans text-[10px] text-muted-foreground leading-tight">
+                                {mod.desc}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
 
@@ -252,20 +303,29 @@ export function Nav({
                 Explore
               </button>
                {dropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-[85vw] max-w-sm border border-border/90 bg-surface/95 p-3 shadow-2xl backdrop-blur-xl z-50">
-                   <div className="space-y-1.5">
-                    {NAV_MODULES.map((mod) => (
-                      <Link
-                        key={mod.id}
-                        to={mod.href}
-                        onClick={() => setDropdownOpen(false)}
-                        className="group flex flex-col gap-1 border border-border/40 bg-background/50 p-2 transition-all hover:border-primary/50 hover:bg-surface-raised"
-                      >
-                         <div className="flex items-center gap-2 font-mono text-[10.5px]">
-                            <span className="text-sm">{mod.icon}</span>
-                            <span className="font-bold text-foreground group-hover:text-primary">{mod.label}</span>
-                         </div>
-                      </Link>
+                <div className="absolute right-0 top-full mt-2 w-[85vw] max-w-sm border border-border/90 bg-surface/95 p-3 shadow-2xl backdrop-blur-xl z-50 overflow-y-auto max-h-[80vh]">
+                   <div className="space-y-3">
+                    {categories.map((cat) => (
+                      <div key={cat} className="space-y-1.5">
+                        <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-primary/80 border-b border-border/40 pb-1">
+                          {cat}
+                        </div>
+                        {NAV_MODULES.filter((m) => m.category === cat).map((mod) => (
+                          <Link
+                            key={mod.id}
+                            to={mod.href}
+                            onClick={() => setDropdownOpen(false)}
+                            className="group flex flex-col gap-0.5 border border-border/40 bg-background/50 p-1.5 transition-all hover:border-primary/50 hover:bg-surface-raised"
+                          >
+                             <div className="font-mono text-[10px] font-bold text-foreground group-hover:text-primary">
+                                {mod.label}
+                             </div>
+                             <p className="font-sans text-[9px] text-muted-foreground line-clamp-1">
+                                {mod.desc}
+                             </p>
+                          </Link>
+                        ))}
+                      </div>
                     ))}
                   </div>
                 </div>
