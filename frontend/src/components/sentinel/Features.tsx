@@ -193,9 +193,9 @@ export function Features({
                     <button
                       type="button"
                       onClick={() => onRunCli(activeFeature.cliCmd)}
-                      className="hover-glow border border-primary/70 bg-primary/20 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-primary hover:bg-primary/30"
+                      className="hover-glow border border-primary/70 bg-primary/20 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-primary hover:bg-primary/30 cursor-pointer"
                     >
-                      ▶ Run in CLI
+                      RUN IN CLI
                     </button>
                   )}
                 </div>

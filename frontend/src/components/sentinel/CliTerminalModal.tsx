@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SAMPLE_COMMANDS = [
   {
@@ -63,15 +63,40 @@ export function CliTerminalModal({
     initialCmd || SAMPLE_COMMANDS[0]!.cmd
   );
 
+  useEffect(() => {
+    if (isOpen) {
+      const cmdToRun = initialCmd || SAMPLE_COMMANDS[0]!.cmd;
+      setInputVal(cmdToRun);
+
+      const keyword = cmdToRun.trim().split(" ")[1]?.toLowerCase() || "";
+      const match = SAMPLE_COMMANDS.find((c) =>
+        c.cmd.toLowerCase().includes(keyword)
+      );
+
+      if (match) {
+        setActiveOutput(match.output);
+      } else {
+        setActiveOutput(
+          `[+] Executing CLI Command: ${cmdToRun}\n[+] Initializing eBPF telemetry tap on interface eth0...\n[+] Ingesting packet headers & extracting statistical features...\n[+] Executed successfully with status 0.`
+        );
+      }
+    }
+  }, [isOpen, initialCmd]);
+
   if (!isOpen) return null;
 
   const handleRun = (cmdStr: string) => {
     setInputVal(cmdStr);
-    const match = SAMPLE_COMMANDS.find((c) => c.cmd.includes(cmdStr.trim().split(" ")[1] || ""));
+    const keyword = cmdStr.trim().split(" ")[1]?.toLowerCase() || "";
+    const match = SAMPLE_COMMANDS.find((c) =>
+      c.cmd.toLowerCase().includes(keyword)
+    );
     if (match) {
       setActiveOutput(match.output);
     } else {
-      setActiveOutput(`[+] Executing: ${cmdStr}\n[+] Running analysis pipeline...\n[*] Completed with status 0.`);
+      setActiveOutput(
+        `[+] Executing: ${cmdStr}\n[+] Ingesting packet headers & running pipeline...\n[*] Completed with status 0.`
+      );
     }
   };
 
