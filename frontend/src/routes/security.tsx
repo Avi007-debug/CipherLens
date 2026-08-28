@@ -73,8 +73,8 @@ function SecurityPage() {
                 <strong className="text-primary">+52 pts Remediation</strong>
               </div>
               <div className="border border-border bg-background/80 px-3 py-1.5">
-                <span className="text-muted-foreground mr-2">PQC TRANSITION:</span>
-                <strong className="text-teal-300">CNSA 2.0 / FIPS 203</strong>
+                <span className="text-muted-foreground mr-2">PQC TARGET:</span>
+                <strong className="text-primary font-bold">CNSA 2.0 / FIPS 203</strong>
               </div>
             </div>
           </div>

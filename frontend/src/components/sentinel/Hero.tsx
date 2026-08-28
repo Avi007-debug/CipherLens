@@ -321,7 +321,7 @@ export function Hero() {
           <div className="grid grid-cols-4 border-b border-border/70 bg-background/60 px-4 py-2 font-mono text-[10.5px] text-muted-foreground">
             <div>
               <span className="block text-[9px] uppercase tracking-wider">TAP DEV</span>
-              <span className="text-slate-200 font-semibold">eth0 (PROMISC)</span>
+              <span className="text-foreground font-semibold">eth0 (PROMISC)</span>
             </div>
             <div>
               <span className="block text-[9px] uppercase tracking-wider">FRAMES</span>
@@ -329,11 +329,11 @@ export function Hero() {
             </div>
             <div>
               <span className="block text-[9px] uppercase tracking-wider">THROUGHPUT</span>
-              <span className="text-slate-200 font-semibold">142.4 Mbps</span>
+              <span className="text-foreground font-semibold">142.4 Mbps</span>
             </div>
             <div>
               <span className="block text-[9px] uppercase tracking-wider">ZERO-DECRYPT</span>
-              <span className="text-teal-300 font-semibold">OPAQUE (100%)</span>
+              <span className="text-primary font-bold">OPAQUE (100%)</span>
             </div>
           </div>
 

@@ -151,7 +151,7 @@ export function PcapUploadModal({
                       <span className="font-bold text-foreground">{sample.name}</span>
                       <span className="text-[10px] text-muted-foreground">({sample.size})</span>
                     </div>
-                    <p className="text-[10.5px] text-slate-300 font-sans mt-0.5">{sample.desc}</p>
+                    <p className="text-[10.5px] text-foreground/90 font-sans mt-0.5 font-medium">{sample.desc}</p>
                   </div>
                   <button
                     type="button"
@@ -205,7 +205,7 @@ export function PcapUploadModal({
                 </div>
               </div>
 
-              <div className="border-t border-border/50 pt-2 text-teal-300 text-[10.5px]">
+              <div className="border-t border-border/50 pt-2 text-primary font-bold text-[10.5px]">
                 <strong>NIST SP 800-77 Finding:</strong> {analysisResult.finding}
               </div>
             </div>

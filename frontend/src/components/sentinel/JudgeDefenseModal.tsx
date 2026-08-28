@@ -266,7 +266,7 @@ export function JudgeDefenseModal({
                               {item.category}
                             </span>
                             {item.rfc && (
-                              <span className="text-[9.5px] text-teal-300/80">
+                              <span className="text-[9.5px] text-primary font-semibold">
                                 · {item.rfc}
                               </span>
                             )}
@@ -282,7 +282,7 @@ export function JudgeDefenseModal({
 
                       {isExpanded && (
                         <div className="border-t border-border/60 p-4 pt-3 bg-background/40">
-                          <p className="text-slate-200 font-sans text-xs sm:text-sm leading-relaxed">
+                          <p className="text-foreground/90 font-sans text-xs sm:text-sm leading-relaxed">
                             {item.answer}
                           </p>
                         </div>
@@ -306,7 +306,7 @@ export function JudgeDefenseModal({
                 <span>Evaluation Category</span>
                 <span>Audit Benchmark Target</span>
               </div>
-              <div className="flex justify-between border-b border-border/40 pb-2.5 text-slate-200">
+              <div className="flex justify-between border-b border-border/40 pb-2.5 text-foreground/90">
                 <div>
                   <strong className="block text-foreground text-sm">1. Working Live Wire Capture & Handshake Parser</strong>
                   <span className="text-muted-foreground font-sans text-xs">
@@ -315,7 +315,7 @@ export function JudgeDefenseModal({
                 </div>
                 <span className="font-bold text-primary text-sm">100% Deterministic</span>
               </div>
-              <div className="flex justify-between border-b border-border/40 pb-2.5 text-slate-200">
+              <div className="flex justify-between border-b border-border/40 pb-2.5 text-foreground/90">
                 <div>
                   <strong className="block text-foreground text-sm">2. AI/ML Authenticity & Zero-Decryption Side Channels</strong>
                   <span className="text-muted-foreground font-sans text-xs">
@@ -324,7 +324,7 @@ export function JudgeDefenseModal({
                 </div>
                 <span className="font-bold text-primary text-sm">&gt;98% F1 Score</span>
               </div>
-              <div className="flex justify-between border-b border-border/40 pb-2.5 text-slate-200">
+              <div className="flex justify-between border-b border-border/40 pb-2.5 text-foreground/90">
                 <div>
                   <strong className="block text-foreground text-sm">3. Security Innovation & Attack Replay Sandbox</strong>
                   <span className="text-muted-foreground font-sans text-xs">
@@ -333,7 +333,7 @@ export function JudgeDefenseModal({
                 </div>
                 <span className="font-bold text-primary text-sm">CNSA 2.0 Aligned</span>
               </div>
-              <div className="flex justify-between border-b border-border/40 pb-2.5 text-slate-200">
+              <div className="flex justify-between border-b border-border/40 pb-2.5 text-foreground/90">
                 <div>
                   <strong className="block text-foreground text-sm">4. Verifiable Blockchain Ledger Audit Trail</strong>
                   <span className="text-muted-foreground font-sans text-xs">
@@ -342,7 +342,7 @@ export function JudgeDefenseModal({
                 </div>
                 <span className="font-bold text-primary text-sm">zk-SNARK Proven</span>
               </div>
-              <div className="flex justify-between pt-2 text-teal-300 font-bold text-base border-t border-primary/50">
+              <div className="flex justify-between pt-2 text-primary font-bold text-base border-t border-primary/50">
                 <span>POSTURE COMPLIANCE:</span>
                 <span>NIST SP 800-77r1 CERTIFIED</span>
               </div>
@@ -356,23 +356,23 @@ export function JudgeDefenseModal({
                   <span>CVE-2002-1623: IKEv1 Aggressive Mode Hash Extraction</span>
                   <span className="text-xs border border-destructive/40 bg-destructive/10 px-2 py-0.5">CRITICAL</span>
                 </div>
-                <p className="mt-1.5 text-slate-200 font-sans text-xs sm:text-sm">
+                <p className="mt-1.5 text-foreground font-sans text-xs sm:text-sm">
                   <strong>Risk:</strong> Cleartext responder hash allows offline dictionary cracking of weak PSKs.
                 </p>
-                <p className="mt-1 text-teal-300 font-sans text-xs sm:text-sm">
+                <p className="mt-1 text-primary font-sans text-xs sm:text-sm font-semibold">
                   <strong>CipherLens Fix:</strong> Migrate to strict IKEv2 Main Mode with mutual ECDSA X.509 certificates.
                 </p>
               </div>
 
               <div className="border border-border/80 bg-background/60 p-4">
-                <div className="flex justify-between text-amber-400 font-bold text-sm">
+                <div className="flex justify-between text-amber-500 font-bold text-sm">
                   <span>CVE-2016-2183: Sweet32 64-bit Block Cipher Collision</span>
-                  <span className="text-xs border border-amber-400/40 bg-amber-500/10 px-2 py-0.5">HIGH</span>
+                  <span className="text-xs border border-amber-500/40 bg-amber-500/10 px-2 py-0.5">HIGH</span>
                 </div>
-                <p className="mt-1.5 text-slate-200 font-sans text-xs sm:text-sm">
+                <p className="mt-1.5 text-foreground font-sans text-xs sm:text-sm">
                   <strong>Risk:</strong> 3DES-CBC collisions occur after 32GB of data under the same key.
                 </p>
-                <p className="mt-1 text-teal-300 font-sans text-xs sm:text-sm">
+                <p className="mt-1 text-primary font-sans text-xs sm:text-sm font-semibold">
                   <strong>CipherLens Fix:</strong> Enforce 128-bit block ciphers (AES-256-GCM / ChaCha20-Poly1305).
                 </p>
               </div>
@@ -382,10 +382,10 @@ export function JudgeDefenseModal({
                   <span>HNDL Quantum Exposure: Classical MODP DH Groups</span>
                   <span className="text-xs border border-destructive/40 bg-destructive/10 px-2 py-0.5">RETROSPECTIVE</span>
                 </div>
-                <p className="mt-1.5 text-slate-200 font-sans text-xs sm:text-sm">
+                <p className="mt-1.5 text-foreground font-sans text-xs sm:text-sm">
                   <strong>Risk:</strong> Adversaries archive encrypted sessions today to decrypt once quantum computers arrive.
                 </p>
-                <p className="mt-1 text-teal-300 font-sans text-xs sm:text-sm">
+                <p className="mt-1 text-primary font-sans text-xs sm:text-sm font-semibold">
                   <strong>CipherLens Fix:</strong> Deploy RFC 8784 PPK or hybrid ML-KEM-768 (Kyber) key exchanges.
                 </p>
               </div>

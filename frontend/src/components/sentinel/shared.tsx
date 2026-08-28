@@ -83,7 +83,7 @@ export function StatusBadge({
       color = "text-primary border-primary/50 bg-primary/10 shadow-[0_0_12px_rgba(20,184,166,0.15)]";
       break;
     case "ACTIVE":
-      color = "text-teal-300 border-teal-500/50 bg-teal-950/40";
+      color = "text-primary border-primary/60 bg-primary/15 font-bold";
       break;
     default:
       break;
@@ -107,8 +107,8 @@ export function MonospaceHash({
 }) {
   return (
     <div className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground">
-      {label ? <span className="text-primary/70">{label}:</span> : null}
-      <span className="text-slate-300 select-all">{hash}</span>
+      {label ? <span className="text-primary font-semibold">{label}:</span> : null}
+      <span className="text-foreground font-mono font-medium select-all">{hash}</span>
     </div>
   );
 }

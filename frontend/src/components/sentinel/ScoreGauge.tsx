@@ -140,7 +140,7 @@ export function ScoreGauge() {
             </div>
             <div className="flex justify-between">
               <span>COMPLIANCE SPEC:</span>
-              <span className="text-slate-200 font-semibold">NIST SP 800-77r1</span>
+              <span className="text-foreground font-semibold">NIST SP 800-77r1</span>
             </div>
             <div className="flex justify-between">
               <span>HNDL RISK WINDOW:</span>
@@ -177,7 +177,7 @@ export function ScoreGauge() {
 
                   <div className="flex items-center gap-2">
                     {remediated ? (
-                      <span className="text-xs text-teal-300 font-bold bg-primary/10 border border-primary/40 px-1.5 py-0.5">
+                      <span className="text-xs text-primary font-bold bg-primary/10 border border-primary/40 px-1.5 py-0.5">
                         +{delta} Δ
                       </span>
                     ) : null}
@@ -204,11 +204,11 @@ export function ScoreGauge() {
                 {/* Technical Note / Remediation Directive */}
                 <div className="mt-2.5 text-xs leading-relaxed">
                   {!remediated ? (
-                    <p className="text-destructive/90 font-mono">
+                    <p className="text-destructive font-mono font-medium">
                       <span className="font-bold text-destructive">Finding:</span> {row.note}
                     </p>
                   ) : (
-                    <p className="text-teal-300 font-mono">
+                    <p className="text-foreground font-mono font-medium">
                       <span className="font-bold text-primary">Remediated:</span> {row.fix}
                     </p>
                   )}

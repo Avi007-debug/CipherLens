@@ -73,8 +73,8 @@ function AuditPage() {
                 <strong className="text-primary">Groth16 zk-SNARK</strong>
               </div>
               <div className="border border-border bg-background/80 px-3 py-1.5">
-                <span className="text-muted-foreground mr-2">TREE TYPE:</span>
-                <strong className="text-teal-300">SHA-256 Merkle Root</strong>
+                <span className="text-muted-foreground mr-2">INTEGRITY:</span>
+                <strong className="text-primary font-bold">SHA-256 Merkle Root</strong>
               </div>
             </div>
           </div>

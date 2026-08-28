@@ -173,7 +173,7 @@ export function Features({
                     <span className="text-muted-foreground block text-[10.5px] uppercase tracking-wider mb-1">
                       Mathematical Signal Formulation / Cryptographic Specification:
                     </span>
-                    <code className="text-teal-300 text-sm font-semibold block overflow-x-auto py-1">
+                    <code className="text-primary text-sm font-bold block overflow-x-auto py-1">
                       {activeFeature.math}
                     </code>
                   </div>
@@ -187,7 +187,7 @@ export function Features({
                 <div className="flex flex-wrap items-center justify-between gap-3 rounded border border-border bg-background/90 p-3 font-mono text-xs">
                   <div className="flex items-center gap-2 overflow-x-auto">
                     <span className="text-primary font-bold">$</span>
-                    <code className="text-teal-300 font-semibold">{activeFeature.cliCmd}</code>
+                    <code className="text-primary font-bold">{activeFeature.cliCmd}</code>
                   </div>
                   {onRunCli && (
                     <button

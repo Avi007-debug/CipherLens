@@ -336,7 +336,7 @@ export function Nav({
                   </div>
 
                   <div className="mt-3.5 flex items-center justify-between border-t border-border/70 pt-2.5 font-mono text-[10px] text-muted-foreground">
-                    <span className="text-slate-400">NTRO PS 26160 Security Suite</span>
+                    <span className="text-foreground/90 font-semibold">NTRO PS 26160 Security Suite</span>
                     <button
                       type="button"
                       onClick={() => setDropdownOpen(false)}

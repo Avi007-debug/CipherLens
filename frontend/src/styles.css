@@ -34,15 +34,21 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-warn: var(--warn);
+  --color-success: var(--success);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-gdg-blue: var(--gdg-blue);
+  --color-gdg-red: var(--gdg-red);
+  --color-gdg-yellow: var(--gdg-yellow);
+  --color-gdg-green: var(--gdg-green);
 }
 
 :root {
+  color-scheme: dark;
   --radius: 0.25rem;
   --font-ui:
     "Space Grotesk", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -71,6 +77,7 @@
   --destructive: oklch(0.56 0.17 27);
   --destructive-foreground: oklch(0.96 0.01 250);
   --warn: oklch(0.79 0.15 78);
+  --success: oklch(0.68 0.18 145);
 
   --border: oklch(0.3 0.03 260);
   --border-strong: oklch(0.42 0.05 210);
@@ -84,46 +91,46 @@
   --gdg-green: #34A853;
 }
 
-/* --- Light Mode: GDG Enterprise Cybersecurity Aesthetic --- */
+/* --- Light Mode: GDG Enterprise Cybersecurity Aesthetic (Ultra High-Contrast) --- */
 html.light,
 [data-theme="light"] {
   color-scheme: light;
 
   --background: oklch(0.985 0.005 250);      /* Crisp Slate-50 #F8FAFC */
-  --foreground: oklch(0.18 0.03 260);       /* Deep Slate-900 #0F172A */
+  --foreground: oklch(0.14 0.03 260);       /* Deep Slate-950 #020617 for bold, crisp text */
   --surface: oklch(1 0 0);                  /* Pure White Card #FFFFFF */
-  --surface-raised: oklch(0.965 0.008 250); /* Tech Slate #F1F5F9 */
+  --surface-raised: oklch(0.96 0.008 250);  /* Tech Slate #F1F5F9 */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.03 260);
+  --card-foreground: oklch(0.14 0.03 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.03 260);
+  --popover-foreground: oklch(0.14 0.03 260);
 
-  /* GDG Google Blue as Primary Cyber Accent */
-  --primary: oklch(0.58 0.20 255);          /* GDG Blue #1A73E8 / #4285F4 */
+  /* Deep High-Contrast Google/GDG Cobalt Blue (WCAG AAA > 7.5:1 on white) */
+  --primary: oklch(0.44 0.24 260);          /* Deep Electric Cobalt #1558D6 */
   --primary-foreground: oklch(1 0 0);
-  --primary-deep: oklch(0.46 0.22 258);     /* Deep Cobalt #1557B0 */
+  --primary-deep: oklch(0.36 0.22 260);     /* Navy Cobalt #0D47A1 */
 
-  --secondary: oklch(0.94 0.012 250);
-  --secondary-foreground: oklch(0.20 0.03 260);
+  --secondary: oklch(0.93 0.015 250);
+  --secondary-foreground: oklch(0.14 0.03 260);
   --muted: oklch(0.94 0.008 250);
-  --muted-foreground: oklch(0.45 0.025 260); /* High-contrast Slate-600 #475569 */
-  --accent: oklch(0.93 0.03 245);
-  --accent-foreground: oklch(0.20 0.03 260);
+  --muted-foreground: oklch(0.32 0.03 260); /* High-contrast Deep Slate-700 #334155 */
+  --accent: oklch(0.92 0.03 250);
+  --accent-foreground: oklch(0.14 0.03 260);
 
   /* GDG Google Red for Critical Findings */
-  --destructive: oklch(0.55 0.22 25);       /* GDG Red #D93025 / #EA4335 */
+  --destructive: oklch(0.50 0.24 25);       /* Deep Crimson Red #C5221F */
   --destructive-foreground: oklch(1 0 0);
 
-  /* GDG Google Yellow/Amber for Warnings */
-  --warn: oklch(0.72 0.18 75);              /* GDG Yellow #F9AB00 / #FBBC04 */
+  /* GDG Google Amber for Warnings */
+  --warn: oklch(0.60 0.20 70);              /* Deep Amber #B06000 */
 
   /* GDG Google Green for Hardened Posture */
-  --success: oklch(0.58 0.18 145);          /* GDG Green #1E8E3E / #34A853 */
+  --success: oklch(0.48 0.20 145);          /* Deep Forest Green #137333 */
 
-  --border: oklch(0.88 0.01 250);           /* Clean Slate-200 #E2E8F0 */
-  --border-strong: oklch(0.78 0.025 250);   /* Slate-300 #CBD5E1 */
-  --input: oklch(0.88 0.01 250);
-  --ring: oklch(0.58 0.20 255);
+  --border: oklch(0.85 0.015 250);          /* Crisp Slate-300 #CBD5E1 */
+  --border-strong: oklch(0.70 0.035 250);   /* Slate-400 #94A3B8 */
+  --input: oklch(0.85 0.015 250);
+  --ring: oklch(0.44 0.24 260);
 }
 
 @layer base {
@@ -208,6 +215,7 @@ html.light,
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--primary);
+  font-weight: 700;
 }
 
 @utility panel {

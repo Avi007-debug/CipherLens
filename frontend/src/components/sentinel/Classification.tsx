@@ -53,7 +53,7 @@ export function Classification() {
           <div className="flex items-center gap-3">
             <span className="text-primary font-bold">FLOW: {activeScenario.protocol}</span>
             <span className="text-border">|</span>
-            <span>SAMPLE: <code className="text-slate-300">{activeScenario.pcapSample}</code></span>
+            <span>SAMPLE: <code className="text-foreground font-semibold">{activeScenario.pcapSample}</code></span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -125,7 +125,7 @@ export function Classification() {
                 </div>
               </div>
 
-              <p className="mt-4 text-sm leading-relaxed text-slate-200">
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 {activeScenario.hint}
               </p>
             </div>
@@ -170,7 +170,7 @@ export function Classification() {
                   return (
                     <div key={feat.name} className="space-y-1.5 font-mono">
                       <div className="flex items-center justify-between gap-3 text-xs sm:text-sm">
-                        <span className="font-semibold text-slate-200">
+                        <span className="font-semibold text-foreground">
                           {feat.name.replace(/_/g, " ")}
                         </span>
                         <div className="flex items-center gap-2.5">
@@ -209,7 +209,7 @@ export function Classification() {
             <div className="mt-5 border-t border-border/70 pt-3 font-mono text-xs text-muted-foreground">
               <p className="leading-relaxed">
                 <strong className="text-primary font-semibold">Mathematical Formulation:</strong> Shapley value{" "}
-                <code className="text-teal-300 bg-background px-1 py-0.5 border border-border">φᵢ(v) = ∑ [|S|!(|N|-|S|-1)! / |N|!] · [v(S ∪ {"{i}"}) - v(S)]</code>{" "}
+                <code className="text-primary font-bold bg-background px-1 py-0.5 border border-border">φᵢ(v) = ∑ [|S|!(|N|-|S|-1)! / |N|!] · [v(S ∪ {"{i}"}) - v(S)]</code>{" "}
                 proves exact marginal contribution of each physical side-channel over the baseline expectation.
               </p>
             </div>

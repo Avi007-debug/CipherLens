@@ -45,7 +45,7 @@ export function BlockchainAudit() {
               <span className="text-[10px] uppercase text-primary font-bold block">
                 ANCHORED MERKLE ROOT (BLOCK #{LIVE_TELEMETRY.blockHeight})
               </span>
-              <p className="mt-1 font-mono text-[10.5px] text-teal-300 select-all truncate">
+              <p className="mt-1 font-mono text-[10.5px] text-primary font-bold select-all truncate">
                 {LIVE_TELEMETRY.merkleRoot}
               </p>
             </div>

@@ -150,10 +150,10 @@ export function AttackSandbox() {
 
               <div className="flex gap-4 text-xs text-muted-foreground">
                 <span>CVE: <strong className="text-destructive font-bold">{activeScenario.cve}</strong></span>
-                <span>VECTOR: <strong className="text-slate-200">{activeScenario.vector}</strong></span>
+                <span>VECTOR: <strong className="text-foreground font-semibold">{activeScenario.vector}</strong></span>
               </div>
 
-              <p className="text-slate-200 leading-relaxed font-sans text-xs sm:text-sm">
+              <p className="text-foreground/90 leading-relaxed font-sans text-xs sm:text-sm font-medium">
                 {activeScenario.description}
               </p>
 
@@ -236,7 +236,7 @@ export function AttackSandbox() {
                 value={customConfig}
                 onChange={(e) => setCustomConfig(e.target.value)}
                 rows={7}
-                className="w-full border border-border/80 bg-background/80 p-3 font-mono text-xs text-teal-300 outline-none focus:border-primary"
+                className="w-full border border-border/80 bg-background/80 p-3 font-mono text-xs text-primary font-bold outline-none focus:border-primary"
               />
             </div>
 
@@ -245,7 +245,7 @@ export function AttackSandbox() {
               <span className="text-primary font-bold block mb-1.5">
                 NIST SP 800-77 Evaluation Findings:
               </span>
-              <ul className="space-y-1 text-slate-200 list-disc list-inside font-sans text-xs">
+              <ul className="space-y-1 text-foreground list-disc list-inside font-sans text-xs">
                 {activePreset.findings.map((f, i) => (
                   <li key={i}>{f}</li>
                 ))}
