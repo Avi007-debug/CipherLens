@@ -185,11 +185,12 @@ Follow this curated sequence during your demo to showcase all capabilities seaml
 ### Feature 5: Attack-Replay Sandbox & Policy Diff Engine
 - **URL**: `http://localhost:5174/security#sandbox`
 - **What to show**:
-  1. Select **"CVE-2002-1623: IKEv1 Aggressive Mode PSK Crack"**.
-  2. Click **"Replay Exploit"** — watch the 4-stage terminal log simulate the attack steps (Handshake Intercept $\rightarrow$ Hash Extraction $\rightarrow$ Dictionary Attack $\rightarrow$ Key Recovery).
-  3. Below the sandbox, click through the **Policy Diff Presets** (Legacy Vulnerable vs Hardened CNSA 2.0) and observe the auto-remediation syntax.
+  1. Select **"IKEv1 Aggressive Mode PSK Interception (CVE-2002-1623)"**.
+  2. Click **"Replay Exploit in Sandbox"** — watch the 4-stage terminal log simulate the attack steps (*Handshake Intercept $\rightarrow$ Hash Extraction $\rightarrow$ Exploitation $\rightarrow$ Mitigation*).
+  3. At Step 4 of the simulation output, click **"Apply Hardened Patch (+52 pts)"** (or click through the **Policy Diff Presets** on the right panel).
+  4. Observe how the Policy Simulator dynamically populates the hardened `ipsec.conf` syntax and elevates the live posture score from **42/100 (HIGH_RISK)** to **94/100 (GOLD_STANDARD)**.
 - **What to explain**:
-  > *"Our sandbox proves the real-world risk of legacy configurations in an isolated environment and provides one-click `ipsec.conf` remediation snippets for immediate patch deployment."*
+  > *"Our sandbox proves the real-world risk of legacy configurations in an isolated environment and dynamically links exploit findings to copy-pasteable `ipsec.conf` remediation snippets for immediate patch deployment."*
 
 ---
 

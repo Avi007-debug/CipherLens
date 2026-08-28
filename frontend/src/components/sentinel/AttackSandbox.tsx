@@ -183,8 +183,20 @@ export function AttackSandbox() {
                     </div>
                   )}
                   {simStep >= 4 && (
-                    <div className="text-primary font-bold border-t border-border/60 pt-1.5">
-                      [CIPHERLENS MITIGATION]: {activeScenario.remediation}
+                    <div className="border-t border-border/60 pt-2 space-y-2">
+                      <div className="text-primary font-bold">
+                        [CIPHERLENS MITIGATION]: {activeScenario.remediation}
+                      </div>
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="text-[10px] text-muted-foreground">Auto-remediation snippet ready:</span>
+                        <button
+                          type="button"
+                          onClick={() => handleSelectPreset("preset-cnsa-pqc")}
+                          className="border border-primary bg-primary/20 hover:bg-primary/30 text-primary font-mono text-[10.5px] font-bold px-2.5 py-1 uppercase tracking-wider transition-all cursor-pointer"
+                        >
+                          Apply Hardened Patch (+52 pts)
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
