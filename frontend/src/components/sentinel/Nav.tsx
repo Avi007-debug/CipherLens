@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { PROJECT, LIVE_TELEMETRY } from "@/data/sentinel";
 import { isSupabaseConfigured } from "@/lib/supabase";
 
 interface NavModule {
   id: string;
-  href: string;
+  to: "/" | "/security" | "/zero-decrypt" | "/capabilities" | "/audit" | "/qa";
+  hash?: string;
   num: string;
   label: string;
   category: "Core Intelligence" | "Defense & Simulation" | "Architecture & Verification";
@@ -16,7 +17,8 @@ interface NavModule {
 const NAV_MODULES: NavModule[] = [
   {
     id: "problem",
-    href: "/#problem",
+    to: "/",
+    hash: "problem",
     num: "01",
     label: "Problem & Context",
     category: "Core Intelligence",
@@ -24,7 +26,8 @@ const NAV_MODULES: NavModule[] = [
   },
   {
     id: "score",
-    href: "/security#score",
+    to: "/security",
+    hash: "score",
     num: "02",
     label: "Security Posture Score",
     category: "Core Intelligence",
@@ -33,7 +36,7 @@ const NAV_MODULES: NavModule[] = [
   },
   {
     id: "classify",
-    href: "/zero-decrypt",
+    to: "/zero-decrypt",
     num: "03",
     label: "Zero-Decrypt ESP Fingerprint",
     category: "Core Intelligence",
@@ -42,7 +45,8 @@ const NAV_MODULES: NavModule[] = [
   },
   {
     id: "features",
-    href: "/capabilities",
+    to: "/capabilities",
+    hash: "features",
     num: "04",
     label: "Platform Capabilities",
     category: "Defense & Simulation",
@@ -50,7 +54,8 @@ const NAV_MODULES: NavModule[] = [
   },
   {
     id: "pipeline",
-    href: "/capabilities#pipeline",
+    to: "/capabilities",
+    hash: "pipeline",
     num: "05",
     label: "5-Layer Architecture",
     category: "Defense & Simulation",
@@ -58,7 +63,8 @@ const NAV_MODULES: NavModule[] = [
   },
   {
     id: "pqc",
-    href: "/security#pqc",
+    to: "/security",
+    hash: "pqc",
     num: "06",
     label: "PQC & HNDL Matrix",
     category: "Defense & Simulation",
@@ -67,7 +73,8 @@ const NAV_MODULES: NavModule[] = [
   },
   {
     id: "sandbox",
-    href: "/security#sandbox",
+    to: "/security",
+    hash: "sandbox",
     num: "07",
     label: "Attack-Replay Sandbox",
     category: "Architecture & Verification",
@@ -75,7 +82,8 @@ const NAV_MODULES: NavModule[] = [
   },
   {
     id: "ledger",
-    href: "/audit#ledger",
+    to: "/audit",
+    hash: "ledger",
     num: "08",
     label: "Blockchain Merkle Ledger",
     category: "Architecture & Verification",
@@ -84,7 +92,8 @@ const NAV_MODULES: NavModule[] = [
   },
   {
     id: "roadmap",
-    href: "/audit#roadmap",
+    to: "/audit",
+    hash: "roadmap",
     num: "09",
     label: "Engineering Roadmap",
     category: "Architecture & Verification",
@@ -103,9 +112,29 @@ export function Nav({
   onOpenPcap?: () => void;
   onOpenSupabase?: () => void;
 }) {
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const desktopDropdownRef = useRef<HTMLDivElement | null>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const handleNavClick = (e: React.MouseEvent, mod: NavModule) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDropdownOpen(false);
+    navigate({ to: mod.to }).then(() => {
+      if (mod.hash) {
+        setTimeout(() => {
+          const el = document.getElementById(mod.hash!);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+  };
 
   // Group modules by category
   const categories = Array.from(new Set(NAV_MODULES.map((m) => m.category)));
@@ -113,7 +142,10 @@ export function Nav({
   // Close dropdown on outside click or escape
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      const isInsideDesktop = desktopDropdownRef.current?.contains(target);
+      const isInsideMobile = mobileDropdownRef.current?.contains(target);
+      if (!isInsideDesktop && !isInsideMobile) {
         setDropdownOpen(false);
       }
     };
@@ -209,7 +241,7 @@ export function Nav({
 
           {/* Absolute Centered Explore Modules Dropdown */}
           <div className="hidden lg:flex absolute inset-x-0 top-0 bottom-0 items-center justify-center pointer-events-none">
-            <div className="relative pointer-events-auto" ref={dropdownRef}>
+            <div className="relative pointer-events-auto" ref={desktopDropdownRef}>
               <button
                 type="button"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -231,7 +263,7 @@ export function Nav({
 
               {/* Centered Dropdown Menu Overlay */}
               {dropdownOpen && (
-                <div className="absolute left-1/2 top-full mt-2 w-[92vw] max-w-3xl -translate-x-1/2 border border-border/90 bg-surface/95 p-4 shadow-2xl backdrop-blur-xl">
+                <div className="absolute left-1/2 top-full mt-2 w-[92vw] max-w-3xl -translate-x-1/2 border border-border/90 bg-surface/95 p-4 shadow-2xl backdrop-blur-xl z-50 pointer-events-auto">
                   <div className="flex items-center justify-between border-b border-border/70 pb-2.5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
                     <span className="flex items-center gap-2 text-primary font-bold">
                       <span className="h-2 w-2 bg-primary" />
@@ -250,9 +282,9 @@ export function Nav({
                           {NAV_MODULES.filter((m) => m.category === cat).map((mod) => (
                             <a
                               key={mod.id}
-                              href={mod.href}
-                              onClick={() => setDropdownOpen(false)}
-                              className="group flex flex-col gap-1 border border-border/40 bg-background/50 p-2 transition-all hover:border-primary/50 hover:bg-surface-raised"
+                              href={mod.hash ? `${mod.to}#${mod.hash}` : mod.to}
+                              onClick={(e) => handleNavClick(e, mod)}
+                              className="group flex flex-col gap-1 border border-border/40 bg-background/50 p-2 transition-all hover:border-primary/50 hover:bg-surface-raised cursor-pointer"
                             >
                               <div className="flex items-center justify-between font-mono text-[10.5px]">
                                 <span className="font-bold text-foreground group-hover:text-primary">
@@ -293,7 +325,7 @@ export function Nav({
           {/* Action CTAs (Right aligned) & Mobile Dropdown Fallback */}
           <div className="flex items-center gap-2 z-10">
             {/* Mobile Explore Dropdown Trigger (visible only on small screens) */}
-            <div className="lg:hidden relative" ref={dropdownRef}>
+            <div className="lg:hidden relative" ref={mobileDropdownRef}>
                <button
                 type="button"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -313,9 +345,9 @@ export function Nav({
                         {NAV_MODULES.filter((m) => m.category === cat).map((mod) => (
                           <a
                             key={mod.id}
-                            href={mod.href}
-                            onClick={() => setDropdownOpen(false)}
-                            className="group flex flex-col gap-0.5 border border-border/40 bg-background/50 p-1.5 transition-all hover:border-primary/50 hover:bg-surface-raised"
+                            href={mod.hash ? `${mod.to}#${mod.hash}` : mod.to}
+                            onClick={(e) => handleNavClick(e, mod)}
+                            className="group flex flex-col gap-0.5 border border-border/40 bg-background/50 p-1.5 transition-all hover:border-primary/50 hover:bg-surface-raised cursor-pointer"
                           >
                              <div className="font-mono text-[10px] font-bold text-foreground group-hover:text-primary">
                                 {mod.label}

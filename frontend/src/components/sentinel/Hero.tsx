@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { PROJECT, LIVE_TELEMETRY } from "@/data/sentinel";
 
 type Node = {
@@ -211,22 +212,26 @@ export function Hero() {
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <a
                 href="#explore"
-                className="hover-glow inline-flex items-center gap-2 border border-primary/70 bg-primary/15 px-5 py-3 font-mono text-xs uppercase tracking-[0.16em] text-primary font-bold shadow-[0_0_15px_rgba(20,184,166,0.2)]"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("explore")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="hover-glow inline-flex items-center gap-2 border border-primary/70 bg-primary/15 px-5 py-3 font-mono text-xs uppercase tracking-[0.16em] text-primary font-bold shadow-[0_0_15px_rgba(20,184,166,0.2)] cursor-pointer"
               >
                 Explore Platform Modules
               </a>
-              <a
-                href="/zero-decrypt"
+              <Link
+                to="/zero-decrypt"
                 className="hover-glow inline-flex items-center gap-2 border border-border bg-surface px-5 py-3 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 hover:text-foreground font-semibold"
               >
                 Zero-Decrypt AI Lab
-              </a>
-              <a
-                href="/security"
+              </Link>
+              <Link
+                to="/security"
                 className="hover-glow inline-flex items-center gap-2 border border-border bg-surface/60 px-4 py-3 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-primary"
               >
                 Enter Threat Sandbox
-              </a>
+              </Link>
             </div>
           </div>
 
