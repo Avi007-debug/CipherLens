@@ -62,6 +62,7 @@ export function CliTerminalModal({
   const [inputVal, setInputVal] = useState<string>(
     initialCmd || SAMPLE_COMMANDS[0]!.cmd
   );
+  const [isExecuting, setIsExecuting] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -86,18 +87,29 @@ export function CliTerminalModal({
   if (!isOpen) return null;
 
   const handleRun = (cmdStr: string) => {
+    if (!cmdStr.trim()) return;
     setInputVal(cmdStr);
-    const keyword = cmdStr.trim().split(" ")[1]?.toLowerCase() || "";
-    const match = SAMPLE_COMMANDS.find((c) =>
-      c.cmd.toLowerCase().includes(keyword)
-    );
-    if (match) {
-      setActiveOutput(match.output);
-    } else {
-      setActiveOutput(
-        `[+] Executing: ${cmdStr}\n[+] Ingesting packet headers & running pipeline...\n[*] Completed with status 0.`
+    setIsExecuting(true);
+
+    setTimeout(() => {
+      const keyword = cmdStr.trim().split(" ")[1]?.toLowerCase() || "";
+      const match = SAMPLE_COMMANDS.find((c) =>
+        c.cmd.toLowerCase().includes(keyword)
       );
-    }
+
+      if (match) {
+        setActiveOutput(match.output);
+      } else if (cmdStr.toLowerCase().includes("help")) {
+        setActiveOutput(
+          `[CipherLens CLI Framework v2.4]\nUsage: cipherlens <command> [options]\n\nAvailable Commands:\n  scan      - Dissect IKEv1/IKEv2 control handshakes on interface\n  classify  - Execute zero-decryption ESP ML side-channel inference\n  xai       - Compute TreeSHAP marginal feature attributions\n  pqc       - Audit post-quantum cryptographic readiness (CNSA 2.0)\n  ledger    - Verify SHA-256 Merkle tree & zk-SNARK blockchain proof`
+        );
+      } else {
+        setActiveOutput(
+          `[+] Executing CLI Command: ${cmdStr}\n[+] Initializing eBPF socket ring buffer on interface eth0...\n[+] Dissecting IKE headers & extracting 14-feature statistical vector...\n[+] LightGBM Inference Verdict: Opaque ESP Stream (Confidence: 98.7%)\n[+] Merkle Root committed to Hyperledger Fabric Block #1840291\n[✓] Command completed successfully with Exit Code 0.`
+        );
+      }
+      setIsExecuting(false);
+    }, 350);
   };
 
   return (
@@ -161,9 +173,10 @@ export function CliTerminalModal({
           <button
             type="button"
             onClick={() => handleRun(inputVal)}
-            className="border border-primary/50 bg-primary/10 px-3 py-1 text-primary uppercase text-[11px] font-bold hover:bg-primary/20"
+            disabled={isExecuting}
+            className="border border-primary/70 bg-primary/20 px-3.5 py-1 text-primary uppercase text-[11px] font-bold hover:bg-primary/30 cursor-pointer disabled:opacity-50 transition-all"
           >
-            Execute
+            {isExecuting ? "EXECUTING..." : "EXECUTE"}
           </button>
         </div>
       </div>
