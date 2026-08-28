@@ -45,14 +45,14 @@ export function SupabaseSettingsModal({
           <button
             type="button"
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground text-sm font-bold"
+            className="border border-border/80 bg-surface px-2.5 py-1 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground cursor-pointer"
           >
-            ✕ Close
+            CLOSE
           </button>
         </div>
 
         <div className="p-6 space-y-4">
-          <div className="border border-border bg-background/60 p-3 text-[11px] text-slate-300 font-sans leading-relaxed">
+          <div className="border border-border bg-background/60 p-3 text-[11px] text-muted-foreground font-sans leading-relaxed">
             Connect your Supabase project to persist real-time IPsec assessment reports, ESP flow classifications, and attack sandbox logs in PostgreSQL.
           </div>
 
@@ -65,7 +65,7 @@ export function SupabaseSettingsModal({
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://your-project-ref.supabase.co"
-              className="w-full border border-border/80 bg-background/80 p-2.5 font-mono text-xs text-teal-300 outline-none focus:border-primary"
+              className="w-full border border-border/80 bg-background/80 p-2.5 font-mono text-xs text-primary outline-none focus:border-primary"
             />
           </div>
 
@@ -78,7 +78,7 @@ export function SupabaseSettingsModal({
               value={key}
               onChange={(e) => setKey(e.target.value)}
               placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-              className="w-full border border-border/80 bg-background/80 p-2.5 font-mono text-xs text-teal-300 outline-none focus:border-primary"
+              className="w-full border border-border/80 bg-background/80 p-2.5 font-mono text-xs text-primary outline-none focus:border-primary"
             />
           </div>
 
@@ -86,9 +86,9 @@ export function SupabaseSettingsModal({
             <button
               type="button"
               onClick={handleSave}
-              className="hover-glow w-full border border-primary/70 bg-primary/20 py-2.5 font-mono text-xs uppercase tracking-widest text-primary font-bold hover:bg-primary/30 transition-all"
+              className="hover-glow w-full border border-primary/70 bg-primary/20 py-2.5 font-mono text-xs uppercase tracking-widest text-primary font-bold hover:bg-primary/30 transition-all cursor-pointer"
             >
-              {saved ? "✓ Credentials Saved! Reloading..." : "Connect & Save to LocalStorage"}
+              {saved ? "CREDENTIALS SAVED! RELOADING..." : "Connect & Save to LocalStorage"}
             </button>
           </div>
 

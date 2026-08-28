@@ -162,46 +162,46 @@ export function JudgeDefenseModal({
           <button
             type="button"
             onClick={onClose}
-            className="hover-glow border border-border bg-surface px-2.5 py-1 text-muted-foreground hover:text-foreground text-xs font-bold"
+            className="border border-border/80 bg-surface px-2.5 py-1 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:border-destructive hover:text-destructive transition-colors cursor-pointer"
           >
-            ✕ Close [ESC]
+            CLOSE [ESC]
           </button>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="flex border-b border-border bg-background/60 text-xs">
+        {/* Modal Navigation Tabs */}
+        <div className="flex border-b border-border/80 bg-surface/50 font-mono text-xs overflow-x-auto">
           <button
             type="button"
             onClick={() => setActiveTab("qa")}
-            className={`px-5 py-2.5 uppercase tracking-wider transition-colors ${
+            className={`px-5 py-2.5 uppercase tracking-wider transition-colors cursor-pointer ${
               activeTab === "qa"
                 ? "border-b-2 border-primary bg-primary/10 text-primary font-bold shadow-inner"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            📚 Technical Q&A Directory ({QA_DATABASE.length})
+            [01] Technical Q&A Directory ({QA_DATABASE.length})
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("rubric")}
-            className={`px-5 py-2.5 uppercase tracking-wider transition-colors ${
+            className={`px-5 py-2.5 uppercase tracking-wider transition-colors cursor-pointer ${
               activeTab === "rubric"
                 ? "border-b-2 border-primary bg-primary/10 text-primary font-bold shadow-inner"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            📊 Security Evaluation Rubric
+            [02] Security Evaluation Rubric
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("exploits")}
-            className={`px-5 py-2.5 uppercase tracking-wider transition-colors ${
+            className={`px-5 py-2.5 uppercase tracking-wider transition-colors cursor-pointer ${
               activeTab === "exploits"
                 ? "border-b-2 border-primary bg-primary/10 text-primary font-bold shadow-inner"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            ⚡ Vulnerability & Exploit Matrix
+            [03] Vulnerability & Exploit Matrix
           </button>
         </div>
 

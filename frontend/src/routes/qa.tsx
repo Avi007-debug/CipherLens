@@ -194,7 +194,7 @@ function QaPage() {
 
                   {isOpen && (
                     <div className="border-t border-border/70 p-5 pt-3 bg-background/50">
-                      <p className="text-slate-200 font-sans text-sm leading-relaxed">
+                      <p className="text-foreground/90 font-sans text-sm leading-relaxed">
                         {item.a}
                       </p>
                     </div>

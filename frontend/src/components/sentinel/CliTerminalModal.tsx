@@ -92,9 +92,9 @@ export function CliTerminalModal({
           <button
             type="button"
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground text-sm font-bold"
+            className="border border-border/80 bg-surface px-2.5 py-1 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground cursor-pointer"
           >
-            ✕ Close
+            CLOSE
           </button>
         </div>
 
@@ -105,7 +105,7 @@ export function CliTerminalModal({
               key={i}
               type="button"
               onClick={() => handleRun(c.cmd)}
-              className="border border-border/80 bg-surface px-2.5 py-1 text-slate-300 hover:text-primary hover:border-primary/50 transition-colors whitespace-nowrap"
+              className="border border-border/80 bg-surface px-2.5 py-1 text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors whitespace-nowrap cursor-pointer"
             >
               {c.cmd.split(" ")[1]}
             </button>

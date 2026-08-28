@@ -89,9 +89,9 @@ export function PcapUploadModal({
           <button
             type="button"
             onClick={onClose}
-            className="text-muted-foreground hover:text-foreground text-sm font-bold"
+            className="border border-border/80 bg-surface px-2.5 py-1 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground cursor-pointer"
           >
-            ✕ Close
+            CLOSE
           </button>
         </div>
 

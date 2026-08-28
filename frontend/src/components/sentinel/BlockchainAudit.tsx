@@ -126,14 +126,14 @@ export function BlockchainAudit() {
               type="button"
               onClick={handleVerify}
               disabled={isVerifying}
-              className="hover-glow w-full border border-primary/70 bg-primary/15 py-2.5 font-mono text-xs uppercase tracking-widest text-primary font-bold hover:bg-primary/25 transition-all"
+              className="hover-glow w-full border border-primary/70 bg-primary/15 py-2.5 font-mono text-xs uppercase tracking-widest text-primary font-bold hover:bg-primary/25 transition-all cursor-pointer"
             >
-              {isVerifying ? "VERIFYING MERKLE PATH ON LEDGER..." : "✓ Re-Verify Cryptographic Proof"}
+              {isVerifying ? "VERIFYING MERKLE PATH ON LEDGER..." : "RE-VERIFY CRYPTOGRAPHIC PROOF"}
             </button>
 
             {isVerified && !isVerifying && (
-              <p className="mt-2 text-center text-[10.5px] text-primary">
-                ✓ Merkle inclusion path confirmed in Block #{LIVE_TELEMETRY.blockHeight}
+              <p className="mt-2 text-center text-[10.5px] text-primary font-mono font-semibold">
+                [VERIFIED] Merkle inclusion path confirmed in Block #{LIVE_TELEMETRY.blockHeight}
               </p>
             )}
           </div>

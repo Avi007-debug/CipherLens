@@ -42,11 +42,11 @@ export function PqcMatrix() {
                 <td className="p-4">
                   {row.quantumSafe ? (
                     <span className="inline-flex items-center gap-1 text-primary font-bold">
-                      <span>✓</span> YES (PQ)
+                      YES (PQ-SAFE)
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1 text-destructive font-bold">
-                      <span>✗</span> NO (Vulnerable)
+                      NO (VULNERABLE)
                     </span>
                   )}
                 </td>
