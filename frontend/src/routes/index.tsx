@@ -30,7 +30,6 @@ export const Route = createFileRoute("/")({
 const EXPLORE_PORTALS = [
   {
     to: "/zero-decrypt" as const,
-    icon: "🔬",
     badge: "Tier 1 Research",
     title: "Zero-Decryption AI Lab & XAI",
     desc: "Classify live encrypted ESP traffic via second-order timing, burst entropy, and packet size histograms with exact TreeSHAP feature attributions.",
@@ -39,7 +38,6 @@ const EXPLORE_PORTALS = [
   },
   {
     to: "/capabilities" as const,
-    icon: "⚡",
     badge: "10 Differentiators",
     title: "Capabilities & 5-Layer Architecture",
     desc: "Interactive technical capability explorer across research, operational tooling, and enterprise SIEM pipelines, backed by a 5-stage dataflow.",
@@ -48,7 +46,6 @@ const EXPLORE_PORTALS = [
   },
   {
     to: "/security" as const,
-    icon: "🛡",
     badge: "NIST SP 800-77",
     title: "Posture Scoring & Attack Sandbox",
     desc: "Benchmark 0–100 security scores with line-by-line RFC proof, replay CVE-2002-1623 exploits in a sandbox, and calculate PQC quantum exposure.",
@@ -57,7 +54,6 @@ const EXPLORE_PORTALS = [
   },
   {
     to: "/audit" as const,
-    icon: "📜",
     badge: "Hyperledger Fabric",
     title: "Blockchain Audit & Compliance",
     desc: "Anchor posture assessment reports as SHA-256 Merkle trees to permissioned ledgers with Groth16 zk-SNARK proof verification.",
@@ -128,7 +124,6 @@ function HomePage() {
                   <div>
                     <div className="flex items-center justify-between font-mono text-xs uppercase tracking-wider">
                       <div className="flex items-center gap-2">
-                        <span className="text-xl">{portal.icon}</span>
                         <span className="border border-primary/40 bg-primary/10 px-2 py-0.5 text-[10px] text-primary font-bold">
                           {portal.badge}
                         </span>
@@ -169,21 +164,21 @@ function HomePage() {
           onClick={() => setIsQaOpen(true)}
           className="hover-glow flex items-center gap-1.5 border border-primary/80 bg-primary/20 px-4 py-2.5 font-bold text-primary shadow-2xl backdrop-blur-md transition-all hover:scale-105"
         >
-          <span>★</span> Technical Q&A
+          Technical Q&A
         </button>
         <button
           type="button"
           onClick={() => setIsPcapOpen(true)}
           className="hover-glow hidden sm:flex items-center gap-1.5 border border-border bg-surface px-3.5 py-2.5 text-slate-300 shadow-xl backdrop-blur-md hover:text-foreground"
         >
-          <span>📁</span> PCAP
+          PCAP
         </button>
         <button
           type="button"
           onClick={() => handleOpenCliWithCmd()}
           className="hover-glow flex items-center gap-1.5 border border-border bg-surface px-3.5 py-2.5 text-slate-300 shadow-xl backdrop-blur-md hover:text-foreground"
         >
-          <span>&gt;_</span> CLI
+          CLI
         </button>
       </aside>
 

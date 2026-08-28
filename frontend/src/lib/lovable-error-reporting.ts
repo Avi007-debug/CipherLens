@@ -1,6 +1,6 @@
 // Runtime error handler for CipherLens
 export function reportRuntimeError(error: unknown, context: Record<string, unknown> = {}) {
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env["NODE_ENV"] !== "production") {
     console.error("[CipherLens Error]", error, context);
   }
 }

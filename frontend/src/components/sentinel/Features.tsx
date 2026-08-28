@@ -17,7 +17,7 @@ export function Features({
       : FEATURES.filter((f) => f.tier === selectedTier);
 
   const activeFeature =
-    FEATURES.find((f) => f.id === activeFeatureId) || FEATURES[0];
+    FEATURES.find((f) => f.id === activeFeatureId) ?? FEATURES[0]!;
 
   return (
     <Section id="features">

@@ -248,9 +248,9 @@ export function Nav({
                         </div>
                         <div className="flex flex-col gap-1.5">
                           {NAV_MODULES.filter((m) => m.category === cat).map((mod) => (
-                            <Link
+                            <a
                               key={mod.id}
-                              to={mod.href}
+                              href={mod.href}
                               onClick={() => setDropdownOpen(false)}
                               className="group flex flex-col gap-1 border border-border/40 bg-background/50 p-2 transition-all hover:border-primary/50 hover:bg-surface-raised"
                             >
@@ -268,7 +268,7 @@ export function Nav({
                               <p className="font-sans text-[10px] text-muted-foreground leading-tight">
                                 {mod.desc}
                               </p>
-                            </Link>
+                            </a>
                           ))}
                         </div>
                       </div>
@@ -311,9 +311,9 @@ export function Nav({
                           {cat}
                         </div>
                         {NAV_MODULES.filter((m) => m.category === cat).map((mod) => (
-                          <Link
+                          <a
                             key={mod.id}
-                            to={mod.href}
+                            href={mod.href}
                             onClick={() => setDropdownOpen(false)}
                             className="group flex flex-col gap-0.5 border border-border/40 bg-background/50 p-1.5 transition-all hover:border-primary/50 hover:bg-surface-raised"
                           >
@@ -323,7 +323,7 @@ export function Nav({
                              <p className="font-sans text-[9px] text-muted-foreground line-clamp-1">
                                 {mod.desc}
                              </p>
-                          </Link>
+                          </a>
                         ))}
                       </div>
                     ))}
@@ -338,7 +338,7 @@ export function Nav({
                 onClick={onOpenQa}
                 className="hover-glow inline-flex items-center gap-1.5 border border-primary/70 bg-primary/20 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-primary font-bold shadow-[0_0_12px_rgba(20,184,166,0.25)]"
               >
-                <span>★</span> Q&A
+                Q&A
               </button>
             )}
 
@@ -348,7 +348,7 @@ export function Nav({
                 onClick={onOpenPcap}
                 className="hover-glow hidden sm:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:text-foreground"
               >
-                <span>📁</span> PCAP
+                PCAP
               </button>
             )}
 
@@ -358,7 +358,7 @@ export function Nav({
                 onClick={onOpenCli}
                 className="hover-glow hidden md:inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:text-foreground"
               >
-                <span>&gt;_</span> CLI
+                CLI
               </button>
             ) : null}
           </div>

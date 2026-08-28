@@ -7,7 +7,7 @@ export function Classification() {
   const [isScanning, setIsScanning] = useState(false);
 
   const activeScenario =
-    TRAFFIC_SCENARIOS.find((s) => s.id === selectedId) || TRAFFIC_SCENARIOS[0];
+    TRAFFIC_SCENARIOS.find((s) => s.id === selectedId) ?? TRAFFIC_SCENARIOS[0]!;
 
   const handleSelectScenario = (id: string) => {
     setSelectedId(id);

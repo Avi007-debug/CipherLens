@@ -70,17 +70,17 @@ const POLICY_PRESETS = [
 ];
 
 export function AttackSandbox() {
-  const [selectedAtk, setSelectedAtk] = useState(ATTACK_SCENARIOS[0].id);
+  const [selectedAtk, setSelectedAtk] = useState(ATTACK_SCENARIOS[0]!.id);
   const [isSimulating, setIsSimulating] = useState(false);
   const [simStep, setSimStep] = useState<number>(0);
 
-  const [selectedPreset, setSelectedPreset] = useState(POLICY_PRESETS[0].id);
-  const [customConfig, setCustomConfig] = useState(POLICY_PRESETS[0].config);
+  const [selectedPreset, setSelectedPreset] = useState(POLICY_PRESETS[0]!.id);
+  const [customConfig, setCustomConfig] = useState(POLICY_PRESETS[0]!.config);
 
   const activeScenario =
-    ATTACK_SCENARIOS.find((a) => a.id === selectedAtk) || ATTACK_SCENARIOS[0];
+    ATTACK_SCENARIOS.find((a) => a.id === selectedAtk) ?? ATTACK_SCENARIOS[0]!;
   const activePreset =
-    POLICY_PRESETS.find((p) => p.id === selectedPreset) || POLICY_PRESETS[0];
+    POLICY_PRESETS.find((p) => p.id === selectedPreset) ?? POLICY_PRESETS[0]!;
 
   const handleSelectPreset = (id: string) => {
     setSelectedPreset(id);

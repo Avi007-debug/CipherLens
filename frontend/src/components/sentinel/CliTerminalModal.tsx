@@ -54,13 +54,13 @@ export function CliTerminalModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  initialCmd?: string;
+  initialCmd?: string | undefined;
 }) {
   const [activeOutput, setActiveOutput] = useState<string>(
-    SAMPLE_COMMANDS[0].output
+    SAMPLE_COMMANDS[0]!.output
   );
   const [inputVal, setInputVal] = useState<string>(
-    initialCmd || SAMPLE_COMMANDS[0].cmd
+    initialCmd || SAMPLE_COMMANDS[0]!.cmd
   );
 
   if (!isOpen) return null;

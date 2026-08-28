@@ -8,7 +8,7 @@ export function Architecture() {
   const inView = useInView(ref, { once: true, amount: 0.25 });
   const [selectedStage, setSelectedStage] = useState<number>(2); // Default to AI Engine (Stage 3, index 2)
 
-  const active = PIPELINE[selectedStage];
+  const active = PIPELINE[selectedStage] ?? PIPELINE[0]!;
 
   return (
     <Section id="pipeline">

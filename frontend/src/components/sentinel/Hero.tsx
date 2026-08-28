@@ -7,8 +7,8 @@ type Node = {
   vx: number;
   vy: number;
   r: number;
-  label?: string;
-  isGateway?: boolean;
+  label?: string | undefined;
+  isGateway?: boolean | undefined;
 };
 
 function NetworkCanvas() {
@@ -75,6 +75,7 @@ function NetworkCanvas() {
         for (let j = i + 1; j < nodes.length; j++) {
           const a = nodes[i];
           const b = nodes[j];
+          if (!a || !b) continue;
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d > 210) continue;
           const alpha = (1 - d / 210) * 0.38;
@@ -212,7 +213,7 @@ export function Hero() {
                 href="#explore"
                 className="hover-glow inline-flex items-center gap-2 border border-primary/70 bg-primary/15 px-5 py-3 font-mono text-xs uppercase tracking-[0.16em] text-primary font-bold shadow-[0_0_15px_rgba(20,184,166,0.2)]"
               >
-                <span>▶</span> Explore Platform Modules
+                Explore Platform Modules
               </a>
               <a
                 href="/zero-decrypt"
