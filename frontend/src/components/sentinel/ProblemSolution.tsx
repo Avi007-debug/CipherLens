@@ -60,7 +60,7 @@ export function ProblemSolution() {
   return (
     <Section id="problem">
       <SectionHead
-        tag="SIH 2026 · Problem Statement 26160"
+        tag="NTRO PS 26160 · Defense Assessment"
         title="From opaque, manual packet inspection to explainable automated defense"
         lede="NTRO's problem statement requires security evaluation of IPsec VPN implementations where payloads cannot be decrypted. Traditional audits are manual, expert-bound, and subjective. CipherLens transforms this into an automated, explainable, and tamper-evident framework."
         action={

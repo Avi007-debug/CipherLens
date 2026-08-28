@@ -24,7 +24,7 @@ export function BlockchainAudit() {
   return (
     <Section id="ledger" className="dot-bg">
       <SectionHead
-        tag="Tier 3 · LDG-07 · SIH 26160 NTRO"
+        tag="Tier 3 · LDG-07 · NTRO PS 26160"
         title="Blockchain-Anchored Immutable Audit Trail & Cryptographic Verification"
         lede="Designed specifically for the NTRO Blockchain & Cybersecurity theme. Every assessment report is cryptographically committed as a SHA-256 Merkle tree anchored to a permissioned Hyperledger Fabric ledger. Regulators can mathematically verify report authenticity without viewing proprietary traffic."
       />

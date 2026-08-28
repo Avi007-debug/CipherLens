@@ -142,18 +142,18 @@ export function AttackSandbox() {
             </div>
 
             {/* Attack Details */}
-            <div className="mt-4 border border-border/80 bg-background/60 p-4 font-mono text-xs space-y-2.5">
+            <div className="mt-4 border border-border/80 bg-background/60 p-5 font-mono text-xs space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-foreground">{activeScenario.name}</span>
+                <span className="font-bold text-foreground text-sm">{activeScenario.name}</span>
                 <StatusBadge status={activeScenario.severity} />
               </div>
 
-              <div className="flex gap-4 text-[10.5px] text-muted-foreground">
-                <span>CVE: <strong className="text-destructive">{activeScenario.cve}</strong></span>
-                <span>VECTOR: <strong className="text-slate-300">{activeScenario.vector}</strong></span>
+              <div className="flex gap-4 text-xs text-muted-foreground">
+                <span>CVE: <strong className="text-destructive font-bold">{activeScenario.cve}</strong></span>
+                <span>VECTOR: <strong className="text-slate-200">{activeScenario.vector}</strong></span>
               </div>
 
-              <p className="text-slate-300 leading-relaxed font-sans text-xs">
+              <p className="text-slate-200 leading-relaxed font-sans text-xs sm:text-sm">
                 {activeScenario.description}
               </p>
 
@@ -162,7 +162,7 @@ export function AttackSandbox() {
                   type="button"
                   onClick={runAttackSimulation}
                   disabled={isSimulating}
-                  className="hover-glow w-full border border-destructive/60 bg-destructive/20 py-2 font-mono text-xs uppercase tracking-widest text-destructive hover:bg-destructive/30 font-bold transition-all"
+                  className="hover-glow w-full border border-destructive/60 bg-destructive/20 py-2.5 font-mono text-xs uppercase tracking-widest text-destructive hover:bg-destructive/30 font-bold transition-all"
                 >
                   {isSimulating ? "REPLAYING EXPLOIT IN SANDBOX..." : "▶ Replay Exploit in Sandbox"}
                 </button>
@@ -170,10 +170,10 @@ export function AttackSandbox() {
 
               {/* Simulation Telemetry Output */}
               {simStep > 0 && (
-                <div className="mt-3 border border-destructive/40 bg-black/80 p-3 text-[10.5px] font-mono text-slate-300 space-y-1">
+                <div className="mt-3 border border-destructive/40 bg-black/80 p-3.5 text-xs font-mono text-slate-300 space-y-1.5">
                   <div className="text-primary font-bold">[STEP 1] Ingesting crafted payload exchange...</div>
                   {simStep >= 2 && (
-                    <div className="text-amber-400">
+                    <div className="text-amber-400 font-semibold">
                       [STEP 2] Intercepted responder hash: {activeScenario.sentinelDetection}
                     </div>
                   )}
@@ -183,7 +183,7 @@ export function AttackSandbox() {
                     </div>
                   )}
                   {simStep >= 4 && (
-                    <div className="text-teal-300 font-bold border-t border-border/60 pt-1">
+                    <div className="text-teal-300 font-bold border-t border-border/60 pt-1.5">
                       [CIPHERLENS MITIGATION]: {activeScenario.remediation}
                     </div>
                   )}
@@ -215,9 +215,9 @@ export function AttackSandbox() {
                   key={preset.id}
                   type="button"
                   onClick={() => handleSelectPreset(preset.id)}
-                  className={`border px-2.5 py-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-all ${
+                  className={`border px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-all ${
                     selectedPreset === preset.id
-                      ? "border-primary bg-primary/15 text-primary font-bold"
+                      ? "border-primary bg-primary/20 text-primary font-bold shadow-[0_0_10px_rgba(20,184,166,0.15)]"
                       : "border-border text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -228,7 +228,7 @@ export function AttackSandbox() {
 
             {/* Config Editor / Display */}
             <div className="mt-4">
-              <div className="flex justify-between items-center text-[10.5px] font-mono text-muted-foreground mb-1">
+              <div className="flex justify-between items-center text-xs font-mono text-muted-foreground mb-1.5">
                 <span>ipsec.conf Policy Directives:</span>
                 <span className="text-primary font-bold">Delta: {activePreset.delta}</span>
               </div>
@@ -236,16 +236,16 @@ export function AttackSandbox() {
                 value={customConfig}
                 onChange={(e) => setCustomConfig(e.target.value)}
                 rows={7}
-                className="w-full border border-border/80 bg-background/80 p-3 font-mono text-[11px] text-teal-300 outline-none focus:border-primary"
+                className="w-full border border-border/80 bg-background/80 p-3 font-mono text-xs text-teal-300 outline-none focus:border-primary"
               />
             </div>
 
             {/* Finding Breakdown for selected policy */}
-            <div className="mt-3 border border-border/80 bg-background/50 p-3 font-mono text-[10.5px]">
-              <span className="text-primary font-bold block mb-1">
+            <div className="mt-3 border border-border/80 bg-background/60 p-3.5 font-mono text-xs">
+              <span className="text-primary font-bold block mb-1.5">
                 NIST SP 800-77 Evaluation Findings:
               </span>
-              <ul className="space-y-1 text-slate-300 list-disc list-inside">
+              <ul className="space-y-1 text-slate-200 list-disc list-inside font-sans text-xs">
                 {activePreset.findings.map((f, i) => (
                   <li key={i}>{f}</li>
                 ))}

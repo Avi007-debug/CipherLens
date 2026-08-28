@@ -131,20 +131,20 @@ export function ScoreGauge() {
             </span>
           </div>
 
-          <div className="mt-6 w-full border-t border-border pt-4 text-left font-mono text-[11px] space-y-1.5 text-muted-foreground">
+          <div className="mt-6 w-full border-t border-border pt-4 text-left font-mono text-xs space-y-2 text-muted-foreground">
             <div className="flex justify-between">
               <span>EVALUATION STATUS:</span>
-              <span className={remediated ? "text-primary" : "text-destructive"}>
+              <span className={`font-bold ${remediated ? "text-primary" : "text-destructive"}`}>
                 {remediated ? "HARDENED / PQC-READY" : "AT RISK / NON-COMPLIANT"}
               </span>
             </div>
             <div className="flex justify-between">
               <span>COMPLIANCE SPEC:</span>
-              <span className="text-slate-300">NIST SP 800-77r1</span>
+              <span className="text-slate-200 font-semibold">NIST SP 800-77r1</span>
             </div>
             <div className="flex justify-between">
               <span>HNDL RISK WINDOW:</span>
-              <span className={remediated ? "text-primary" : "text-destructive"}>
+              <span className={`font-bold ${remediated ? "text-primary" : "text-destructive"}`}>
                 {remediated ? "ZERO (<2030)" : "CRITICAL (EXPOSED)"}
               </span>
             </div>
@@ -153,7 +153,7 @@ export function ScoreGauge() {
 
         {/* Right: Rubric Dimension List */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between border-b border-border/80 pb-2 text-[11px] font-mono text-muted-foreground uppercase tracking-wider">
+          <div className="flex items-center justify-between border-b border-border/80 pb-2 text-xs font-mono text-muted-foreground uppercase tracking-wider">
             <span>Rubric Dimension & RFC Clause</span>
             <span>Sub-Score & Posture Delta</span>
           </div>
@@ -165,24 +165,24 @@ export function ScoreGauge() {
             return (
               <div
                 key={row.key}
-                className="panel hover-glow p-4.5 transition-all duration-200 bg-surface/70"
+                className="panel hover-glow p-5 transition-all duration-200 bg-surface/80 border-border/80"
               >
-                <div className="flex flex-wrap items-baseline justify-between gap-4 font-mono text-[12px]">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-foreground">{row.label}</span>
-                    <span className="border border-border/70 bg-background/50 px-1.5 py-0.5 text-[10px] text-primary">
+                <div className="flex flex-wrap items-baseline justify-between gap-4 font-mono text-sm">
+                  <div className="flex items-center gap-2.5">
+                    <span className="font-bold text-foreground text-sm">{row.label}</span>
+                    <span className="border border-border/80 bg-background px-2 py-0.5 text-xs text-primary font-semibold">
                       {row.rfc}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {remediated ? (
-                      <span className="text-[10px] text-teal-400 font-bold">
+                      <span className="text-xs text-teal-300 font-bold bg-primary/10 border border-primary/40 px-1.5 py-0.5">
                         +{delta} Δ
                       </span>
                     ) : null}
                     <span
-                      className="text-sm font-bold tabular-nums"
+                      className="text-base font-bold tabular-nums"
                       style={{ color: colorFor(currentScore) }}
                     >
                       {currentScore} / 100
@@ -191,7 +191,7 @@ export function ScoreGauge() {
                 </div>
 
                 {/* Progress bar */}
-                <div className="mt-2.5 h-[6px] w-full bg-background overflow-hidden border border-border/60">
+                <div className="mt-3 h-2 w-full bg-background overflow-hidden border border-border/60">
                   <motion.div
                     className="h-full transition-colors duration-300"
                     style={{ background: colorFor(currentScore) }}
@@ -202,14 +202,14 @@ export function ScoreGauge() {
                 </div>
 
                 {/* Technical Note / Remediation Directive */}
-                <div className="mt-2 text-[11.5px] leading-relaxed">
+                <div className="mt-2.5 text-xs leading-relaxed">
                   {!remediated ? (
                     <p className="text-destructive/90 font-mono">
-                      <span className="font-semibold text-destructive">Finding:</span> {row.note}
+                      <span className="font-bold text-destructive">Finding:</span> {row.note}
                     </p>
                   ) : (
-                    <p className="text-teal-300/90 font-mono">
-                      <span className="font-semibold text-primary">Remediated:</span> {row.fix}
+                    <p className="text-teal-300 font-mono">
+                      <span className="font-bold text-primary">Remediated:</span> {row.fix}
                     </p>
                   )}
                 </div>

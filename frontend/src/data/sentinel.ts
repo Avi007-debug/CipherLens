@@ -1,13 +1,13 @@
 export const PROJECT = {
   name: "CipherLens",
   tagline: "AI-Powered IPsec VPN Protocol Analyzer & Security Assessment Framework",
-  ps: "Problem Statement 26160",
-  org: "NTRO (National Technical Research Organisation)",
-  theme: "Blockchain & Cybersecurity",
-  event: "Smart India Hackathon 2026",
+  ps: "NTRO Directive PS 26160",
+  org: "National Technical Research Organisation (NTRO)",
+  theme: "Cybersecurity & Blockchain Verification",
+  event: "Enterprise Protocol Security Framework",
   version: "v2.4.0-prod",
   commit: "e8f49b1",
-  compliance: "RFC 7296 · RFC 8221 · RFC 8784 · NIST SP 800-77r1",
+  compliance: "NIST SP 800-77r1 · RFC 7296 · RFC 8221 · RFC 8784 · CNSA 2.0",
 };
 
 export const LIVE_TELEMETRY = {
@@ -601,10 +601,10 @@ export const ROADMAP = [
   },
   {
     p: "P8",
-    name: "Adversarial Stress Testing & SIH Final Packaging",
+    name: "Adversarial Stress Testing & Production Validation",
     timeline: "Week 8",
     status: "UPCOMING",
-    obj: "Conduct adversarial evasion sweeps (padding, jitter, chaff), benchmark performance limits, and assemble final NTRO submission.",
+    obj: "Conduct adversarial evasion sweeps (padding, jitter, chaff), benchmark performance limits, and assemble final deployment bundle.",
     del: "Adversarial robustness evaluation report + turnkey deployment bundle.",
     metrics: "Robustness envelope verified under 25% jitter",
   },
@@ -649,7 +649,7 @@ export const TEAM = [
   {
     role: "SOC_SECOPS_INTEGRATOR",
     name: "SecOps Lead",
-    scope: "CEF/ECS syslog streaming, STIX 2.1 threat intelligence feeds, Splunk/Wazuh integration, and SIH validation.",
+    scope: "CEF/ECS syslog streaming, STIX 2.1 threat intelligence feeds, Splunk/Wazuh integration, and Enterprise SOC validation.",
     pgp: "0x63D0...78FF",
     badge: "SOC / SecOps",
   },

@@ -4,35 +4,43 @@ const RESOURCES = [
   {
     label: "Technical Architecture Whitepaper",
     meta: "PDF · RFC 7296 & LightGBM XAI Formulation",
-    href: "#",
+    href: "#pipeline",
   },
   {
     label: "Deterministic Scoring Rubric Specification v2.0",
     meta: "JSON / YAML · NIST SP 800-77r1 Mapped",
-    href: "#",
+    href: "#score",
   },
   {
-    label: "GitHub Source Repository",
-    meta: "Docker · eBPF Tap · Scapy Tests · Models",
-    href: "#",
+    label: "Attack Sandbox & Policy Simulator",
+    meta: "CVE-2002-1623 & CNSA 2.0 Hardening",
+    href: "#sandbox",
   },
   {
     label: "Hyperledger Merkle Proof Explorer",
     meta: `Block #${LIVE_TELEMETRY.blockHeight} · zk-SNARK Verified`,
-    href: "#",
+    href: "#ledger",
   },
 ];
 
 export function Footer() {
   return (
-    <footer id="docs" className="border-t border-border/80 bg-background px-5 py-20 sm:px-8 lg:px-12">
+    <footer id="docs" className="border-t border-border/80 bg-background px-5 py-16 sm:px-8 lg:px-12">
       <div className="mx-auto w-full max-w-6xl">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Left Column: Project Overview */}
           <div>
-            <div className="flex items-center gap-2 font-mono text-sm tracking-tight">
-              <span className="inline-block h-2.5 w-2.5 bg-primary" aria-hidden="true" />
-              <span className="font-bold text-foreground">CIPHER<span className="text-primary">LENS</span></span>
+            <div className="flex items-center gap-3 font-mono text-sm tracking-tight">
+              <div className="flex h-7 w-7 items-center justify-center border border-primary/40 bg-surface p-0.5">
+                <img
+                  src="/logo_ipsec.png"
+                  alt="CipherLens Logo"
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <span className="font-bold text-foreground">
+                CIPHER<span className="text-primary">LENS</span>
+              </span>
               <span className="border border-border bg-surface px-2 py-0.5 text-[10px] text-muted-foreground uppercase">
                 {PROJECT.version}
               </span>
@@ -48,9 +56,10 @@ export function Footer() {
               {PROJECT.theme}.
             </p>
 
-            <div className="mt-6 font-mono text-xs text-muted-foreground space-y-1">
-              <div>COMPLIANCE: <span className="text-slate-300">{PROJECT.compliance}</span></div>
-              <div>COMMIT HASH: <span className="text-primary select-all">{PROJECT.commit}</span></div>
+            <div className="mt-6 font-mono text-xs text-muted-foreground space-y-1.5 border-l-2 border-primary/40 pl-3">
+              <div>COMPLIANCE: <span className="text-slate-200 font-semibold">{PROJECT.compliance}</span></div>
+              <div>COMMIT HASH: <span className="text-primary font-bold select-all">{PROJECT.commit}</span></div>
+              <div>TELEMETRY TAP: <span className="text-teal-300">eBPF Passive Kernel Tap (eth0)</span></div>
             </div>
           </div>
 
@@ -78,10 +87,10 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border/80 pt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          <span>© 2026 {PROJECT.name} · SIH 26160 NTRO</span>
-          <span className="text-primary">
-            zero payload bytes decrypted · 100% mathematical integrity
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-border/80 pt-6 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+          <span>© 2026 {PROJECT.name} · NTRO PS 26160</span>
+          <span className="text-primary font-bold">
+            Zero Payload Bytes Decrypted · 100% Mathematical Integrity
           </span>
         </div>
       </div>

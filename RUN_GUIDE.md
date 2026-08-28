@@ -8,9 +8,11 @@ This guide provides step-by-step instructions to run the frontend console, FastA
 
 ```bash
 # 1. Start the React/Vite Frontend (Port 5173)
+cd frontend
 npm run dev
 
 # 2. Start the FastAPI Backend Engine (Port 8000)
+# (In a new terminal window at the project root)
 python -m uvicorn backend.app:app --reload --port 8000
 ```
 - Open your browser at: **`http://localhost:5173/`**
@@ -26,7 +28,9 @@ python -m uvicorn backend.app:app --reload --port 8000
 
 ### Running Locally
 ```bash
-# Install dependencies (already completed)
+cd frontend
+
+# Install dependencies
 npm install
 
 # Start Vite Development Server
