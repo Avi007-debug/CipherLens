@@ -77,26 +77,40 @@ ALTER TABLE telemetry_flows ENABLE ROW LEVEL SECURITY;
 ALTER TABLE attack_sandbox_events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE merkle_ledger_proofs ENABLE ROW LEVEL SECURITY;
 
--- Allow public read & insert for hackathon evaluation demo
+-- Allow public read & insert for hackathon evaluation demo (Idempotent: safe to rerun anytime)
+DROP POLICY IF EXISTS "Public Read assessment_reports" ON assessment_reports;
 CREATE POLICY "Public Read assessment_reports" ON assessment_reports FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Insert assessment_reports" ON assessment_reports;
 CREATE POLICY "Public Insert assessment_reports" ON assessment_reports FOR INSERT WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Public Read telemetry_flows" ON telemetry_flows;
 CREATE POLICY "Public Read telemetry_flows" ON telemetry_flows FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Insert telemetry_flows" ON telemetry_flows;
 CREATE POLICY "Public Insert telemetry_flows" ON telemetry_flows FOR INSERT WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Public Read attack_sandbox_events" ON attack_sandbox_events;
 CREATE POLICY "Public Read attack_sandbox_events" ON attack_sandbox_events FOR SELECT USING (true);
-CREATE POLICY "Public Insert attack_sandbox_events" ON attack_sandbox_events FOR INSERT WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Public Insert attack_sandbox_events" ON attack_sandbox_events FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Public Read merkle_ledger_proofs" ON merkle_ledger_proofs;
 CREATE POLICY "Public Read merkle_ledger_proofs" ON merkle_ledger_proofs FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Insert merkle_ledger_proofs" ON merkle_ledger_proofs;
 CREATE POLICY "Public Insert merkle_ledger_proofs" ON merkle_ledger_proofs FOR INSERT WITH CHECK (true);
 
--- Seed Initial Reference Report
+-- Seed Initial Reference Report only if not already present (Preserves all existing data)
 INSERT INTO assessment_reports (
     tunnel_name, protocol, posture_score, rating, ike_mode,
     cipher_suite, dh_group, auth_method, pfs_enabled, pqc_hybrid_enabled,
     hndl_exposure_years, merkle_root
-) VALUES (
+)
+SELECT
     'site-to-site-demo', 'IKEv2', 94, 'HARDENED', 'Identity Protection',
     'ChaCha20-Poly1305 / AES-256-GCM', 'Curve25519 + ML-KEM-768', 'Mutual ECDSA P-384',
     true, true, 0, '0x3f7a91bc829e102df081c7429184a5697203b8e21948baef0091823746cba941'
+WHERE NOT EXISTS (
+    SELECT 1 FROM assessment_reports WHERE tunnel_name = 'site-to-site-demo'
 );
