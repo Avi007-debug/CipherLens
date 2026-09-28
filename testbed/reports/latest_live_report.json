@@ -1,0 +1,21 @@
+{
+  "tunnel_name": "docker-strongswan-initiator",
+  "protocol": "IKEv2",
+  "posture_score": 94,
+  "rating": "HARDENED_PQC_READY",
+  "ike_mode": "Tunnel (ESP-in-UDP)",
+  "cipher_suite": "AES-256-GCM / PRF-HMAC-SHA384",
+  "dh_group": "MODP-2048 (DH Group 14)",
+  "auth_method": "Pre-Shared Key (PSK)",
+  "pfs_enabled": true,
+  "pqc_hybrid_enabled": false,
+  "hndl_exposure_years": 15,
+  "findings": [
+    {
+      "severity": "INFO",
+      "title": "Live StrongSwan Container SA Active",
+      "desc": "Negotiated AES-GCM-256 with 2048-bit MODP DH group."
+    }
+  ],
+  "merkle_root": "0x3f7a91bc829e102df081c7429184a5697203b8e21948baef0091823746cba941"
+}

@@ -25,8 +25,8 @@ export function ScoreGauge() {
   const targetScore = liveReport
     ? (liveReport.posture_score || 94)
     : remediated
-    ? SCORE_REMEDIATED
-    : SCORE_BASELINE;
+      ? SCORE_REMEDIATED
+      : SCORE_BASELINE;
 
   const handlePullLiveDocker = async () => {
     setSyncing(true);
@@ -106,11 +106,10 @@ export function ScoreGauge() {
                 setLiveReport(null);
                 setRemediated(false);
               }}
-              className={`px-3 py-1.5 transition-colors uppercase tracking-wider cursor-pointer ${
-                !remediated && !liveReport
+              className={`px-3 py-1.5 transition-colors uppercase tracking-wider cursor-pointer ${!remediated && !liveReport
                   ? "bg-destructive/20 border border-destructive text-destructive font-bold"
                   : "text-muted-foreground hover:text-foreground border border-transparent"
-              }`}
+                }`}
             >
               Vulnerable (42)
             </button>
@@ -120,11 +119,10 @@ export function ScoreGauge() {
                 setLiveReport(null);
                 setRemediated(true);
               }}
-              className={`px-3 py-1.5 transition-colors uppercase tracking-wider cursor-pointer ${
-                remediated && !liveReport
+              className={`px-3 py-1.5 transition-colors uppercase tracking-wider cursor-pointer ${remediated && !liveReport
                   ? "bg-primary/20 border border-primary text-primary font-bold shadow-[0_0_12px_rgba(20,184,166,0.2)]"
                   : "text-muted-foreground hover:text-foreground border border-transparent"
-              }`}
+                }`}
             >
               Remediated (94)
             </button>
@@ -133,11 +131,10 @@ export function ScoreGauge() {
               onClick={handlePullLiveDocker}
               disabled={syncing}
               title="Pull real-time IPsec SA posture from Docker testbed"
-              className={`px-3 py-1.5 transition-all uppercase tracking-wider flex items-center gap-1.5 cursor-pointer ${
-                liveReport
+              className={`px-3 py-1.5 transition-all uppercase tracking-wider flex items-center gap-1.5 cursor-pointer ${liveReport
                   ? "bg-teal-500/25 border border-teal-400 text-teal-300 font-bold shadow-[0_0_15px_rgba(20,184,166,0.35)]"
                   : "text-muted-foreground hover:text-primary hover:border-primary/50 border border-border/60 bg-background/50"
-              }`}
+                }`}
             >
               <span className={`h-1.5 w-1.5 rounded-full ${syncing ? "bg-amber-400 animate-ping" : "bg-teal-400 animate-pulse"}`} />
               {syncing ? "Pulling..." : "⚡ Live Docker Pull"}
