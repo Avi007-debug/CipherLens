@@ -87,13 +87,13 @@ python docker_to_supabase.py --type voip
 
 ---
 
-## 3. The Definitive Master Pitch: Live Docker Testbed & Cloud-Synced Defense Intelligence
+## 3. The Definitive 4-Minute Master Pitch: Live Docker & Cloud Intelligence
 > **Format:** Split Screen  
-> - **Left Window (45%):** Windows PowerShell Terminal (Running Docker strongSwan + Python Bridge)  
-> - **Right Window (55%):** Deployed Cloud Dashboard at `https://frontend-orcin-chi-46.vercel.app/` (or `http://localhost:5173/`, Zoom: 90%)  
-> **Target Duration:** 5 to 6 Minutes (Comprehensive, steady, authoritative delivery — zero rushing)  
+> - **Left Window (45%):** PowerShell Terminal (Running Docker strongSwan + Python Bridge)  
+> - **Right Window (55%):** Deployed Cloud Dashboard at `https://frontend-orcin-chi-46.vercel.app/` (Zoom: 90%)  
+> **Target Duration:** 4 Minutes to 4 Minutes 15 Seconds (Paced at ~130 words per minute — crisp, authoritative)  
 > **Key Academic Grounding:** Draper-Gil et al. (UNB ISCX 2016), Wang et al. (2017), Panchenko et al. (2016), Mane & Rao (2020 XAI), Lundberg TreeSHAP (2017).  
-> **Key Security Specifications:** NIST SP 800-77 Rev. 1, NSA CNSA 2.0, RFC 7296 (IKEv2), RFC 8221 (ESP), RFC 9370 (PQC Hybrid Key Exchange).
+> **Key Standards:** NIST SP 800-77 Rev. 1, NSA CNSA 2.0, RFC 7296, RFC 8221, RFC 9370.
 
 ---
 
@@ -106,9 +106,8 @@ python docker_to_supabase.py --type voip
      2. `python testbed/docker_to_supabase.py --type voip`
      3. `python testbed/traffic_generator.py --type voip --target 192.168.100.20 --duration 15`
 2. **Right Screen Setup (Browser):**
-   - URL: `https://frontend-orcin-chi-46.vercel.app/`
-   - Browser Zoom: **90%** (gives ideal layout proportions).
-   - Scroll position: Start at the top **Hero Section** showing the live HUD bar.
+   - URL: `https://frontend-orcin-chi-46.vercel.app/` (Zoom: 90%)
+   - Scroll position: Start at top Hero Section.
 
 ---
 
@@ -117,141 +116,107 @@ python docker_to_supabase.py --type voip
 ```
 ========================================================================================
 TIMELINE OVERVIEW:
-[0:00 – 1:15] Phase 1: The National Security Crisis, Academic Gaps & Live strongSwan SA
-[1:15 – 2:30] Phase 2: Live Control-Plane Audit, NIST Scoring & Automated Policy Patching
-[2:30 – 3:45] Phase 3: Live Data Plane Injection, 7.94 Entropy & Sub-ms XAI with TreeSHAP
-[3:45 – 4:45] Phase 4: Post-Quantum CNSA 2.0 Agility & Hyperledger Fabric zk-SNARK Ledger
-[4:45 – 5:30] Phase 5: Technical Defense Dossier, 23-RFC Compliance & Judge Hand-Off
+[0:00 – 0:50] Phase 1: National Security Crisis, Vulnerability Crisis & Live Container SA
+[0:50 – 1:50] Phase 2: Live Control-Plane Audit, NIST SP 800-77 & Policy Auto-Patching
+[1:50 – 2:55] Phase 3: Live Data Plane Injection, 7.94 Entropy & Sub-ms XAI with TreeSHAP
+[2:55 – 3:45] Phase 4: Post-Quantum CNSA 2.0 Agility & Hyperledger Fabric zk-SNARK Ledger
+[3:45 – 4:15] Phase 5: Technical Defense Dossier, 23-RFC Compliance & Judge Hand-Off
 ========================================================================================
 ```
 
 ---
 
-#### **[0:00 – 1:15] Phase 1: The National Security Crisis, Academic Gaps & Live strongSwan SA (75s)**
+#### **[0:00 – 0:50] Phase 1: National Security Crisis & Live strongSwan SA (50s)**
 - **Visual Action:**
-  - Start with full focus on the **Left Terminal**.
-  - Execute:
-    ```powershell
-    docker exec -it cipherlens_initiator ipsec statusall
-    ```
-  - Highlight the two active containers communicating across the isolated `192.168.100.0/24` subnet. Point your cursor to the line reading `site-to-site[1]: ESTABLISHED`.
-  - Then glance toward the **Right Screen** top HUD bar displaying: `STATUS: ONLINE | TAP: eBPF PASSIVE (eth0) | INFERENCE: 0.38ms | DB: CONNECTED`.
+  - Left Terminal: Run `docker exec -it cipherlens_initiator ipsec statusall`.
+  - Highlight the two active containers communicating across `192.168.100.0/24`. Point cursor to `site-to-site[1]: ESTABLISHED`.
+  - Glance toward Right Screen top HUD bar: `STATUS: ONLINE | INFERENCE: 0.38ms | DB: CONNECTED`.
 
 - **Spoken Word (Verbatim):**
-  > *"Respected Judges, Technical Directors, and Officers of the National Technical Research Organisation:
+  > *"Respected Judges and Officers of the National Technical Research Organisation:
   > 
-  > Over **80% of India's mission-critical defense backhauls, tactical command networks, and inter-banking clearings** run exclusively over IPsec VPN tunnels. But according to global enterprise telemetry audits, more than **42% of active IPsec deployments harbor critical cryptographic misconfigurations, disabled Perfect Forward Secrecy, or degraded legacy ciphers**.
+  > Over **80% of India's mission-critical defense and banking backhauls** run over IPsec VPN tunnels. Yet global telemetry reveals that more than **42% of active IPsec deployments harbor critical vulnerabilities, disabled Perfect Forward Secrecy, or degraded legacy ciphers**.
   > 
-  > Why does this vulnerability crisis persist? Because auditing an IPsec gateway today forces security analysts into a painful manual bottleneck: opening tools like Wireshark, dissecting hundreds of thousands of raw hexadecimal byte records, and manually cross-referencing **23 disparate RFC specifications**. The human eye simply cannot scale against modern cyber threats. Gateways operate for months with unauthenticated Pre-Shared Key exchanges leaking hashes under **CVE-2002-1623**, 64-bit block ciphers triggering **Sweet32 collision attacks under CVE-2016-2183**, and zero protection against Harvest-Now-Decrypt-Later quantum adversaries.
+  > Why? Because auditing an IPsec gateway today forces analysts into a manual bottleneck: parsing raw hex in Wireshark and cross-referencing **23 disparate RFCs**. The human eye simply cannot scale against CVE-2002-1623 PSK leakage, 64-bit Sweet32 collision attacks, and quantum threats.
   > 
-  > Rather than presenting theoretical slides or pre-recorded simulations, we are demonstrating **CipherLens against a live, production-grade Linux IPsec testbed** running right here on this machine.
+  > Rather than showing simulated mockups, we are demonstrating **CipherLens against a live, production-grade Linux IPsec testbed** running right here on this system.
   > 
-  > In the terminal on the left, you are looking inside our dual-container strongSwan testbed orchestrated via Docker. Container `cipherlens_initiator` is running at IP `192.168.100.10`, and `cipherlens_responder` is at `192.168.100.20`.
+  > In the terminal on the left, our dual-container strongSwan testbed is actively communicating. Running `ipsec statusall` proves a genuine Linux kernel Security Association is established right now, negotiating an IKEv2 proposal with **AES-GCM-256, PRF-HMAC-SHA384, and MODP-2048 Diffie-Hellman key exchange**.
   > 
-  > As you can see from `ipsec statusall`, an authentic Linux kernel Security Association is established right now. It is actively negotiating an IKEv2 proposal using **AES-GCM-256 authenticated encryption, PRF-HMAC-SHA384, and MODP-2048 Diffie-Hellman key exchange**, maintaining an active ESP tunnel across our private bridge network.
-  > 
-  > To solve Problem Statement 26160, CipherLens acts as an autonomous sentry: it connects to network interfaces via passive eBPF taps, deterministically audits control-plane handshakes, predicts encrypted payload classes using second-order physical side-channels, and anchors verifiable evidence to a blockchain ledger — **without ever decrypting a single byte of payload**."*
+  > To solve Problem Statement 26160, CipherLens acts as an autonomous sentry: auditing control-plane handshakes, predicting encrypted payload types via physical side-channels, and anchoring verifiable evidence to a blockchain ledger — **without ever decrypting a single byte of payload**."*
 
 ---
 
-#### **[1:15 – 2:30] Phase 2: Live Control-Plane Audit, NIST Scoring & Automated Policy Patching (75s)**
+#### **[0:50 – 1:50] Phase 2: Live Control-Plane Audit & Policy Auto-Patching (60s)**
 - **Visual Action:**
-  1. On Left Terminal, execute:
-     ```powershell
-     python testbed/docker_to_supabase.py --type voip
-     ```
-     Point to the terminal confirmation:
-     `[+] Linux Kernel Security Association (SA): Active`  
-     `[+] NIST SP 800-77 Posture Score: 94 / 100 (HARDENED / PQC-READY)`  
-     `[+] Saved live audit snapshot: testbed/reports/latest_live_report.json`
-  2. Switch focus to the **Right Screen** under **Section [02]: Security Posture Scoring Engine**.
-  3. First click **`[ Vulnerable (42) ]`** to demonstrate the legacy unhardened state. Point to the line-by-line RFC deduction items.
-  4. Then click **`[ ⚡ Live Docker Pull ]`**. Watch the gauge smoothly animate to **94 / 100**, and point out the newly appeared teal telemetry box:
-     `LIVE DOCKER TELEMETRY [SYNCED]`  
-     `Target Tunnel: docker-strongswan-initiator
-      Cipher Suite: AES-256-GCM / PRF-HMAC-SHA384
-      DH Key Exch: MODP-2048 (DH Group 14)`
-  5. Point out the syntactic before/after `ipsec.conf` policy remediation diff on the right.
+  1. Left Terminal: Execute `python testbed/docker_to_supabase.py --type voip`. Point to `[+] NIST SP 800-77 Posture Score: 94 / 100`.
+  2. Right Screen (Section [02]): Click **`[ Vulnerable (42) ]`**, then immediately click **`[ ⚡ Live Docker Pull ]`**.
+  3. Watch gauge animate to **94 / 100**, and point to the teal live telemetry box:
+     `LIVE DOCKER TELEMETRY [SYNCED] | Target Tunnel: site-to-site | Cipher: AES-256-GCM / SHA384 | DH: Group 14`.
+  4. Point to the syntactic before/after `ipsec.conf` policy diff on the right.
 
 - **Spoken Word (Verbatim):**
-  > *"Now let us observe our live control-plane intelligence pipeline.
+  > *"Now watch our live telemetry pipeline. In the terminal, I execute our Docker bridge script, reading the active Linux kernel SA parameters.
   > 
-  > In the terminal, I execute our Docker bridge script, extracting the active Linux kernel SA parameters directly from the running charon daemon.
+  > On our deployed cloud dashboard on the right, when I click **'Live Docker Pull'**, the application queries our PostgreSQL datastore in real time and synchronizes the live container telemetry into our scoring engine.
   > 
-  > Now look at our deployed cloud dashboard on the right: when I click **'Live Docker Pull'**, the application queries our PostgreSQL datastore in real time and synchronizes the live container telemetry directly into our scoring engine.
+  > Grounded in **Panchenko et al.'s 2016 research on VPN traffic fingerprinting**, CipherLens decouples control-plane auditing from data-plane telemetry. Our RFC 7296 grammar parser maps proposal transforms directly against **NIST SP 800-77 Revision 1 guidelines**.
   > 
-  > Traditional tools like Wireshark are passive packet dissectors; they display hex bytes but have zero semantic intelligence. Grounded in **Panchenko et al.'s 2016 research on VPN traffic fingerprinting**, CipherLens bridges this gap by decoupling the control plane from the data plane.
+  > On an unhardened profile, it flags legacy 3DES-CBC and calculates an automatic deduction for the **Sweet32 collision boundary under CVE-2016-2183** after $2^{32}$ blocks — 32 gigabytes of traffic — alongside cleartext PSK hashes, scoring the gateway at **42 out of 100 — High Risk**.
   > 
-  > Our deterministic RFC 7296 grammar parser dissects the IKE_SA_INIT and IKE_AUTH exchange payloads. It maps proposal transforms directly against **NIST SP 800-77 Revision 1 guidelines**.
-  > 
-  > On an unhardened profile — as seen when we inspect legacy configurations — our engine immediately flags Transform ID 4 using 3DES-CBC. It calculates an automatic deduction for the Sweet32 collision boundary, where birthday attacks succeed after $2^{32}$ blocks — approximately 32 gigabytes of transferred data. It flags unauthenticated Pre-Shared Key hash exchanges and disabled Perfect Forward Secrecy, scoring that configuration at **42 out of 100 — High Risk**.
-  > 
-  > But CipherLens is not just an alert generator; it is an active remediation engine. By pulling our hardened strongSwan container SA, our engine automatically verifies the upgrade to **AES-256-GCM** authenticated encryption and **Diffie-Hellman Group 14**, generating an exact, line-by-line `ipsec.conf` policy patch that elevates our verified posture score from **42 to 94 out of 100**."*
+  > But CipherLens is an active remediation engine: pulling our live container SA verifies the upgrade to authenticated **AES-256-GCM** and **Diffie-Hellman Group 14**, generating an exact syntactic `ipsec.conf` patch that elevates our posture score from **42 to 94 out of 100**."*
 
 ---
 
-#### **[2:30 – 3:45] Phase 3: Live Data Plane Injection, 7.94 Entropy & Sub-ms XAI with TreeSHAP (75s)**
+#### **[1:50 – 2:55] Phase 3: Live Data Plane Injection, 7.94 Entropy & Sub-ms XAI (65s)**
 - **Visual Action:**
-  1. On Left Terminal, inject real VoIP traffic through the tunnel:
-     ```powershell
-     python testbed/traffic_generator.py --type voip --target 192.168.100.20 --duration 15
-     ```
-     Point out: `[+] VoIP Stream Complete: Sent 481 packets`.
-  2. On Right Screen, scroll down to **Section [03]: Zero-Decryption ESP Traffic Fingerprinting**.
-  3. Circle your cursor around the circular **Shannon Entropy Gauge reading 7.94 / 8.00 bits/byte**.
-  4. Select **"VoIP Telephony"** $\rightarrow$ Click **"Scan Window"**.
-  5. Point out the classification card: **VoIP Telephony (RTP/G.711a)**, **99.4% confidence**, **0.42 ms inference latency**.
-  6. Scroll down to the **TreeSHAP Attribution Waterfall** graph and point to the top feature bars (`isochronous_delta_20ms: +0.44`, `bimodal_payload_172b: +0.38`).
-  7. Toggle to **"HD Video Conference (H.264)"** $\rightarrow$ Click **"Scan Window"** to show the SHAP features flip dynamically to `gop_keyframe_burst: +0.41`.
+  1. Left Terminal: Inject traffic: `python testbed/traffic_generator.py --type voip --target 192.168.100.20 --duration 15`. Point to `Sent 481 packets`.
+  2. Right Screen (Section [03]): Circle the circular **Shannon Entropy Gauge reading 7.94 / 8.00 bits/byte**.
+  3. Select **"VoIP Telephony"** $\rightarrow$ Click **"Scan Window"**.
+  4. Point to the classification result: **VoIP Telephony (99.4% confidence, 0.42ms latency)**.
+  5. Point to the **TreeSHAP Attribution Waterfall** graph (`isochronous_delta_20ms: +0.44`, `bimodal_payload_172b: +0.38`). Toggle **"HD Video"** $\rightarrow$ **"Scan Window"** to show features flip.
 
 - **Spoken Word (Verbatim):**
-  > *"Now we transition to the data plane and address the most technically demanding challenge posed by NTRO: **How do you classify the traffic inside an encrypted ESP tunnel when you are cryptographically locked out of the payload?**
+  > *"Now to the data plane: **How do you classify traffic inside an encrypted ESP tunnel without decrypting it?**
   > 
-  > First, we mathematically prove our zero-decryption guarantee to defense regulators. Look at our Shannon Entropy gauge: it reads **7.94 out of a theoretical maximum of 8.00 bits per byte**. This mathematically proves that the ESP payload is 99.25% indistinguishable from true random noise. Plaintext payload bytes never enter our feature extractor, guaranteeing total constitutional privacy and cryptographic integrity.
+  > First, we mathematically prove our zero-decryption guarantee. Our live entropy engine reads **7.94 out of a theoretical maximum of 8.00 bits per byte**, proving that the ESP stream is 99.25% random ciphertext. Plaintext payload bytes never enter our system.
   > 
-  > How then do we classify the stream? In 2016, **Draper-Gil et al. at the University of New Brunswick (ISCX)** pioneered time-based flow features for VPN traffic, but their algorithms required slow offline batch processing. In 2017, **Wang et al.** applied 1D-Convolutional Neural Networks, but deep learning models operate as opaque black boxes that cannot be audited in military command centers or courtrooms.
+  > In 2016, **Draper-Gil et al. at UNB ISCX** pioneered time-based flow features, but required slow batch processing. In 2017, **Wang et al.** applied 1D-CNNs, but deep learning operates as an opaque black box that cannot be audited in military operations.
   > 
-  > CipherLens overcomes both academic limitations. We engineered an ultra-fast **LightGBM gradient-boosted decision forest** running over a 56-packet sliding window. It inspects second-order physical side-channels: packet size distributions, inter-arrival cadence, and directional asymmetry.
+  > CipherLens resolves both gaps with an ultra-fast **LightGBM gradient-boosted forest** running over a 56-packet sliding window. In just **0.42 milliseconds** — true wire speed — it classifies this stream as VoIP Telephony with **99.4% calibrated confidence**.
   > 
-  > In just **0.42 milliseconds** — true sub-millisecond wire-speed inference — our model identifies the stream as VoIP Telephony with **99.4% calibrated confidence**.
-  > 
-  > Crucially, addressing **Mane & Rao's 2020 survey on Explainable AI in Cybersecurity**, our model is 100% auditable. We integrate **Lundberg's TreeSHAP algorithm**: as you can see in the feature attribution waterfall, the model explicitly proves that an isochronous 20-millisecond codec clock delta contributed $+0.44$ to the classification, while a bimodal payload peak at 172 bytes contributed $+0.38$. Every classification decision is mathematically defensible."*
+  > Crucially, addressing **Mane & Rao's 2020 XAI mandate**, our model is 100% explainable via **TreeSHAP**: it mathematically proves that an isochronous 20-millisecond inter-arrival delta contributed $+0.44$ to the classification, while a bimodal payload peak at 172 bytes contributed $+0.38$."*
 
 ---
 
-#### **[3:45 – 4:45] Phase 4: Post-Quantum CNSA 2.0 Agility & Hyperledger Fabric zk-SNARK Ledger (60s)**
+#### **[2:55 – 3:45] Phase 4: Post-Quantum CNSA 2.0 & Hyperledger Fabric zk-SNARK Ledger (50s)**
 - **Visual Action:**
-  1. Scroll down to the **PQC & HNDL Risk Matrix**. Highlight the **CNSA 2.0 Compliance Badge** and the quantum risk countdown meter.
-  2. Scroll down to **Section [04]: Blockchain Merkle Ledger**.
-  3. Click the button: **`[ Re-Verify Cryptographic Proof ]`**.
-  4. Point to the glowing green verification badge: `PROOF VALID: Groth16 zk-SNARK Verified in 1.42ms`.
-  5. Point out the SHA-256 Merkle Root (`0x3f7a...a941`) and Block Height (`#1840291`).
+  1. Scroll down to the **PQC & HNDL Risk Matrix**. Highlight the **CNSA 2.0 Compliance Badge**.
+  2. Scroll to **Section [04]: Blockchain Merkle Ledger**. Click **`[ Re-Verify Cryptographic Proof ]`**.
+  3. Point to the glowing verification badge: `PROOF VALID: Groth16 zk-SNARK Verified in 1.42ms`.
+  4. Point to SHA-256 Merkle Root (`0x3f7a...a941`) and Block Height (`#1840291`).
 
 - **Spoken Word (Verbatim):**
-  > *"Looking toward national defense horizons, hostile foreign intelligence agencies are actively conducting **Harvest-Now-Decrypt-Later (HNDL)** operations — intercepting and storing encrypted government IPsec traffic today to decrypt retrospectively once Cryptographically Relevant Quantum Computers running Shor's algorithm become operational.
+  > *"Looking toward national defense horizons, hostile adversaries are executing **Harvest-Now-Decrypt-Later (HNDL)** attacks — recording encrypted government IPsec traffic today to decrypt retrospectively once quantum computers emerge.
   > 
-  > CipherLens models this threat vector directly against the NSA's **CNSA 2.0 mandate**. It calculates a 15-year retrospective exposure window on classical Diffie-Hellman groups and validates transition pathways toward **RFC 9370 ML-KEM-768 post-quantum hybrid key encapsulation**.
+  > CipherLens audits tunnel agility against the NSA's **CNSA 2.0 mandate**, warning against classical Diffie-Hellman groups with a 15-year retrospective exposure window and validating **RFC 9370 ML-KEM-768 post-quantum hybrid key encapsulation**.
   > 
-  > Furthermore, in defense and national security auditing, compliance reports cannot reside in vulnerable spreadsheets or mutable local databases.
+  > For immutable audit integrity, every finding, configuration diff, and posture score is structured into a **SHA-256 Merkle tree** anchored to a permissioned **Hyperledger Fabric** blockchain.
   > 
-  > CipherLens hashes every parsed handshake state transition, policy diff, and posture score into a cryptographic **SHA-256 Merkle tree**, anchoring the root to a permissioned **Hyperledger Fabric** blockchain.
-  > 
-  > As you see on screen, NTRO auditors can mathematically verify the integrity of the audit receipt using **Groth16 zk-SNARK zero-knowledge proofs**. The proof verifies in **1.42 milliseconds**, mathematically confirming that not a single byte of audit evidence was tampered with, without exposing classified IP addresses or operational network topology."*
+  > Using **Groth16 zk-SNARK zero-knowledge proofs**, NTRO auditors can mathematically verify audit authenticity in **1.42 milliseconds** without exposing sensitive subnet IPs or classified operational topologies."*
 
 ---
 
-#### **[4:45 – 5:30] Phase 5: Technical Defense Dossier, 23-RFC Compliance & Judge Hand-Off (45s)**
+#### **[3:45 – 4:15] Phase 5: Technical Defense Dossier & Judge Hand-Off (30s)**
 - **Visual Action:**
-  1. Click the floating **`[ ? Q&A ]`** button on the bottom-right corner to open the **Judge Defense & Knowledge Base Modal**.
-  2. Rapidly scroll through the interactive RFC knowledge base showing the 23 RFC clauses and CVE exploit matrices.
-  3. Bring your eyes back to the camera, smile with confidence, and deliver the final closing statement.
+  1. Click the floating **`[ ? Q&A ]`** speed dial button on the bottom right.
+  2. Rapidly scroll the 23-RFC knowledge base and CVE exploit matrix.
+  3. Look at the camera with confidence and deliver the final closing sentence.
 
 - **Spoken Word (Verbatim):**
-  > *"To summarize: from live Linux strongSwan container orchestration to deterministic RFC auditing, zero-decryption explainable AI with sub-millisecond latency, automated policy remediation, and post-quantum blockchain verification — **CipherLens delivers an autonomous, end-to-end IPsec defense intelligence suite that fully solves NTRO Problem Statement 26160**.
+  > *"To summarize: from live Linux strongSwan container orchestration to deterministic RFC auditing, zero-decryption explainable AI with sub-millisecond latency, automated policy remediation, and post-quantum blockchain verification — **CipherLens delivers an autonomous defense intelligence suite that completely satisfies NTRO Problem Statement 26160**.
   > 
-  > Our complete 23-RFC defense matrix, attack simulation models, and audit logs are ready on screen.
-  > 
-  > Thank you, and we are now fully prepared for your questions."*
+  > Our complete defense rubric and attack models are live on screen. Thank you, and we are ready for your questions."*
 
 
 ---
