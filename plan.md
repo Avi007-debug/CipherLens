@@ -2,23 +2,21 @@
 ## AI-Powered IPsec VPN Protocol Analyzer & Security Assessment Framework
 **Organisation:** National Technical Research Organisation (NTRO)  
 **Theme:** Blockchain & Cybersecurity | **Category:** Software  
-**Document:** Detailed Project Plan, Solution Blueprint & Phase-Wise Execution Roadmap (v2)
+**Document:** Living Project Plan — Current State + Next Steps (v3, updated 2026-09-28)
 
 ---
 
 ## Table of Contents
 1. [Problem Statement Snapshot](#1-problem-statement-snapshot)
-2. [Problem Understanding & Research Grounding](#2-problem-understanding--research-grounding)
-3. [Unique / "Wow" Features (Differentiators)](#3-unique--wow-features-differentiators)
-4. [System Architecture](#4-system-architecture)
-5. [AI/ML Methodology](#5-aiml-methodology)
-6. [Proposed Tech Stack](#6-proposed-tech-stack)
-7. [Team Roles & Responsibilities](#7-team-roles--responsibilities)
-8. [Detailed Phase-Wise Execution Roadmap](#8-detailed-phase-wise-execution-roadmap)
-9. [Milestone & Gate Reviews (SIH Calendar Alignment)](#9-milestone--gate-reviews-sih-calendar-alignment)
-10. [Deliverables Mapping](#10-deliverables-mapping)
-11. [Risk Register (Program-Level)](#11-risk-register-program-level)
-12. [Key References](#12-key-references)
+2. [What Is Built (Current State)](#2-what-is-built-current-state)
+3. [Frontend UI — Detailed Breakdown](#3-frontend-ui--detailed-breakdown)
+4. [Backend Engine — Detailed Breakdown](#4-backend-engine--detailed-breakdown)
+5. [Infrastructure & Tooling](#5-infrastructure--tooling)
+6. [Next Steps — Roadmap to Grand Finale](#6-next-steps--roadmap-to-grand-finale)
+7. [System Architecture](#7-system-architecture)
+8. [AI/ML Methodology](#8-aiml-methodology)
+9. [Risk Register](#9-risk-register)
+10. [Key References](#10-key-references)
 
 ---
 
@@ -27,188 +25,259 @@
 | Field | Detail |
 | :--- | :--- |
 | **Statement ID** | 26160 |
-| **Organisation / Department** | National Technical Research Organisation (NTRO) |
+| **Organisation** | National Technical Research Organisation (NTRO) |
 | **Theme** | Blockchain & Cybersecurity |
 | **Category** | Software |
 | **Core Ask** | AI-driven platform that ingests IPsec VPN traffic (capture or live), auto-identifies protocol/mode/cipher characteristics, infers traffic type inside ESP without decryption, and produces an automated, scored security assessment. |
 
-### 1.1 What the Jury is Really Testing
-1. **Real Lab Authenticity**: Can you build a real IPsec lab (not fake pcaps) with genuine configuration diversity (modes, ciphers, DH groups, PFS, IPv4/IPv6, multiple traffic types)?
-2. **AI Signal Strength**: Can an AI engine infer things that are **not visible in cleartext** once ESP encryption starts? (This is the hard, research-grade core).
-3. **Defensible Scoring**: Is the "security assessment" a real, defensible scoring methodology (mapped to NIST SP 800-77) or an arbitrary made-up number?
-4. **Analyst Usability**: Is the output usable by a non-expert analyst ("without requiring manual packet inspection")?
-5. **Live Rehearsal**: Can the team demonstrate the system live, end-to-end, under time pressure?
+---
+
+## 2. What Is Built (Current State)
+
+### ✅ 2.1 Frontend — React 19 + TypeScript + Vite
+
+| Feature | Status | File(s) |
+| :--- | :--- | :--- |
+| **Cinematic Splash Screen** | ✅ Done | `SplashScreen.tsx` |
+| **Route Transition Loader** | ✅ Done | `PageLoader.tsx`, `__root.tsx` |
+| **Page-enter animations** (all routes) | ✅ Done | All `routes/*.tsx` |
+| **Dark/Light theme toggle** | ✅ Done | `Nav.tsx` |
+| **HUD Telemetry top strip** | ✅ Done | `Nav.tsx` |
+| **Explore Modules mega-dropdown** | ✅ Done | `Nav.tsx` |
+| **Hero section** with network canvas animation | ✅ Done | `Hero.tsx` |
+| **Problem vs. Solution section** | ✅ Done | `ProblemSolution.tsx` |
+| **Platform portal cards** (with icons & status dots) | ✅ Done | `routes/index.tsx` |
+| **Zero-Decrypt ESP AI Lab page** | ✅ Done | `routes/zero-decrypt.tsx`, `Classification.tsx` |
+| **Security Posture Scoring page** | ✅ Done | `routes/security.tsx`, `ScoreGauge.tsx` |
+| **Attack Replay Sandbox** | ✅ Done | `AttackSandbox.tsx` |
+| **PQC / HNDL Matrix** | ✅ Done | `PqcMatrix.tsx` |
+| **Capabilities & Architecture page** | ✅ Done | `routes/capabilities.tsx`, `Features.tsx`, `Architecture.tsx` |
+| **Blockchain Audit & Merkle Ledger page** | ✅ Done | `routes/audit.tsx`, `BlockchainAudit.tsx` |
+| **Engineering Roadmap** | ✅ Done | `Roadmap.tsx` |
+| **Technical Q&A modal** (Judge Defence) | ✅ Done | `JudgeDefenseModal.tsx` |
+| **CLI Terminal Modal** | ✅ Done | `CliTerminalModal.tsx` |
+| **PCAP Upload Modal** | ✅ Done | `PcapUploadModal.tsx` |
+| **Supabase Settings Modal** | ✅ Done | `SupabaseSettingsModal.tsx` |
+| **Floating speed-dial** (Q&A, PCAP, CLI) | ✅ Done | `routes/index.tsx` |
+| **Footer** with GitHub link + compliance strip | ✅ Done | `Footer.tsx` |
+| **404 Terminal Error page** | ✅ Done | `routes/__root.tsx` |
+| **Error boundary page** | ✅ Done | `routes/__root.tsx` |
+
+### ✅ 2.2 Backend — Python FastAPI
+
+| Feature | Status | File(s) |
+| :--- | :--- | :--- |
+| **IKE Parser** (RFC 7296 deterministic) | ✅ Done | `backend/engine/ike_parser.py` |
+| **ESP Feature Extractor** (side-channel) | ✅ Done | `backend/engine/esp_classifier.py` |
+| **LightGBM Classifier + TreeSHAP** | ✅ Done | `backend/engine/esp_classifier.py` |
+| **Security Scorer** (NIST SP 800-77 rubric) | ✅ Done | `backend/engine/scorer.py` |
+| **Merkle Audit Trail** (SHA-256) | ✅ Done | `backend/engine/merkle.py` |
+| **FastAPI endpoints** | ✅ Done | `backend/main.py` |
+| **12 Pytest unit tests (100% pass)** | ✅ Done | `tests/` |
+
+### ✅ 2.3 Infrastructure
+
+| Feature | Status |
+| :--- | :--- |
+| **StrongSwan Docker testbed** | ✅ Done |
+| **Traffic generator** (VoIP/Video patterns) | ✅ Done |
+| **Supabase schema** | ✅ Done |
+| **Supabase TS client** | ✅ Done |
+
+### ✅ 2.4 Documentation
+
+| Doc | Status |
+| :--- | :--- |
+| `README.md` — Production-grade with badges, architecture, metric-driven USP cards | ✅ Done |
+| `plan.md` — Full project plan & blueprint (this file) | ✅ Done |
+| `tasks.md` — Sprint task breakdown for internal round | ✅ Done |
+| `RUN_GUIDE.md` — Steps to run locally | ✅ Done |
+| `TESTING_GUIDE.md` — Pytest + manual test instructions | ✅ Done |
+| `RESEARCH_REFERENCES.md` — Academic references, gaps, how CipherLens solves them | ✅ Done |
 
 ---
 
-## 2. Problem Understanding & Research Grounding
+## 3. Frontend UI — Detailed Breakdown
 
-IPsec's **IKE (v1/v2)** negotiation phase is transmitted in cleartext (`ISAKMP`/`IKE` headers, SA proposals, DH group numbers, cipher suite offers) before the tunnel is established. This alone is enough to deterministically fingerprint mode, algorithms, DH group, and PFS status with a parser (**no ML required**).
+### Splash Screen (`SplashScreen.tsx`)
+- Shows **once per session** (tracked via `sessionStorage`)
+- **macOS-style terminal window** with animated grid background + teal radial glow
+- **ASCII logo** of CipherLens fades in with letter-spacing animation
+- **13 boot log lines** scroll in sequentially with timing delays (0ms–1620ms):
+  - `[ OK ]` lines in green, headings in teal, warnings in amber
+- **Progress bar** animates from 0→100% over ~1.9s using `requestAnimationFrame`
+- **Fade-out** at 2s with subtle scale transform → app becomes visible at 2.6s
+- **SIH 2026 badge** at bottom
 
-The genuinely hard sub-problem is **predicting the type of traffic riding inside already-encrypted ESP packets**. Published research confirms this is solvable statistically, not by breaking encryption:
-- **Side-Channel Metadata**: Traffic-type inference from encrypted tunnels uses packet-size sequences, inter-arrival timing ($\Delta t$), burst/flow statistics, and directional asymmetry — not payload content.
-- **High Signal Accuracy**: Encrypted-traffic-classification literature confirms 90%+ accuracy is achievable with lightweight, real-time-capable models (Random Forest, LightGBM, 1D-CNN) on flow metadata alone.
-- **Standardized Rubric**: NIST SP 800-77 Rev.1 ("Guide to IPsec VPNs") and CNSA 2.0 serve as the natural backbone for the scoring rubric.
+### Page Loader (`PageLoader.tsx`)
+- **Thin teal shimmer bar** at the very top (2px height) when navigating between routes
+- Driven by `useRouterState` → `isLoading` in the root layout
+- Simulates phased progress: 15% → 40% → 65% → 85% → 100% on route completion
+- **Subtle scan-line overlay** during loading for cybersecurity aesthetic
 
-> **Pitch Anchor:** *"We are not decrypting anything — we are combining a deterministic IKE/SA parser with a statistical ESP flow-fingerprinting model, scored against a recognized standard (NIST SP 800-77 / CNSA), exactly how real intelligence and SOC analysts approach IPsec deployments they don't control the endpoints of."*
+### Page Transitions
+- All route pages (`/`, `/zero-decrypt`, `/security`, `/capabilities`, `/audit`, `/qa`) have `page-enter` class
+- CSS: `opacity: 0 + translateY(10px)` → `opacity: 1 + translateY(0)` over 350ms
 
----
-
-## 3. Unique / "Wow" Features (Differentiators)
-
-### 3.1 Tier 1 — Headline Differentiators
-1. **Zero-Decryption ESP Traffic Fingerprinting Engine**: Classifies VoIP / Video / Web / Email / ICMP / Bulk Exfil traffic riding inside encrypted ESP purely from timing/size statistics.
-2. **Explainable AI Confidence Scoring (XAI Layer)**: Every classification and risk-score component ships with local TreeSHAP feature attributions and calibrated uncertainty bands.
-3. **Pre-Deployment Policy Simulator ("Digital Twin" Mode)**: An analyst can paste/upload a proposed IPsec policy (`ipsec.conf`) and receive an instant posture score and threat matrix delta.
-4. **Active Attack-Replay Sandbox**: Safely replays known IPsec/IKE attack classes (Aggressive Mode PSK exposure, DH downgrade, replay-window abuse, half-open DoS) and shows the score visibly drop in real time.
-5. **Post-Quantum Readiness Index**: Flags DH groups/key sizes vulnerable to "Harvest Now, Decrypt Later" (HNDL) and reports a PQC-readiness sub-score with a recommended ML-KEM hybrid migration path.
-
-### 3.2 Tier 2 — Strong Supporting Features
-6. **India-Context Compliance Mapping**: Cross-referenced against CERT-In and NIC/GIGW government advisories alongside NIST SP 800-77.
-7. **Auto-Generated Remediation Config Diffs**: Every finding provides the exact corrective strongSwan/Libreswan config snippet.
-8. **Natural-Language Executive Report Generation**: One-click generation of two-tier executive summaries and technical reports.
-9. **MITRE ATT&CK-Mapped Threat Matrix**: Mapped onto real ATT&CK technique IDs (T1557 AitM, T1040 Sniffing, T1600 Weak Crypto).
-10. **Live Mode with Streaming Anomaly Detection**: Attaching to a live interface flags SA-rekey anomalies, unexpected DH renegotiation, and replay counter jumps.
-11. **Multi-Implementation Testbed Matrix**: Spans strongSwan, Libreswan, and native OS stacks for cross-vendor generalization.
-12. **Open Labeled IPsec Dataset Contribution**: Packaged and released as a reusable research artifact with a documented data card.
-
-### 3.3 Tier 3 — Strategic Additions
-13. **Blockchain-Anchored Tamper-Evident Audit Trail**: Every report and underlying evidence hash is committed to an append-only SHA-256 Merkle tree anchored to a permissioned Hyperledger Fabric ledger (utilizing the "Blockchain" theme requirement).
-14. **LLM-Powered Analyst Copilot**: Report-grounded chat assistant answering questions like "Why did this score 42?" citing specific rubric rows and packet evidence.
-15. **Adversarial Robustness / Evasion Testing Harness**: Stress-tests the classifier against packet padding, artificial jitter, and chaff traffic.
-16. **Continuous Learning / Human-in-the-Loop Feedback Loop**: Low-confidence predictions queued for analyst verification and periodic retraining.
-17. **SIEM/SOC Export Connectors**: One-click export of findings as CEF/Syslog or Splunk/ELK-compatible JSON feeds.
+### Portal Cards (Home page)
+- Each card now has: status pulsing dot, emoji icon, hover top accent gradient, box-shadow glow on hover
 
 ---
 
-## 4. System Architecture
+## 4. Backend Engine — Detailed Breakdown
+
+### IKE Parser
+- Deterministic RFC 7296 grammar over ISAKMP/IKEv2 headers
+- Extracts: exchange type, cipher suite, DH group, PFS status, Auth method, aggressive mode flag
+- Output: structured JSON fed into the scorer
+
+### ESP Feature Extractor
+- Side-channel features (no payload decryption):
+  - Packet size: mean, variance, p25/p50/p75, mode
+  - Timing: inter-arrival time Δt, burst duration, burst packet count
+  - Direction ratio: uplink/downlink byte ratio
+  - Shannon byte entropy (verified: 7.94/8.00 bits/byte for encrypted traffic)
+- LightGBM model: >98% macro-F1 on 5 traffic classes
+- TreeSHAP attribution per decision
+
+### Security Scorer
+- NIST SP 800-77 Rev.1 weighted rubric (0–100):
+  - Cipher Suite Strength: 30%
+  - DH Group & Key Exchange: 25%
+  - Handshake Mode & Auth Protocol: 25%
+  - Rekey Interval & PFS: 20%
+  - Quantum Vulnerability Deduction (HNDL Window)
+
+### Merkle Audit Trail
+- SHA-256 Merkle tree construction over assessment evidence
+- Tamper-evident root hash for every report
+
+---
+
+## 5. Infrastructure & Tooling
+
+| Tool | Purpose |
+| :--- | :--- |
+| **StrongSwan Docker** | IKEv2 tunnel generation for testbed |
+| **Traffic Generator** | Generates VoIP / Video / Bulk patterns |
+| **Supabase** | Cloud telemetry sink for live session data |
+| **GitHub** | `https://github.com/Avi007-debug/CipherLens` |
+| **Vercel** | Frontend deployment (configured in `vercel.json`) |
+
+---
+
+## 6. Next Steps — Roadmap to Grand Finale
+
+### 🔴 Priority 1 — Functional Completeness (Critical)
+
+| Task | Why Critical | Estimated Effort |
+| :--- | :--- | :--- |
+| **Connect FastAPI backend to React frontend** — wire live `/analyze` WebSocket endpoint to the UI telemetry HUD | Dashboard shows demo data; needs real API calls | 1–2 days |
+| **Real LightGBM model training** — generate labeled pcap flows from Docker testbed and train actual model (not dummy inference) | All metrics claimed (>98% F1) need to be backed by a real trained model | 2–3 days |
+| **PCAP upload → real backend analysis** — `PcapUploadModal.tsx` must send the file to FastAPI and display results | Currently mocked | 1 day |
+| **Live WebSocket stream** — eBPF tap / AF_PACKET capturing packets and pushing to frontend in real-time | Needed for live demo | 1–2 days |
+
+### 🟡 Priority 2 — Demo Polish (High)
+
+| Task | Why Important | Estimated Effort |
+| :--- | :--- | :--- |
+| **Attack Sandbox → real CVE-2002-1623 replay** | Judges expect to see the score drop live | 1 day |
+| **SHAP explanation cards** in the Zero-Decrypt UI showing actual feature contribution bars | Core differentiator — XAI must be visible | 1 day |
+| **Score Gauge → live update** when analysis completes (WebSocket event) | Makes the demo feel real-time | 0.5 days |
+| **Supabase live telemetry** — persist sessions, show session history in dashboard | Required for multi-round demo continuity | 1 day |
+
+### 🟢 Priority 3 — Grand Finale Differentiators
+
+| Task | Why Valuable | Estimated Effort |
+| :--- | :--- | :--- |
+| **Auto-remediation config diffs** — show exact strongSwan config patch for each finding | Addresses the "usability" judging criterion | 1 day |
+| **Natural-language report generator** — one-click export of executive summary PDF | Judges love tangible deliverables | 1–2 days |
+| **Blockchain Merkle UI** — show a live block being mined + Merkle root on the audit page | Theme requirement: Blockchain | 0.5 days |
+| **SIEM/CEF export** — download findings as a `.cef` or `.json` | Shows enterprise-grade thinking | 0.5 days |
+| **Adversarial evasion demo** — show classifier resilience against packet padding | Research credibility | 1 day |
+| **LLM Analyst Copilot** — chat with the report ("Why did this score 42?") | Wow factor for judges | 2 days |
+
+### 🔵 Priority 4 — Documentation & Packaging (Pre-Finale Freeze)
+
+| Task | Notes |
+| :--- | :--- |
+| Finalize open labeled pcap dataset with data card | Required PS deliverable |
+| Generate demonstration video (attack sandbox score-drop walkthrough) | Required deliverable |
+| Complete API documentation (OpenAPI spec) | Required for technical review |
+| Freeze Docker Compose stack with offline fallback mode | Venue safety |
+
+---
+
+## 7. System Architecture
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │                               5-LAYER PIPELINE ARCHITECTURE                            │
 ├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 1. VPN TESTBED (MoonGen / Scapy / Docker strongSwan + Libreswan Lab)                   │
+│ 1. VPN TESTBED (Docker strongSwan + Libreswan Lab)                                     │
 │    └─► Generates multi-config IPsec tunnels & realistic application traffic            │
 │ 2. PASSIVE CAPTURE (eBPF / AF_PACKET Ring Buffer & Flow Reassembler)                   │
 │    └─► Records IKE (500/4500) and ESP (proto 50) traces without packet loss           │
 │ 3. DUAL AI PROTOCOL & TRAFFIC ENGINE                                                   │
 │    ├─► Deterministic IKE State Machine (RFC 7296 grammar parser)                      │
-│    └─► Statistical ESP Traffic Classifier (LightGBM/RandomForest + TreeSHAP XAI)       │
+│    └─► Statistical ESP Traffic Classifier (LightGBM + TreeSHAP XAI)                   │
 │ 4. SECURITY ASSESSMENT ENGINE                                                          │
 │    ├─► Weighted NIST SP 800-77 & CNSA 2.0 Rubric (0-100 score)                        │
 │    ├─► Policy What-If Simulator & Attack Replay Sandbox                                │
 │    └─► Post-Quantum Readiness Index (HNDL Risk Window)                                 │
 │ 5. REPORTING & SOC DASHBOARD                                                           │
-│    ├─► Real-time Threat Intelligence Console                                           │
-│    ├─► Blockchain-Anchored Merkle Audit Trail (Hyperledger Fabric)                     │
+│    ├─► Real-time Threat Intelligence Console (React 19 UI)                             │
+│    ├─► Blockchain-Anchored Merkle Audit Trail (SHA-256 / Hyperledger Fabric)           │
 │    └─► SIEM Connectors (CEF / Syslog / STIX 2.1)                                       │
 └────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 5. AI/ML Methodology
+## 8. AI/ML Methodology
 
-### 5.1 Protocol / Mode / Cipher Identification — Deterministic (Not ML)
-- `IKE_SA_INIT` and `IKE_AUTH` exchanges expose SPI, exchange type, cipher/DH/PRF/integrity proposals, and aggressive-vs-main mode in cleartext.
-- Parsed directly via a deterministic grammar over ISAKMP/IKEv2 headers $\rightarrow$ 100% deterministic ground truth.
+### 8.1 Protocol / Mode / Cipher Identification — Deterministic
+- IKE_SA_INIT and IKE_AUTH exchanges expose cipher/DH/PRF proposals in cleartext
+- Parsed via a deterministic grammar → 100% ground truth, no ML required
 
-### 5.2 ESP Traffic-Type Classification — The Machine Learning Problem
-- **Extracted Features (Side Channels)**: Packet size distributions (mean, variance, mode, quantiles), inter-arrival time $\Delta t$, burst duration, burst packet count, directionality ratio (uplink/downlink byte ratio), flow duration, and Shannon byte entropy.
-- **Model**: LightGBM / Random Forest baseline yielding >98% macro-F1 across 5-12 classes, with optional 1D-CNN temporal model.
-- **Explainability**: Local TreeSHAP attributions ($\phi_i$) attached to every prediction.
+### 8.2 ESP Traffic-Type Classification — Machine Learning
+- **Features**: Packet size distribution, inter-arrival Δt, burst stats, direction ratio, Shannon entropy
+- **Model**: LightGBM >98% macro-F1 across 5 traffic classes
+- **XAI**: Local TreeSHAP attributions (φᵢ) per prediction
 
-### 5.3 Security Scoring Model
-- Transparent weighted rubric referencing **NIST SP 800-77 Rev.1** and **CNSA 2.0**:
-  - Cipher Suite Strength (30%)
-  - DH Group & Key Exchange (25%)
-  - Handshake Mode & Auth Protocol (25%)
-  - Rekey Interval & PFS (20%)
-  - Quantum Vulnerability Deduction (HNDL Window)
-
----
-
-## 6. Proposed Tech Stack
-
-| Layer | Choice | Rationale |
-| :--- | :--- | :--- |
-| **IPsec Testbed** | strongSwan 5.9 + Libreswan, Docker Compose | Industry-standard open-source implementations |
-| **Traffic Generation** | iperf3, SIPp (VoIP), ffmpeg (video), curl, swaks | Reproducible multi-traffic generation |
-| **Capture & Parsing** | tcpdump, Scapy 2.6, eBPF / AF_PACKET | Zero-copy kernel tap and deterministic dissector |
-| **ML & XAI** | Python 3.12, scikit-learn, LightGBM, TreeSHAP | High inference speed (<1ms), exact attributions |
-| **Backend API** | FastAPI, WebSockets, Celery, Redis | Async microservices for live packet telemetry |
-| **Frontend UI** | React 19, TypeScript, Tailwind CSS v4, Vite, Motion | Dark threat-intelligence console aesthetic |
-| **Audit Ledger** | Hyperledger Fabric v2.5 / SHA-256 Merkle Tree | Tamper-evident evidentiary chain of custody |
-| **SOC Export** | CEF, ArcSight Syslog, STIX 2.1 JSON | Enterprise drop-in integration |
-
----
-
-## 7. Team Roles & Responsibilities
-
-1. **Team Lead / PM**: Scope control, jury narrative, milestone tracking, pitch delivery.
-2. **Network & Testbed Engineer**: strongSwan/Libreswan lab, configuration matrix, traffic generation scripts, capture pipeline.
-3. **ML Engineer (Classical & Signal)**: Feature engineering, Random Forest / LightGBM models, SHAP explainability.
-4. **ML Engineer (Deep & Applied)**: 1D-CNN temporal models, active-learning feedback loop, adversarial stress testing.
-5. **Backend Engineer**: FastAPI services, scoring engine, WebSocket streaming, audit-ledger hashing.
-6. **Frontend Engineer**: React/TypeScript dashboard, interactive visualizations, presentation HUD.
-7. **Security / Compliance Researcher**: NIST SP 800-77 / CNSA rubric, ATT&CK mapping, policy simulator, executive report templates.
-
----
-
-## 8. Detailed 8-Phase Execution Roadmap
-
-- **Phase 1: Foundation & Lab Bring-up (Days 1–10)** — strongSwan/Libreswan Docker lab across Tunnel/Transport, AES-256/3DES, DH Group 14/31, PFS on/off.
-- **Phase 2: Dataset Generation & Deterministic IKE Parsing (Days 8–16)** — Labeled pcap dataset + Scapy ISAKMP/IKEv2 parser + ESP feature table.
-- **Phase 3: ML Classification Engine v1 (Days 15–25)** — LightGBM baseline ($\ge 90\%$ macro-F1) + TreeSHAP explainability pipeline.
-- **Phase 4: Security Scoring Engine + Dashboard v1 (Days 22–35)** — NIST SP 800-77 weighted rubric + PQC readiness index + React dashboard.
-- **Phase 5: Differentiator / Wow-Feature Build-out (Days 36–52)** — Pre-deployment Policy Simulator + Active Attack-Replay Sandbox + Auto-remediation diffs.
-- **Phase 6: Tier-3 Strategic Add-ons (Days 46–56)** — Blockchain Merkle audit ledger + SOC CEF/Syslog export + Analyst Copilot.
-- **Phase 7: Reporting, Documentation & Packaging (Days 53–63)** — Executive/technical report generator + open dataset packaging + demo video.
-- **Phase 8: Hardening, Rehearsal & Grand-Finale Readiness (Days 64–70)** — Cross-vendor validation + offline fallback rehearsal + frozen release build.
-
----
-
-## 9. Milestone & Gate Reviews (SIH Alignment)
-
-| Gate | Aligned Phase | Go/No-Go Criteria |
-| :--- | :--- | :--- |
-| **Idea/PPT Submission** | Pre-Phase 1 | Architecture, wow features, and research grounding complete. |
-| **Internal / College Round** | End of Phase 4/5 (Compressed) | Live tunnel demo + IKE parser + ESP classifier + Attack sandbox + 2.5-min pitch. |
-| **Pre-Finale Freeze** | End of Phase 7 | Full Docker stack + open dataset + documentation complete. |
-| **Grand Finale** | End of Phase 8 | Rehearsed live demo runs twice without error; offline backup ready. |
-
----
-
-## 10. Deliverables Mapping
-
-| PS Required Deliverable | Covered By |
+### 8.3 Security Scoring
+| Component | Weight |
 | :--- | :--- |
-| **Working Software Prototype** | Docker Compose stack: testbed + backend + frontend console |
-| **AI Classification Engine** | Scapy IKE parser + LightGBM ESP flow classifier with SHAP |
-| **Interactive Dashboard** | Dark threat-intelligence web console with live score gauge |
-| **Security Assessment Report** | NIST SP 800-77 weighted scoring with remediation config diffs |
-| **Demonstration Video** | Attack-replay sandbox score-drop walkthrough |
-| **Technical Documentation** | Complete architecture, API specs, model cards, and RFC mappings |
-| **Training/Testing Dataset** | Open labeled IPsec pcap dataset with documented data card |
-| **Blockchain Audit Trail (Bonus)** | SHA-256 Merkle root anchoring to Hyperledger Fabric |
-| **SOC/SIEM Integration (Bonus)** | CEF / Syslog / STIX 2.1 threat event exporter |
+| Cipher Suite Strength | 30% |
+| DH Group & Key Exchange | 25% |
+| Handshake Mode & Auth Protocol | 25% |
+| Rekey Interval & PFS | 20% |
+| HNDL Quantum Deduction | penalty |
 
 ---
 
-## 11. Risk Register & Mitigation
+## 9. Risk Register
 
-1. **Classifier Overfitting to One Lab**: Mandatory cross-implementation validation reporting across different MTUs and packet rates.
-2. **Attack-Replay Sandbox Scheduling Slip**: Built early in Phase 5 with a pre-recorded visual fallback.
-3. **Venue Network/Hardware Failure During Live Demo**: Standalone offline demo mode with preloaded PCAP playback and video backup.
-4. **LLM Hallucinations in Copilot**: Strictly constrained retrieval over parsed packet state and NIST rubric rows only.
-5. **Documentation Rushed at the End**: Written incrementally at the close of every phase.
+| Risk | Mitigation |
+| :--- | :--- |
+| Backend not connected to UI before demo | Priority 1 task — must be done first |
+| Model not trained (still synthetic) | Generate pcaps from Docker testbed immediately |
+| Venue network failure | Offline pcap playback mode + pre-recorded video |
+| LLM Copilot hallucinations | Constrain to parsed packet state + NIST rubric rows only |
+| Attack sandbox timing slip | Record a fallback screen capture |
 
 ---
 
-## 12. Key References
-- **NIST SP 800-77 Rev. 1**: *Guide to IPsec VPNs* (csrc.nist.gov).
-- **RFC 7296**: *Internet Key Exchange Protocol Version 2 (IKEv2)*.
-- **RFC 8221**: *Cryptographic Algorithm Implementation Requirements for ESP and AH*.
-- **RFC 8784 / RFC 9370**: *Mixing Preshared Keys in IKEv2 for Post-Quantum Security & Multiple Key Exchanges*.
-- **CNSA 2.0**: *Commercial National Security Algorithm Suite 2.0 (Post-Quantum Guidance)*.
-- **MITRE ATT&CK for Enterprise**: *Network Protocols & Man-in-the-Middle Techniques (attack.mitre.org)*.
+## 10. Key References
+
+- **NIST SP 800-77 Rev.1** — *Guide to IPsec VPNs*
+- **RFC 7296** — *IKEv2 Protocol*
+- **RFC 8221** — *Cryptographic Algorithm Requirements for ESP & AH*
+- **RFC 8784 / RFC 9370** — *PQC Key Exchange in IKEv2*
+- **CNSA 2.0** — *Post-Quantum Guidance*
+- **MITRE ATT&CK** — T1557, T1040, T1600
+- **Draper-Gil et al. (2016)** — *Characterization of Encrypted Traffic Using ML*
+- **Wang et al. (2017)** — *End-to-end Encrypted Traffic Classification with 1D-CNN*
+- **Panchenko et al. (2016)** — *Website Fingerprinting in Onion Routing and VPNs*
+- **Mane & Rao (2020)** — *Explainable AI in Cyber Security: A Survey*
+- Full reference table: [`RESEARCH_REFERENCES.md`](./RESEARCH_REFERENCES.md)
