@@ -31,8 +31,8 @@ const EXPLORE_PORTALS = [
   {
     to: "/zero-decrypt" as const,
     badge: "Tier 1 Research",
-    icon: "🔬",
-    statusColor: "bg-success",
+    num: "01",
+    accentClass: "border-l-success",
     title: "Zero-Decryption AI Lab & XAI",
     desc: "Classify live encrypted ESP traffic via second-order timing, burst entropy, and packet size histograms with exact TreeSHAP feature attributions.",
     metrics: ">98% F1 Score · 100% Ciphertext Opacity",
@@ -41,8 +41,8 @@ const EXPLORE_PORTALS = [
   {
     to: "/security" as const,
     badge: "NIST SP 800-77",
-    icon: "🛡️",
-    statusColor: "bg-warn",
+    num: "02",
+    accentClass: "border-l-warn",
     title: "Posture Scoring & Attack Sandbox",
     desc: "Benchmark 0–100 security scores with line-by-line RFC proof, replay CVE-2002-1623 exploits in a sandbox, and calculate PQC quantum exposure.",
     metrics: "CVE Replay · HNDL Risk Window · Policy Diff",
@@ -51,8 +51,8 @@ const EXPLORE_PORTALS = [
   {
     to: "/capabilities" as const,
     badge: "10 Differentiators",
-    icon: "⚡",
-    statusColor: "bg-primary",
+    num: "03",
+    accentClass: "border-l-primary",
     title: "Capabilities & 5-Layer Architecture",
     desc: "Interactive technical capability explorer across research, operational tooling, and enterprise SIEM pipelines, backed by a 5-stage dataflow.",
     metrics: "10 Capabilities · RFC 7296 / RFC 8221",
@@ -61,8 +61,8 @@ const EXPLORE_PORTALS = [
   {
     to: "/audit" as const,
     badge: "Hyperledger Fabric",
-    icon: "⛓️",
-    statusColor: "bg-primary",
+    num: "04",
+    accentClass: "border-l-primary",
     title: "Blockchain Audit & Compliance",
     desc: "Anchor posture assessment reports as SHA-256 Merkle trees to permissioned ledgers with Groth16 zk-SNARK proof verification.",
     metrics: "zk-SNARK Proven · Tamper-Evident Ledger",
@@ -127,20 +127,21 @@ function HomePage() {
                 <Link
                   key={portal.to}
                   to={portal.to}
-                  className="hover-glow group relative flex flex-col justify-between border border-border/80 bg-surface p-7 shadow-xl transition-all duration-200 hover:border-primary/60 hover:bg-surface-raised hover:shadow-[0_0_40px_oklch(0.76_0.13_183_/_0.08)] overflow-hidden"
+                  className={`hover-glow group relative flex flex-col justify-between border border-border/80 border-l-2 ${portal.accentClass} bg-surface p-7 shadow-xl transition-all duration-200 hover:border-primary/60 hover:bg-surface-raised hover:shadow-[0_0_40px_oklch(0.76_0.13_183_/_0.08)] overflow-hidden`}
                 >
-                  {/* Subtle top accent line on hover */}
+                  {/* Top accent line on hover */}
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                   <div>
                     <div className="flex items-center justify-between font-mono text-xs uppercase tracking-wider">
                       <div className="flex items-center gap-2">
-                        <span className={`inline-block h-1.5 w-1.5 rounded-full ${portal.statusColor} animate-pulse`} />
                         <span className="border border-primary/40 bg-primary/10 px-2 py-0.5 text-[10px] text-primary font-bold">
                           {portal.badge}
                         </span>
                       </div>
-                      <span className="text-xl" aria-hidden="true">{portal.icon}</span>
+                      <span className="font-mono text-[11px] font-bold text-muted-foreground/60 tabular-nums">
+                        [{portal.num}]
+                      </span>
                     </div>
 
                     <h3 className="mt-4 text-xl font-bold text-foreground group-hover:text-primary transition-colors">
