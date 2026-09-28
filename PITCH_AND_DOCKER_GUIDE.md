@@ -31,80 +31,73 @@ The table below maps every single requirement in the NTRO problem brief to Ciphe
 
 ---
 
-## 2. Docker Testbed Setup Instructions (Step-by-Step)
+## 2. Pre-Flight Verification Checklist & Docker Setup
+> **Run this 2-minute checklist BEFORE you start recording or presenting to judges.** It guarantees 100% flawless execution with zero surprises.
 
-Your Windows system has **Docker v29.4.1** installed. Follow these exact steps to start and verify the testbed:
+### Pre-Flight Checklist (6 Rapid Confidence Tests)
 
-### Step 1: Start Docker Desktop
-1. Open Windows Start menu, search for **Docker Desktop**, and open it.
-2. Wait 20–30 seconds until the bottom-left icon in Docker Desktop turns **Green** (*"Engine running"*).
+| Step | Action / Command | Expected Verification Result | Status |
+|---|---|---|---|
+| **1. Docker Daemon** | Check Docker Desktop icon | Bottom-left icon is **Green** (*"Engine running"*). | 🟩 Ready |
+| **2. Container Health** | `docker ps` | Both `cipherlens_initiator` and `cipherlens_responder` report status `Up`. | 🟩 Ready |
+| **3. Kernel SA Status** | `docker exec -it cipherlens_initiator ipsec statusall` | Shows `site-to-site[1]: ESTABLISHED`, `AES_GCM_16_256`, `MODP_2048`. | 🟩 Ready |
+| **4. Traffic Injection** | `python testbed/traffic_generator.py --type voip --target 192.168.100.20 --duration 10` | Terminal reports packets sent across bridge `192.168.100.20`. | 🟩 Ready |
+| **5. Cloud Bridge Push** | `python testbed/docker_to_supabase.py --type voip` | Outputs `[+] Successfully pushed Assessment Report to Supabase!`. | 🟩 Ready |
+| **6. Deployed Web Sync** | Open `https://frontend-orcin-chi-46.vercel.app/` & click `[ ⚡ Live Docker Pull ]` | Dial updates to 94/100 and displays teal `LIVE DOCKER TELEMETRY [SYNCED]` badge. | 🟩 Ready |
 
-### Step 2: Build & Launch the StrongSwan IPsec Containers
+---
+
+### Step-by-Step Setup Guide
+
+#### Step 1: Start Docker Desktop
+1. Open Windows Start menu, launch **Docker Desktop**.
+2. Wait until the bottom-left icon turns **Green**.
+
+#### Step 2: Build & Start the StrongSwan Testbed
 Open PowerShell in `c:\Coding\CipherLens\testbed`:
-
 ```powershell
 cd c:\Coding\CipherLens\testbed
-
-# Build the self-contained Alpine strongSwan image and start both nodes
 docker compose up -d --build
 ```
 
-### Step 3: Verify the Running Containers
+#### Step 3: Verify Containers & Kernel SAs
 ```powershell
+# 1. Confirm containers are running
 docker ps
-```
-You will see two active containers:
-- `cipherlens_initiator` (IP: `192.168.100.10`)
-- `cipherlens_responder` (IP: `192.168.100.20`)
 
-### Step 4: Verify the Active IPsec Security Associations (SAs)
-Inspect the tunnel status inside the initiator:
-```powershell
+# 2. Check live IPsec Security Associations inside the initiator
 docker exec -it cipherlens_initiator ipsec statusall
 ```
-*Expected Output:*
+*Expected terminal confirmation:*
 ```
-Status of IKE charon daemon (strongSwan 5.9.x):
-  Security Associations (1 up, 0 connecting):
-    site-to-site[1]: ESTABLISHED 5 seconds ago, 192.168.100.10[initiator.cipherlens.local]...192.168.100.20[responder.cipherlens.local]
-    site-to-site[1]: IKEv2 SPIs: 8fa921c3_i* a14b09e2_r, pre-shared key reauthentication in 2 hours
-    site-to-site[1]: IKE proposal: AES_GCM_16_256/PRF_HMAC_SHA2_384/MODP_2048
-    site-to-site{1}:  INSTALLED, TUNNEL, reqid 1, ESP in UDP SPIs: c3b918a2_i 4fa901b2_o
-    site-to-site{1}:   AES_GCM_16_256, 0 bytes_i, 0 bytes_o, rekeying in 50 minutes
+Security Associations (1 up, 0 connecting):
+  site-to-site[1]: ESTABLISHED, 192.168.100.10[initiator.cipherlens.local]...192.168.100.20[responder.cipherlens.local]
+  site-to-site[1]: IKE proposal: AES_GCM_16_256/PRF_HMAC_SHA2_384/MODP_2048
+  site-to-site{1}:  INSTALLED, TUNNEL, reqid 1, ESP in UDP SPIs: c3b918a2_i 4fa901b2_o
 ```
 
-### Step 5: Generate Live Synthetic Traffic Through the Tunnel
-In a new terminal window:
+#### Step 4: Test Traffic Generation & Cloud Bridge
 ```powershell
-# Send 15 seconds of VoIP traffic through the IPsec tunnel
-python traffic_generator.py --type voip --target 192.168.100.20 --duration 15
+# Generate 10 seconds of synthetic VoIP stream
+python traffic_generator.py --type voip --target 192.168.100.20 --duration 10
 
-# Send H.264 Video streaming traffic
-python traffic_generator.py --type video --target 192.168.100.20 --duration 15
-```
-
-### Step 6: Capture Real PCAP Traces from the Container
-```powershell
-# Capture 30 packets directly from the container's eth0 interface
-docker exec -it cipherlens_initiator tcpdump -i eth0 -c 30 -w /tmp/live_ipsec.pcap
-
-# Copy the captured trace out to your Windows workspace
-docker cp cipherlens_initiator:/tmp/live_ipsec.pcap ../pcaps/live_ipsec.pcap
+# Push live container telemetry & assessment to Supabase
+python docker_to_supabase.py --type voip
 ```
 
 ---
 
-## 3. Pitch Strategy 1: Standalone Presentation (Without Live Docker)
-> **Format:** Fullscreen Browser (`http://localhost:5173/`). Smooth, zero-lag, metric-driven walkthrough.  
+## 3. Pitch Strategy 1: Standalone Presentation (Zero-Risk Dashboard Walkthrough)
+> **Format:** Fullscreen Browser at `https://frontend-orcin-chi-46.vercel.app/` (or `http://localhost:5173/`).  
 > **Target Duration:** Exactly 4 Minutes (240 Seconds)  
-> **Prerequisites Running:** Vite Frontend (`npm run dev`) + FastAPI Engine (`python -m uvicorn backend.app:app --port 8000`).
+> **Prerequisites:** Clean browser window in fullscreen (`F11`), audio mic checked.
 
 ---
 
 ### Verbatim Script & Visual Timeline:
 
 #### **[0:00 – 0:50] The Hook: Hard Numbers, Vulnerability Crisis & Academic Context (50s)**
-- **Screen Action:** Open `http://localhost:5173/` in fullscreen (`F11`). Hover over the top Live Telemetry HUD Bar (`STATUS: ONLINE`, `TAP: eBPF PASSIVE`, `INFERENCE: 0.78ms`, `BLOCK #1840291`). Focus on the headline: *"Audit the tunnel. Never decrypt the payload."*
+- **Screen Action:** Fullscreen on the hero section. Hover over the top Live Telemetry HUD Bar (`STATUS: ONLINE`, `TAP: eBPF PASSIVE`, `INFERENCE: 0.38ms`, `DB: CONNECTED`). Highlight the central title: *"Audit the tunnel. Never decrypt the payload."*
 - **Spoken Word (Verbatim):**
   > *"Respected Judges and Officers of NTRO:
   > 
@@ -117,7 +110,7 @@ docker cp cipherlens_initiator:/tmp/live_ipsec.pcap ../pcaps/live_ipsec.pcap
 ---
 
 #### **[0:50 – 1:50] Scoring Engine, RFC State Machine & Automated Policy Diff (60s)**
-- **Screen Action:** Scroll down to the **Security Posture Score** circular gauge displaying **42/100 (At Risk)**. Point out the line-by-line RFC deduction checklist. Click **"Remediated (94)"** and watch the dial animate to 94/100, then point to the `ipsec.conf` before/after diff on the right.
+- **Screen Action:** Scroll to **Section [02]: Security Posture Scoring Engine**. Point out the circular score gauge at **42/100 (At Risk)** and the line-by-line RFC deduction items. Click **"Remediated (94)"** and watch the dial animate to 94/100, then point out the `ipsec.conf` before/after diff on the right.
 - **Spoken Word (Verbatim):**
   > *"Let us look at a live audit. Here, CipherLens has passively ingested an untrusted wire capture.
   > 
@@ -132,7 +125,7 @@ docker cp cipherlens_initiator:/tmp/live_ipsec.pcap ../pcaps/live_ipsec.pcap
 ---
 
 #### **[1:50 – 2:50] Zero-Decryption AI Fingerprinting & TreeSHAP Explainability (60s)**
-- **Screen Action:** Scroll to **Zero-Decryption ESP Traffic Fingerprinting**. Point out the Shannon Entropy gauge reading $7.94 / 8.00\text{ bits/byte}$. Select **"VoIP Telephony"** $\rightarrow$ Click **"Scan Window"**. Then select **"HD Video Conference"** and highlight the TreeSHAP attribution waterfall graph.
+- **Screen Action:** Scroll to **Section [03]: Zero-Decryption ESP Traffic Fingerprinting**. Point out the Shannon Entropy gauge reading $7.94 / 8.00\text{ bits/byte}$. Select **"VoIP Telephony"** $\rightarrow$ Click **"Scan Window"**. Then select **"HD Video Conference"** and highlight the TreeSHAP attribution waterfall graph.
 - **Spoken Word (Verbatim):**
   > *"Now we arrive at the core technical challenge posed by NTRO: **How do you classify the traffic inside an encrypted ESP tunnel when you are cryptographically locked out of the payload?**
   > 
@@ -147,7 +140,7 @@ docker cp cipherlens_initiator:/tmp/live_ipsec.pcap ../pcaps/live_ipsec.pcap
 ---
 
 #### **[2:50 – 3:35] Post-Quantum Cryptography & Blockchain-Anchored Audit Trail (45s)**
-- **Screen Action:** Scroll to **PQC & HNDL Matrix**, highlighting the CNSA 2.0 readiness indicator. Then scroll to **Blockchain Merkle Ledger** and click **"Re-Verify Cryptographic Proof"** to show the live zk-SNARK Groth16 verification toast.
+- **Screen Action:** Scroll to **PQC & HNDL Matrix**, highlighting the CNSA 2.0 readiness indicator. Then scroll to **Section [04]: Blockchain Merkle Ledger** and click **"Re-Verify Cryptographic Proof"** to show the live zk-SNARK Groth16 verification toast.
 - **Spoken Word (Verbatim):**
   > *"Looking toward national security horizons, hostile intelligence agencies are executing **Harvest-Now-Decrypt-Later (HNDL)** operations today — recording encrypted government IPsec tunnels to break retrospectively once Cryptographically Relevant Quantum Computers running Shor's algorithm emerge.
   > 
@@ -170,24 +163,35 @@ docker cp cipherlens_initiator:/tmp/live_ipsec.pcap ../pcaps/live_ipsec.pcap
 
 ---
 
-## 4. Pitch Strategy 2: Deep-Tech Live Docker Container Pitch (With Live Containers)
-> **Format:** Split Screen — **Left 45%:** PowerShell Terminal (Docker Engine) | **Right 55%:** Browser (`http://localhost:5173/`).  
+## 4. Pitch Strategy 2: Deep-Tech Live Docker Testbed & Cloud Sync Pitch
+> **Format:** Split Screen  
+> - **Left 45%:** Windows PowerShell Terminal (Running Docker strongSwan + Python Bridge)  
+> - **Right 55%:** Browser loaded with deployed website `https://frontend-orcin-chi-46.vercel.app/` (or `http://localhost:5173/`).  
 > **Target Duration:** Exactly 4 Minutes (240 Seconds)  
-> **Prerequisites Running:** Docker Desktop running, `docker compose up -d --build` executed in `testbed/`, plus Vite + FastAPI.
+> **Key Wow Factor:** Proving real hardware/container execution syncing dynamically to a deployed cloud dashboard.
 
 ---
 
-### Setup Check Before the Pitch Starts:
-1. Terminal 1 (Left Screen): Run `docker ps` — confirm `cipherlens_initiator` and `cipherlens_responder` are `Up`.
-2. Terminal 2 (Ready to send traffic): `python traffic_generator.py --type voip --target 192.168.100.20 --duration 20`.
-3. Browser (Right Screen): `http://localhost:5173/` loaded.
+### Pre-Pitch Split-Screen Setup:
+1. **Left Screen (PowerShell Terminal):**
+   - Window size: Left 45% of monitor.
+   - Font: 15pt Cascadia Code or Consolas (bold, legible).
+   - Pre-command ready: `docker exec -it cipherlens_initiator ipsec statusall`
+2. **Right Screen (Browser):**
+   - Window size: Right 55% of monitor.
+   - URL: `https://frontend-orcin-chi-46.vercel.app/` (Zoom: 90% or 100%).
+   - Scroll to: Section [02] Security Posture Scoring Engine.
 
 ---
 
 ### Verbatim Script & Visual Timeline:
 
 #### **[0:00 – 1:00] Live strongSwan Architecture & Kernel SA Proof (60s)**
-- **Screen Action:** Start with full attention on the Left Terminal. Run `docker exec -it cipherlens_initiator ipsec statusall`. Highlight the two containers communicating across the private `192.168.100.0/24` subnet. Point out the genuine Linux kernel SAs.
+- **Screen Action:** Start with full attention on the Left Terminal. Run:
+  ```powershell
+  docker exec -it cipherlens_initiator ipsec statusall
+  ```
+  Highlight the two active containers communicating across `192.168.100.0/24`. Point out the active Security Association `site-to-site[1]: ESTABLISHED`.
 - **Spoken Word (Verbatim):**
   > *"Respected Judges:
   > 
@@ -203,23 +207,40 @@ docker cp cipherlens_initiator:/tmp/live_ipsec.pcap ../pcaps/live_ipsec.pcap
 
 ---
 
-#### **[1:00 – 2:00] Live Handshake Audit & Automated Remediation Patching (60s)**
-- **Screen Action:** Switch focus to the browser on the Right Screen. Show the **Security Posture Score** gauge at **42/100**. Click the **CLI Terminal** speed dial button (`>_ CLI`) and run `cipherlens scan --iface eth0`. Watch the CLI output diagnostic findings, then click **"Remediated (94)"** to show the `ipsec.conf` patch.
+#### **[1:00 – 2:00] Live Cloud Bridge Ingestion & Automated Remediation (60s)**
+- **Screen Action:** 
+  1. On Left Terminal, execute:
+     ```powershell
+     python testbed/docker_to_supabase.py --type voip
+     ```
+     Point to the terminal output: `[+] Successfully pushed Assessment Report to Supabase!`.
+  2. On Right Screen (Vercel website), immediately click **`[ ⚡ Live Docker Pull ]`** (next to Profile: Vulnerable / Remediated).
+  3. Watch the dial animate to 94/100, and highlight the newly appeared teal card:
+     `LIVE DOCKER TELEMETRY [SYNCED] - Target Tunnel: site-to-site | Cipher: AES-256-GCM / SHA384 | DH: Group 14`.
 - **Spoken Word (Verbatim):**
-  > *"Now watch our automated ingestion in action. On the right, our dashboard connects to the passive tap on interface `eth0`.
+  > *"Now observe our live telemetry pipeline. In the terminal, I execute our Docker-to-Cloud bridge script, extracting the active Linux kernel SA parameters directly from the container.
   > 
-  > When I trigger `cipherlens scan` in our CLI terminal sandbox, our deterministic state machine parses the IKE control handshake. Rather than requiring an analyst to manually decode RFC 7296 hex payloads in Wireshark, CipherLens deterministically audits the proposal transforms against **NIST SP 800-77 Revision 1**.
+  > Notice what happens on our deployed cloud dashboard on the right: when I click **'Live Docker Pull'**, the web application queries our Supabase PostgreSQL cluster in real time.
   > 
-  > On an unhardened profile, it flags critical vulnerabilities: Transform ID 4 specifies legacy 3DES-CBC encryption, which violates RFC 8221 and exposes the tunnel to **Sweet32 birthday collision attacks under CVE-2016-2183** after 32 gigabytes of transferred data. It flags unauthenticated Pre-Shared Key exchange (CVE-2002-1623) and scores this configuration at **42 out of 100 — High Risk**.
+  > Immediately, the live container telemetry synchronizes: our target tunnel `site-to-site` with `AES-256-GCM` and `MODP-2048` is ingested, and our deterministic RFC 7296 engine evaluates the proposal transforms against **NIST SP 800-77 Revision 1**.
   > 
-  > Most importantly, CipherLens automates remediation. When I click 'Remediate', the framework outputs an exact, hardened `ipsec.conf` patch that upgrades the container configuration to authenticated AES-256-GCM and ChaCha20-Poly1305 with Curve25519 PFS, raising our verified posture score to **94 out of 100**."*
+  > Contrast this with an unhardened profile: when legacy 3DES-CBC is detected, CipherLens flags **Sweet32 birthday collision attacks under CVE-2016-2183** after 32 gigabytes of traffic, alongside unauthenticated PSK exchanges under CVE-2002-1623, dropping the posture score to 42 out of 100.
+  > 
+  > But CipherLens immediately generates a syntactic, line-by-line `ipsec.conf` remediation patch, upgrading transforms to authenticated AES-GCM and Curve25519 PFS, restoring verified posture to **94 out of 100**."*
 
 ---
 
 #### **[2:00 – 3:00] Live Packet Injection & Zero-Decryption AI with TreeSHAP (60s)**
-- **Screen Action:** Switch to Left Terminal: run `python traffic_generator.py --type voip --target 192.168.100.20 --duration 15`. Immediately switch eyes to the Right Browser under **Zero-Decryption ESP Traffic Fingerprinting**. Show the Shannon Entropy gauge ($7.94 / 8.00$) and the live LightGBM classification verdict: **VoIP Telephony (99.4%) in 0.42ms**, highlighting the TreeSHAP feature weights.
+- **Screen Action:** 
+  1. On Left Terminal, inject live traffic:
+     ```powershell
+     python testbed/traffic_generator.py --type voip --target 192.168.100.20 --duration 15
+     ```
+  2. On Right Screen, scroll to **Section [03]: Zero-Decryption ESP Traffic Fingerprinting**.
+  3. Highlight the Shannon Entropy gauge reading **7.94 / 8.00 bits/byte**.
+  4. Select **"VoIP Telephony"** $\rightarrow$ click **"Scan Window"**, and point out the TreeSHAP waterfall graph.
 - **Spoken Word (Verbatim):**
-  > *"Now observe our live traffic pipeline. In the terminal, I am executing our Python multi-traffic generator, streaming simulated VoIP audio packets through our live strongSwan container tunnel.
+  > *"Now observe the data plane. In the terminal, I am injecting simulated VoIP audio traffic through our live strongSwan container tunnel.
   > 
   > Look at the dashboard on the right: our mathematical entropy probe continuously verifies **Shannon Entropy at 7.94 out of 8.00 bits per byte**. This proves mathematically to defense regulators that the ESP payload is cryptographically opaque ciphertext — CipherLens decrypts zero bytes.
   > 
@@ -232,7 +253,7 @@ docker cp cipherlens_initiator:/tmp/live_ipsec.pcap ../pcaps/live_ipsec.pcap
 ---
 
 #### **[3:00 – 3:35] Post-Quantum CNSA 2.0 Audit & Blockchain Merkle Anchoring (35s)**
-- **Screen Action:** Scroll to **PQC & HNDL Matrix**, then **Blockchain Merkle Ledger**. Click **"Re-Verify Cryptographic Proof"** to demonstrate live zk-SNARK Groth16 cryptographic verification.
+- **Screen Action:** Scroll to **PQC & HNDL Matrix**, then **Section [04]: Blockchain Merkle Ledger**. Click **"Re-Verify Cryptographic Proof"** to demonstrate live zk-SNARK Groth16 cryptographic verification.
 - **Spoken Word (Verbatim):**
   > *"To protect classified data against **Harvest-Now-Decrypt-Later quantum adversaries**, CipherLens audits tunnel key exchange agility against the NSA's **CNSA 2.0 standards**. It detects vulnerable classical Diffie-Hellman groups and validates migration paths toward **RFC 9370 ML-KEM-768 hybrid post-quantum key encapsulation**.
   > 
@@ -269,4 +290,49 @@ Keep these numbers and academic citations at your fingertips during Judge Q&A:
 | **Draper-Gil et al. (2016)** | UNB ISCX Baseline | First to use time-based flow statistical features for VPN traffic |
 | **Wang et al. (2017)** | 1D-CNN DL Baseline | Highlighted the black-box problem that CipherLens solves with XAI |
 | **Mane & Rao (2020)** | XAI in Cybersecurity | Theoretical requirement for TreeSHAP explainability in defense SOCs |
+
+---
+
+## 6. Video Recording & Production Master Guide
+
+Follow these rules to produce a clear, professional video submission for Smart India Hackathon:
+
+### A. Recording Software & Audio Configuration
+1. **Software**: Use **OBS Studio** (Free & Open Source, best quality) or **Windows Game Bar** (`Win + G`) or **Clipchamp**.
+   - **Resolution**: 1920 × 1080 (Full HD).
+   - **Framerate**: 30 FPS or 60 FPS.
+   - **Video Bitrate**: 6000 Kbps (CBR, crisp text).
+2. **Audio Setup**:
+   - Use a dedicated headset or USB condenser microphone placed 4–6 inches from your mouth.
+   - In OBS, add **Noise Suppression** (RNNoise) and a **Limiter** (-2.0 dB) to eliminate background hiss and computer fan noise.
+   - Do a **15-second test recording**: speak aloud, listen back with headphones to ensure zero distortion and crystal-clear voice clarity.
+
+### B. Screen Layout & Visual Hygiene
+1. **Split-Screen Ratio (For Pitch 2)**:
+   - **Left Window (45%)**: Windows Terminal (PowerShell). Theme: Dark (One Half Dark or Campbell). Font: **Cascadia Code, 15pt, Bold**.
+   - **Right Window (55%)**: Chrome/Edge browser showing `https://frontend-orcin-chi-46.vercel.app/` (or `http://localhost:5173/`). Zoom: **90%** (gives ideal layout proportions).
+2. **Screen Cleanup**:
+   - Close WhatsApp, Telegram, Discord, and all notification badges (`Focus Assist` on in Windows).
+   - Hide browser bookmark bar (`Ctrl + Shift + B`).
+   - Clean the Windows taskbar: auto-hide taskbar or keep only Terminal and Browser open.
+
+### C. Terminal Preparation (Save Time & Eliminate Typos)
+Pre-type your commands in the terminal so you only have to press **`Up Arrow`** and **`Enter`** during the recording:
+1. `docker exec -it cipherlens_initiator ipsec statusall`
+2. `python testbed/docker_to_supabase.py --type voip`
+3. `python testbed/traffic_generator.py --type voip --target 192.168.100.20 --duration 15`
+
+### D. Presentation Cadence & Body Language
+- **Speaking Pace**: Maintain a confident, steady rate of **130–140 words per minute**. Do not rush.
+- **Micro-Pauses**: When you click a button or execute a command, **pause for 1 full second** before speaking about it. This allows the judges' eyes to follow the animation.
+- **Cursor Discipline**: Use the mouse cursor as a laser pointer: circle or hover directly over the metric (e.g. `7.94 / 8.00`, `94 / 100`, `<0.42ms`) as you say the number out loud.
+- **Tone**: Professional, authoritative, and mission-oriented (as if briefing senior NTRO cybersecurity officers).
+
+### E. Recommended Recording Procedure
+1. Run the **6-Step Pre-Flight Checklist** (Section 2).
+2. Position your windows (Terminal on Left 45%, Browser on Right 55%).
+3. Start recording in OBS (`Start Recording`).
+4. Take a deep breath, wait 2 seconds in silence, and begin speaking the verbatim script from **Section 4**.
+5. Stop recording, inspect the resulting MP4 file, and verify audio levels and text clarity.
+
 
