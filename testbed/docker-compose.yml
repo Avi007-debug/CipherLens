@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   initiator:
-    image: vishnu/strongswan:latest
+    build: .
+    image: cipherlens/strongswan:latest
     container_name: cipherlens_initiator
     cap_add:
       - NET_ADMIN
@@ -16,7 +17,8 @@ services:
     restart: unless-stopped
 
   responder:
-    image: vishnu/strongswan:latest
+    build: .
+    image: cipherlens/strongswan:latest
     container_name: cipherlens_responder
     cap_add:
       - NET_ADMIN

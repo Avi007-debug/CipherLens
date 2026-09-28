@@ -47,9 +47,38 @@ def generate_video_stream(target_ip: str, target_port: int, duration_sec: int = 
     print(f"[+] Video Stream Complete: Sent {frame_idx} video frames")
 
 
+def generate_web_stream(target_ip: str, target_port: int, duration_sec: int = 10):
+    """Generates bursty HTTPS/Web requests with Pareto/Zipf inter-arrival times."""
+    print(f"[*] Starting Web Browsing Traffic -> {target_ip}:{target_port} for {duration_sec}s")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    start = time.time()
+    req_count = 0
+    while time.time() - start < duration_sec:
+        # Web page load burst: 1 small request + 5-15 asset response chunks
+        sock.sendto(b"GET /index.html HTTP/1.1\r\nHost: cipherlens.local\r\n\r\n", (target_ip, target_port))
+        req_count += 1
+        num_assets = random.randint(4, 12)
+        for _ in range(num_assets):
+            chunk = random.randbytes(random.randint(500, 1420))
+            sock.sendto(chunk, (target_ip, target_port))
+        time.sleep(random.uniform(0.4, 2.5))  # User think-time between page clicks
+    print(f"[+] Web Traffic Complete: Sent {req_count} web page transaction bursts")
+
+
+def generate_icmp_stream(target_ip: str, count: int = 10):
+    """Generates ICMP Echo ping keepalive heartbeat packets."""
+    print(f"[*] Starting ICMP Echo Heartbeat -> {target_ip} ({count} probes)")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    for i in range(count):
+        probe = f"CIPHERLENS_ICMP_ECHO_SEQ_{i}".encode("utf-8")
+        sock.sendto(probe, (target_ip, 5005))
+        time.sleep(1.0)
+    print(f"[+] ICMP Probes Complete: Sent {count} heartbeats")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="CipherLens Tunnel Traffic Generator")
-    parser.add_argument("--type", choices=["voip", "video", "web", "bulk"], default="voip")
+    parser.add_argument("--type", choices=["voip", "video", "web", "icmp"], default="voip")
     parser.add_argument("--target", default="192.168.100.20")
     parser.add_argument("--port", type=int, default=5004)
     parser.add_argument("--duration", type=int, default=10)
@@ -60,3 +89,8 @@ if __name__ == "__main__":
         generate_voip_stream(args.target, args.port, args.duration)
     elif args.type == "video":
         generate_video_stream(args.target, args.port, args.duration)
+    elif args.type == "web":
+        generate_web_stream(args.target, args.port, args.duration)
+    elif args.type == "icmp":
+        generate_icmp_stream(args.target, count=args.duration)
+
