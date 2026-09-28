@@ -93,7 +93,8 @@ CREATE POLICY "Public Insert telemetry_flows" ON telemetry_flows FOR INSERT WITH
 DROP POLICY IF EXISTS "Public Read attack_sandbox_events" ON attack_sandbox_events;
 CREATE POLICY "Public Read attack_sandbox_events" ON attack_sandbox_events FOR SELECT USING (true);
 
-DROP POLICY IF EXISTS "Public Insert attack_sandbox_events" ON attack_sandbox_events FOR INSERT WITH CHECK (true);
+DROP POLICY IF EXISTS "Public Insert attack_sandbox_events" ON attack_sandbox_events;
+CREATE POLICY "Public Insert attack_sandbox_events" ON attack_sandbox_events FOR INSERT WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Public Read merkle_ledger_proofs" ON merkle_ledger_proofs;
 CREATE POLICY "Public Read merkle_ledger_proofs" ON merkle_ledger_proofs FOR SELECT USING (true);
