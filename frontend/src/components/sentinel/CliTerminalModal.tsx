@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const SAMPLE_COMMANDS = [
   {
@@ -63,6 +63,34 @@ export function CliTerminalModal({
     initialCmd || SAMPLE_COMMANDS[0]!.cmd
   );
   const [isExecuting, setIsExecuting] = useState(false);
+  const terminalScrollRef = useRef<HTMLDivElement>(null);
+
+  // Lock body scroll and handle Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  // Reset scroll position to top when modal opens
+  useEffect(() => {
+    if (isOpen && terminalScrollRef.current) {
+      terminalScrollRef.current.scrollTop = 0;
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -113,10 +141,15 @@ export function CliTerminalModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
-      <div className="relative w-full max-w-3xl border border-primary/50 bg-surface shadow-2xl overflow-hidden font-mono">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="relative flex flex-col w-full max-w-3xl max-h-[90vh] border border-primary/50 bg-surface shadow-2xl overflow-hidden font-mono">
         {/* Terminal Header */}
-        <div className="flex items-center justify-between border-b border-border bg-background/90 px-4 py-2.5 text-xs">
+        <div className="shrink-0 flex items-center justify-between border-b border-border bg-background/90 px-4 py-2.5 text-xs">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-destructive/80 inline-block" />
             <span className="h-3 w-3 rounded-full bg-warn/80 inline-block" />
@@ -131,12 +164,12 @@ export function CliTerminalModal({
             onClick={onClose}
             className="border border-border/80 bg-surface px-2.5 py-1 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground cursor-pointer"
           >
-            CLOSE
+            CLOSE [ESC]
           </button>
         </div>
 
         {/* Quick Command Selector */}
-        <div className="border-b border-border bg-background/50 p-2 text-[11px] overflow-x-auto flex gap-2">
+        <div className="shrink-0 border-b border-border bg-background/50 p-2 text-[11px] overflow-x-auto flex gap-2">
           {SAMPLE_COMMANDS.map((c, i) => (
             <button
               key={i}
@@ -150,7 +183,7 @@ export function CliTerminalModal({
         </div>
 
         {/* Terminal Screen */}
-        <div className="p-4 bg-black/90 text-[11.5px] leading-relaxed min-h-[260px] max-h-[360px] overflow-y-auto">
+        <div ref={terminalScrollRef} className="p-4 bg-black/90 text-[11.5px] leading-relaxed min-h-[260px] max-h-[360px] overflow-y-auto">
           <div className="text-muted-foreground mb-3">
             # Type or select a command below to execute simulated protocol inspection:
           </div>

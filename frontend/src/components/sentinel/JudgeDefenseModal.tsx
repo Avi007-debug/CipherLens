@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface QaItem {
   id: string;
@@ -129,6 +129,34 @@ export function JudgeDefenseModal({
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>("qa-1");
   const [activeTab, setActiveTab] = useState<"qa" | "rubric" | "exploits">("qa");
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Lock body scroll and handle Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  // Reset scroll position to top when opened or when tab/category changes
+  useEffect(() => {
+    if (isOpen && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [isOpen, activeTab, selectedCategory]);
 
   if (!isOpen) return null;
 
@@ -143,10 +171,15 @@ export function JudgeDefenseModal({
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md">
-      <div className="relative w-full max-w-4xl border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="relative flex flex-col w-full max-w-4xl max-h-[90vh] border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border bg-background/95 px-5 py-3">
+        <div className="shrink-0 flex items-center justify-between border-b border-border bg-background/95 px-5 py-3">
           <div className="flex items-center gap-3">
             <img src="/logo_ipsec.png" alt="CipherLens Logo" className="h-6 w-6 object-contain" />
             <div>
@@ -169,7 +202,7 @@ export function JudgeDefenseModal({
         </div>
 
         {/* Modal Navigation Tabs */}
-        <div className="flex border-b border-border/80 bg-surface/50 font-mono text-xs overflow-x-auto">
+        <div className="shrink-0 flex border-b border-border/80 bg-surface/50 font-mono text-xs overflow-x-auto">
           <button
             type="button"
             onClick={() => setActiveTab("qa")}
@@ -206,7 +239,7 @@ export function JudgeDefenseModal({
         </div>
 
         {/* Modal Content */}
-        <div className="p-6 max-h-[72vh] overflow-y-auto space-y-4">
+        <div ref={scrollContainerRef} className="p-6 flex-1 overflow-y-auto space-y-4">
           {activeTab === "qa" && (
             <div className="space-y-4">
               {/* Category Filter Pills & Search Box */}

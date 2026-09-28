@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const PRELOADED_SAMPLES = [
   {
@@ -33,6 +33,34 @@ export function PcapUploadModal({
   const [dragOver, setDragOver] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<any>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Lock body scroll and handle Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  // Reset scroll position to top when opened
+  useEffect(() => {
+    if (isOpen && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -72,10 +100,15 @@ export function PcapUploadModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md">
-      <div className="relative w-full max-w-2xl border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="relative flex flex-col w-full max-w-2xl max-h-[90vh] border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border bg-background/90 px-5 py-3">
+        <div className="shrink-0 flex items-center justify-between border-b border-border bg-background/90 px-5 py-3">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-primary animate-pulse" />
             <h2 className="text-sm font-bold text-foreground uppercase tracking-wider">
@@ -91,11 +124,11 @@ export function PcapUploadModal({
             onClick={onClose}
             className="border border-border/80 bg-surface px-2.5 py-1 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground cursor-pointer"
           >
-            CLOSE
+            CLOSE [ESC]
           </button>
         </div>
 
-        <div className="p-6 space-y-5">
+        <div ref={scrollContainerRef} className="p-6 flex-1 overflow-y-auto space-y-5">
           {/* Drag and Drop Zone */}
           <div
             onDragOver={(e) => {

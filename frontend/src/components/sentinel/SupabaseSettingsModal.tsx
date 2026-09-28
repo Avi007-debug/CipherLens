@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { isSupabaseConfigured } from "@/lib/supabase";
 
 export function SupabaseSettingsModal({
@@ -16,6 +16,26 @@ export function SupabaseSettingsModal({
   );
   const [saved, setSaved] = useState(false);
 
+  // Lock body scroll and handle Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleSave = () => {
@@ -31,10 +51,15 @@ export function SupabaseSettingsModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md">
-      <div className="relative w-full max-w-lg border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="relative flex flex-col w-full max-w-lg max-h-[90vh] border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border bg-background/90 px-5 py-3">
+        <div className="shrink-0 flex items-center justify-between border-b border-border bg-background/90 px-5 py-3">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-teal-400 animate-pulse" />
             <h2 className="text-sm font-bold text-foreground uppercase tracking-wider">
@@ -47,7 +72,7 @@ export function SupabaseSettingsModal({
             onClick={onClose}
             className="border border-border/80 bg-surface px-2.5 py-1 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground cursor-pointer"
           >
-            CLOSE
+            CLOSE [ESC]
           </button>
         </div>
 

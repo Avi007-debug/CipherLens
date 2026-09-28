@@ -5,6 +5,7 @@ import {
   createRootRouteWithContext,
   useRouter,
   useRouterState,
+  ScrollRestoration,
 } from "@tanstack/react-router";
 import { PageLoader } from "@/components/sentinel/PageLoader";
 
@@ -119,6 +120,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ScrollRestoration />
       <PageLoader isLoading={isLoading} />
       <Outlet />
     </QueryClientProvider>
