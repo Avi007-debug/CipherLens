@@ -155,67 +155,76 @@ export function ScoreGauge() {
             />
           </div>
 
-          <svg
-            viewBox="0 0 200 200"
-            className="h-56 w-56 -rotate-90 mt-4"
-            role="img"
-            aria-label={`Security posture score ${value} out of 100`}
-          >
-            <circle
-              cx="100"
-              cy="100"
-              r={R}
-              fill="none"
-              stroke="var(--border)"
-              strokeWidth="12"
-            />
-            <circle
-              cx="100"
-              cy="100"
-              r={R}
-              fill="none"
-              stroke={colorFor(value)}
-              strokeWidth="12"
-              strokeLinecap="round"
-              strokeDasharray={C}
-              strokeDashoffset={C * (1 - pct)}
-              style={{ transition: "stroke 300ms linear" }}
-            />
-          </svg>
-
-          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center pt-8">
-            <span
-              className="font-mono text-6xl font-bold tabular-nums tracking-tight transition-colors duration-300"
-              style={{ color: colorFor(value) }}
+          {/* Dedicated Dial Container: Guarantees 100% mathematical centering of score number */}
+          <div className="relative flex items-center justify-center h-56 w-56 mt-4">
+            <svg
+              viewBox="0 0 200 200"
+              className="h-full w-full -rotate-90"
+              role="img"
+              aria-label={`Security posture score ${value} out of 100`}
             >
-              {value}
-            </span>
-            <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-              / 100 Posture
-            </span>
+              <circle
+                cx="100"
+                cy="100"
+                r={R}
+                fill="none"
+                stroke="var(--border)"
+                strokeWidth="12"
+              />
+              <circle
+                cx="100"
+                cy="100"
+                r={R}
+                fill="none"
+                stroke={colorFor(value)}
+                strokeWidth="12"
+                strokeLinecap="round"
+                strokeDasharray={C}
+                strokeDashoffset={C * (1 - pct)}
+                style={{ transition: "stroke 300ms linear" }}
+              />
+            </svg>
+
+            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+              <span
+                className="font-mono text-6xl font-bold tabular-nums tracking-tight transition-colors duration-300 leading-none"
+                style={{ color: colorFor(value) }}
+              >
+                {value}
+              </span>
+              <span className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                / 100 Posture
+              </span>
+            </div>
           </div>
 
           <div className="mt-6 w-full border-t border-border pt-4 text-left font-mono text-xs space-y-2 text-muted-foreground">
             {liveReport && (
-              <div className="border border-teal-500/40 bg-teal-950/40 p-2.5 mb-3 text-[11px] space-y-1 rounded-none shadow-[0_0_10px_rgba(20,184,166,0.15)]">
-                <div className="flex items-center justify-between text-teal-300 font-bold border-b border-teal-500/30 pb-1 mb-1">
-                  <span>LIVE DOCKER TELEMETRY</span>
-                  <span className="flex items-center gap-1.5 text-[10px]">
+              <div className="border border-teal-500/40 bg-teal-950/40 p-3 mb-3 text-[11px] space-y-1.5 shadow-[0_0_12px_rgba(20,184,166,0.18)]">
+                <div className="flex items-center justify-between text-teal-300 font-bold border-b border-teal-500/30 pb-1.5 mb-1">
+                  <span className="tracking-wider">LIVE DOCKER TELEMETRY</span>
+                  <span className="flex items-center gap-1.5 text-[10px] bg-teal-500/20 px-1.5 py-0.5 border border-teal-400/40 text-teal-300">
                     <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-ping" />
                     SYNCED
                   </span>
                 </div>
-                <div className="flex justify-between">
+                <div className="grid grid-cols-[105px_1fr] items-center gap-x-2 text-[11px] py-0.5">
                   <span className="text-muted-foreground">Target Tunnel:</span>
-                  <span className="text-teal-200 font-semibold">{liveReport.tunnel_name || "site-to-site"}</span>
+                  <span className="text-teal-200 font-semibold truncate text-right font-mono" title={liveReport.tunnel_name || "docker-strongswan-initiator"}>
+                    {liveReport.tunnel_name || "docker-strongswan-initiator"}
+                  </span>
                 </div>
-                <div className="flex justify-between">
+                <div className="grid grid-cols-[105px_1fr] items-center gap-x-2 text-[11px] py-0.5">
                   <span className="text-muted-foreground">Cipher Suite:</span>
-                  <span className="text-foreground">{liveReport.cipher_suite || "AES-256-GCM / SHA384"}</span>
+                  <span className="text-foreground truncate text-right font-mono text-[10.5px]" title={liveReport.cipher_suite || "AES-256-GCM / PRF-HMAC-SHA384"}>
+                    {liveReport.cipher_suite || "AES-256-GCM / PRF-HMAC-SHA384"}
+                  </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">DH Key Exchange:</span>
-                  <span className="text-foreground">{liveReport.dh_group || "Group 14 (MODP-2048)"}</span>
+                <div className="grid grid-cols-[105px_1fr] items-center gap-x-2 text-[11px] py-0.5">
+                  <span className="text-muted-foreground">DH Key Exch:</span>
+                  <span className="text-foreground truncate text-right font-mono text-[10.5px]" title={liveReport.dh_group || "MODP-2048 (DH Group 14)"}>
+                    {liveReport.dh_group || "MODP-2048 (DH Group 14)"}
+                  </span>
                 </div>
               </div>
             )}

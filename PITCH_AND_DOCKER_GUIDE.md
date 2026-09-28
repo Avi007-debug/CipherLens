@@ -168,7 +168,9 @@ TIMELINE OVERVIEW:
   3. First click **`[ Vulnerable (42) ]`** to demonstrate the legacy unhardened state. Point to the line-by-line RFC deduction items.
   4. Then click **`[ ⚡ Live Docker Pull ]`**. Watch the gauge smoothly animate to **94 / 100**, and point out the newly appeared teal telemetry box:
      `LIVE DOCKER TELEMETRY [SYNCED]`  
-     `Target Tunnel: site-to-site | Cipher: AES-256-GCM / SHA384 | DH: Group 14 (MODP-2048)`
+     `Target Tunnel: docker-strongswan-initiator
+      Cipher Suite: AES-256-GCM / PRF-HMAC-SHA384
+      DH Key Exch: MODP-2048 (DH Group 14)`
   5. Point out the syntactic before/after `ipsec.conf` policy remediation diff on the right.
 
 - **Spoken Word (Verbatim):**
