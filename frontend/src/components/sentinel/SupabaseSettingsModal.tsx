@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured, fetchRecentReports } from "@/lib/supabase";
 
 export function SupabaseSettingsModal({
   isOpen,
@@ -16,6 +16,26 @@ export function SupabaseSettingsModal({
     typeof window !== "undefined" ? localStorage.getItem("cipherlens_supabase_anon_key") || "" : ""
   );
   const [saved, setSaved] = useState(false);
+  const [recentReports, setRecentReports] = useState<any[]>([]);
+  const [loadingReports, setLoadingReports] = useState(false);
+
+  const loadReports = async () => {
+    setLoadingReports(true);
+    try {
+      const data = await fetchRecentReports();
+      setRecentReports(data || []);
+    } catch {
+      setRecentReports([]);
+    } finally {
+      setLoadingReports(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      loadReports();
+    }
+  }, [isOpen]);
 
   // Lock body scroll and handle Escape key
   useEffect(() => {
@@ -68,7 +88,7 @@ export function SupabaseSettingsModal({
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-teal-400 animate-pulse" />
             <h2 className="text-sm font-bold text-foreground uppercase tracking-wider">
-              Supabase Cloud Database Settings
+              Supabase Cloud Bridge & Live Sync
             </h2>
           </div>
 
@@ -81,9 +101,50 @@ export function SupabaseSettingsModal({
           </button>
         </div>
 
-        <div className="p-6 space-y-4">
+        <div className="p-6 space-y-4 overflow-y-auto max-h-[calc(85vh-50px)]">
           <div className="border border-border bg-background/60 p-3 text-[11px] text-muted-foreground font-sans leading-relaxed">
-            Connect your Supabase project to persist real-time IPsec assessment reports, ESP flow classifications, and attack sandbox logs in PostgreSQL.
+            Status: <span className={isSupabaseConfigured ? "text-primary font-bold" : "text-amber-400 font-bold"}>
+              {isSupabaseConfigured ? "CONNECTED TO POSTGRESQL CLUSTER" : "USING LOCALSTORAGE FALLBACK"}
+            </span>.
+            Live telemetry pushed by <code className="text-teal-300">python testbed/docker_to_supabase.py</code> syncs here in real time.
+          </div>
+
+          {/* Live Recent Reports Section */}
+          <div className="border border-teal-500/30 bg-teal-950/20 p-3 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold text-teal-300 uppercase tracking-wider">
+                Recent Ingested Testbed Reports ({recentReports.length})
+              </span>
+              <button
+                type="button"
+                onClick={loadReports}
+                disabled={loadingReports}
+                className="text-[10px] text-teal-400 hover:text-teal-200 border border-teal-500/40 px-2 py-0.5 uppercase tracking-wider"
+              >
+                {loadingReports ? "PULLING..." : "⚡ REFRESH / PULL"}
+              </button>
+            </div>
+
+            {recentReports.length === 0 ? (
+              <p className="text-[10.5px] text-muted-foreground italic py-1">
+                No reports found in table. Run <code className="text-primary font-bold">python testbed/docker_to_supabase.py</code> to sync your first testbed SA!
+              </p>
+            ) : (
+              <div className="space-y-1.5 pt-1">
+                {recentReports.slice(0, 3).map((r, i) => (
+                  <div key={r.id || i} className="border border-border/80 bg-background/80 p-2 text-[10.5px] space-y-0.5">
+                    <div className="flex justify-between font-bold text-foreground">
+                      <span>{r.tunnel_name || "site-to-site"}</span>
+                      <span className="text-primary">{r.posture_score}/100 ({r.rating || "HARDENED"})</span>
+                    </div>
+                    <div className="text-muted-foreground flex justify-between">
+                      <span>{r.cipher_suite || "AES-256-GCM / SHA384"}</span>
+                      <span>{r.created_at ? new Date(r.created_at).toLocaleTimeString() : "Just now"}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
