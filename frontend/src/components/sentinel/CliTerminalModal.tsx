@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 const SAMPLE_COMMANDS = [
   {
@@ -113,6 +114,7 @@ export function CliTerminalModal({
   }, [isOpen, initialCmd]);
 
   if (!isOpen) return null;
+  if (typeof document === "undefined") return null;
 
   const handleRun = (cmdStr: string) => {
     if (!cmdStr.trim()) return;
@@ -140,14 +142,17 @@ export function CliTerminalModal({
     }, 350);
   };
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative flex flex-col w-full max-w-3xl max-h-[90vh] border border-primary/50 bg-surface shadow-2xl overflow-hidden font-mono">
+      <div
+        className="relative flex flex-col w-full max-w-3xl max-h-[85vh] border border-primary/50 bg-surface shadow-2xl overflow-hidden font-mono"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Terminal Header */}
         <div className="shrink-0 flex items-center justify-between border-b border-border bg-background/90 px-4 py-2.5 text-xs">
           <div className="flex items-center gap-2">
@@ -213,6 +218,7 @@ export function CliTerminalModal({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

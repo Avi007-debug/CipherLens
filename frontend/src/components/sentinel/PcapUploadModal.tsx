@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 const PRELOADED_SAMPLES = [
   {
@@ -63,6 +64,7 @@ export function PcapUploadModal({
   }, [isOpen]);
 
   if (!isOpen) return null;
+  if (typeof document === "undefined") return null;
 
   const handleRunAnalysis = (name: string, scenarioType: string) => {
     setAnalyzing(true);
@@ -99,14 +101,17 @@ export function PcapUploadModal({
     }, 1100);
   };
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative flex flex-col w-full max-w-2xl max-h-[90vh] border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs">
+      <div
+        className="relative flex flex-col w-full max-w-2xl max-h-[85vh] border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="shrink-0 flex items-center justify-between border-b border-border bg-background/90 px-5 py-3">
           <div className="flex items-center gap-2">
@@ -245,6 +250,7 @@ export function PcapUploadModal({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

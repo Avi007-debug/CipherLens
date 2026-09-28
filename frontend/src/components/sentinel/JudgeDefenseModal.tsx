@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 interface QaItem {
   id: string;
@@ -159,6 +160,7 @@ export function JudgeDefenseModal({
   }, [isOpen, activeTab, selectedCategory]);
 
   if (!isOpen) return null;
+  if (typeof document === "undefined") return null;
 
   const filteredQa = QA_DATABASE.filter((item) => {
     const matchesCategory =
@@ -170,14 +172,17 @@ export function JudgeDefenseModal({
     return matchesCategory && matchesSearch;
   });
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative flex flex-col w-full max-w-4xl max-h-[90vh] border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs">
+      <div
+        className="relative flex flex-col w-full max-w-4xl max-h-[85vh] border border-primary/60 bg-surface shadow-2xl overflow-hidden font-mono text-xs"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="shrink-0 flex items-center justify-between border-b border-border bg-background/95 px-5 py-3">
           <div className="flex items-center gap-3">
@@ -426,6 +431,7 @@ export function JudgeDefenseModal({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
