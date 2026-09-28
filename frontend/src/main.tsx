@@ -13,14 +13,11 @@ declare module "@tanstack/react-router" {
   }
 }
 
-// Only show splash on first load per session (not on hot reload / revisit)
-const hasSeenSplash = sessionStorage.getItem("cl_splash_done") === "1";
-
 function App() {
-  const [splashDone, setSplashDone] = useState(hasSeenSplash);
+  // Always trigger the military cyber boot animation on page load or refresh
+  const [splashDone, setSplashDone] = useState(false);
 
   const handleSplashComplete = useCallback(() => {
-    sessionStorage.setItem("cl_splash_done", "1");
     setSplashDone(true);
   }, []);
 
