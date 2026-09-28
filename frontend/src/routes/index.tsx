@@ -31,6 +31,8 @@ const EXPLORE_PORTALS = [
   {
     to: "/zero-decrypt" as const,
     badge: "Tier 1 Research",
+    icon: "🔬",
+    statusColor: "bg-success",
     title: "Zero-Decryption AI Lab & XAI",
     desc: "Classify live encrypted ESP traffic via second-order timing, burst entropy, and packet size histograms with exact TreeSHAP feature attributions.",
     metrics: ">98% F1 Score · 100% Ciphertext Opacity",
@@ -39,6 +41,8 @@ const EXPLORE_PORTALS = [
   {
     to: "/security" as const,
     badge: "NIST SP 800-77",
+    icon: "🛡️",
+    statusColor: "bg-warn",
     title: "Posture Scoring & Attack Sandbox",
     desc: "Benchmark 0–100 security scores with line-by-line RFC proof, replay CVE-2002-1623 exploits in a sandbox, and calculate PQC quantum exposure.",
     metrics: "CVE Replay · HNDL Risk Window · Policy Diff",
@@ -47,6 +51,8 @@ const EXPLORE_PORTALS = [
   {
     to: "/capabilities" as const,
     badge: "10 Differentiators",
+    icon: "⚡",
+    statusColor: "bg-primary",
     title: "Capabilities & 5-Layer Architecture",
     desc: "Interactive technical capability explorer across research, operational tooling, and enterprise SIEM pipelines, backed by a 5-stage dataflow.",
     metrics: "10 Capabilities · RFC 7296 / RFC 8221",
@@ -55,6 +61,8 @@ const EXPLORE_PORTALS = [
   {
     to: "/audit" as const,
     badge: "Hyperledger Fabric",
+    icon: "⛓️",
+    statusColor: "bg-primary",
     title: "Blockchain Audit & Compliance",
     desc: "Anchor posture assessment reports as SHA-256 Merkle trees to permissioned ledgers with Groth16 zk-SNARK proof verification.",
     metrics: "zk-SNARK Proven · Tamper-Evident Ledger",
@@ -75,7 +83,7 @@ function HomePage() {
   };
 
   return (
-    <div id="top" className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
+    <div id="top" className="page-enter min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
       <Nav
         onOpenCli={() => handleOpenCliWithCmd()}
         onOpenQa={() => setIsQaOpen(true)}
@@ -119,15 +127,20 @@ function HomePage() {
                 <Link
                   key={portal.to}
                   to={portal.to}
-                  className="hover-glow group flex flex-col justify-between border border-border/80 bg-surface p-7 shadow-xl transition-all duration-200 hover:border-primary/60 hover:bg-surface-raised"
+                  className="hover-glow group relative flex flex-col justify-between border border-border/80 bg-surface p-7 shadow-xl transition-all duration-200 hover:border-primary/60 hover:bg-surface-raised hover:shadow-[0_0_40px_oklch(0.76_0.13_183_/_0.08)] overflow-hidden"
                 >
+                  {/* Subtle top accent line on hover */}
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
                   <div>
                     <div className="flex items-center justify-between font-mono text-xs uppercase tracking-wider">
                       <div className="flex items-center gap-2">
+                        <span className={`inline-block h-1.5 w-1.5 rounded-full ${portal.statusColor} animate-pulse`} />
                         <span className="border border-primary/40 bg-primary/10 px-2 py-0.5 text-[10px] text-primary font-bold">
                           {portal.badge}
                         </span>
                       </div>
+                      <span className="text-xl" aria-hidden="true">{portal.icon}</span>
                     </div>
 
                     <h3 className="mt-4 text-xl font-bold text-foreground group-hover:text-primary transition-colors">
@@ -162,23 +175,26 @@ function HomePage() {
         <button
           type="button"
           onClick={() => setIsQaOpen(true)}
-          className="hover-glow flex items-center gap-1.5 border border-primary/80 bg-primary/20 px-4 py-2.5 font-bold text-primary shadow-2xl backdrop-blur-md transition-all hover:scale-105"
+          className="hover-glow flex items-center gap-1.5 border border-primary/80 bg-primary/20 px-4 py-2.5 font-bold text-primary shadow-[0_0_20px_oklch(0.76_0.13_183_/_0.3)] backdrop-blur-md transition-all hover:scale-105 hover:shadow-[0_0_30px_oklch(0.76_0.13_183_/_0.45)]"
         >
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
           Technical Q&A
         </button>
         <button
           type="button"
           onClick={() => setIsPcapOpen(true)}
-          className="hover-glow hidden sm:flex items-center gap-1.5 border border-border bg-surface px-3.5 py-2.5 text-muted-foreground shadow-xl backdrop-blur-md hover:text-foreground"
+          title="Upload PCAP file for analysis"
+          className="hover-glow hidden sm:flex items-center gap-1.5 border border-border bg-surface/90 px-3.5 py-2.5 text-muted-foreground shadow-xl backdrop-blur-md hover:text-foreground hover:border-primary/40"
         >
-          PCAP
+          📁 PCAP
         </button>
         <button
           type="button"
           onClick={() => handleOpenCliWithCmd()}
-          className="hover-glow flex items-center gap-1.5 border border-border bg-surface px-3.5 py-2.5 text-muted-foreground shadow-xl backdrop-blur-md hover:text-foreground"
+          title="Open CLI terminal"
+          className="hover-glow flex items-center gap-1.5 border border-border bg-surface/90 px-3.5 py-2.5 text-muted-foreground shadow-xl backdrop-blur-md hover:text-foreground hover:border-primary/40"
         >
-          CLI
+          &gt;_ CLI
         </button>
       </aside>
 

@@ -37,7 +37,7 @@ function SecurityPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
+    <div className="page-enter min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
       <Nav
         onOpenCli={() => handleOpenCliWithCmd()}
         onOpenQa={() => setIsQaOpen(true)}
